@@ -1,0 +1,51 @@
+package com.example.yuanmu.lunbo.user;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.yuanmu.lunbo.R;
+
+
+/**
+ * Created by yuanmu on 2016/8/31.
+ */
+public class RegisterActivity extends Activity implements View.OnClickListener {
+    TextView mTv_register;
+    private EditText mTelephone_ET;
+    String mTelephoneStr;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_register);
+        initView();
+    }
+
+    private void initView() {
+        mTelephone_ET = (EditText) findViewById(R.id.et_username);
+        mTv_register = (TextView) findViewById(R.id.tv_register);
+        mTv_register.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_register:
+                mTelephoneStr = mTelephone_ET.getText().toString();
+                if(mTelephoneStr.length() == 11){
+                    Intent intent  = new Intent(this,RegisterEndActivity.class);
+                    intent.putExtra("Telephone",mTelephoneStr);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(RegisterActivity.this, "格式错误!", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            default:
+                break;
+        }
+    }
+}

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/rl_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#00bbff"
+        android:padding="10dp" >
+
+        <ImageButton
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="#00000000"
+            android:src="@drawable/icon_back" />
+
+        <TextView
+            android:id="@+id/tv_ok"
+            android:text="提交"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="5dp" >
+
+        <EditText
+            android:id="@+id/et_content"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@drawable/rect_background"
+            android:gravity="top"
+            android:padding="10dp"
+            android:textColor="@color/brown" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rect_background" >
+
+            <ImageView
+                android:id="@+id/iv_addphoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:background="@drawable/rect_background"
+                android:src="@drawable/icon_addphotobig" />
+        </TableRow>
+
+        <GridView
+            android:id="@+id/gv_myimg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:horizontalSpacing="10dp"
+            android:numColumns="4"
+            android:verticalSpacing="10dp" />
+    </LinearLayout>
+
+</LinearLayout>

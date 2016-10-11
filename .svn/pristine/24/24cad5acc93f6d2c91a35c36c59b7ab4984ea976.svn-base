@@ -1,0 +1,46 @@
+package com.example.yuanmu.lunbo.Util;
+
+import android.content.Context;
+
+import com.android.volley.Response.ErrorListener;
+import com.android.volley.Response.Listener;
+import com.android.volley.VolleyError;
+
+public abstract class VolleyInterface {
+	private Context mcontext;
+	public static Listener<String> mlistener;
+	public static ErrorListener merrorlistener;
+
+	public  abstract void onMySuccess(String response);
+	public  abstract void onMyError(VolleyError error);
+	
+	public VolleyInterface(Context context, Listener<String> listener,
+						   ErrorListener errorlistener) {
+		this.mcontext = context;
+		this.mlistener = listener;
+		this.merrorlistener = errorlistener;
+	}
+
+	public Listener<String> LoadingListener() {
+		mlistener = new Listener<String>() {
+			@Override
+			public void onResponse(String response) {
+				// TODO Auto-generated method stub
+				onMySuccess(response);
+			}
+		};
+		return mlistener;
+	}
+
+	public ErrorListener LoadingErrorListener() {
+		merrorlistener = new ErrorListener() {
+
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				// TODO Auto-generated method stub
+				onMyError(error);
+			}
+		};
+		return merrorlistener;
+	}
+}

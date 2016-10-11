@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="@color/BackgroundStyleColor"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+   <RelativeLayout
+       android:id="@+id/one"
+        android:background="@color/StyleColor"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <ImageView
+            android:id="@+id/mBack_IV"
+            android:layout_centerVertical="true"
+            android:layout_width="41dp"
+            android:layout_height="41dp"
+            android:src="@drawable/left_arrow"
+            />
+        <TextView
+            android:id="@+id/mUserName"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="用户名"
+            android:textSize="@dimen/navigation_font_unified_size"
+            android:textColor="@color/WhiteStyle"
+            />
+        <ImageView
+            android:id="@+id/userDataSetup"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/setup_ic"
+            />
+    </RelativeLayout>
+<RelativeLayout
+    android:id="@+id/two"
+    android:layout_below="@+id/one"
+    android:layout_width="match_parent"
+    android:layout_height="110dp">
+    <com.example.yuanmu.lunbo.Custom.MyCircularView
+        android:layout_marginLeft="15dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/mHeadPortrait_cu"
+        ></com.example.yuanmu.lunbo.Custom.MyCircularView>
+</RelativeLayout>
+    <com.flyco.tablayout.CommonTabLayout
+        android:layout_below="@+id/two"
+        android:id="@+id/data_tab"
+        android:layout_width="match_parent"
+        android:layout_height="43dp"
+        android:background="#ffffff"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        tl:tl_indicator_color="@color/StyleColor"
+        tl:tl_textSelectColor="@color/StyleColor"
+        tl:tl_textUnselectColor="@color/grayStyle"
+        tl:tl_underline_color="#DDDDDD"
+        tl:tl_underline_height="0dp"/>
+    <android.support.v4.view.ViewPager
+        android:layout_below="@+id/data_tab"
+        android:id="@+id/data_ViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+    <include layout="@layout/personal_popup"></include>
+</RelativeLayout>

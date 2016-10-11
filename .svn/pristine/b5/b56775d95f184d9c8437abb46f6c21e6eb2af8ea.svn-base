@@ -1,0 +1,157 @@
+package com.example.yuanmu.lunbo.Thirdparty.BaiduMap;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.MeasureSpec;
+import android.widget.ImageView;
+
+import com.android.volley.Response.ErrorListener;
+import com.android.volley.Response.Listener;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
+import com.example.yuanmu.lunbo.R;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
+
+public class ImgUtil {
+	/**
+	 * @param imageview
+	 *            ͼƬ�ؼ�
+	 * @param headUrl
+	 *            ͼƬurl
+	 * @param i
+	 *            ���
+	 * @param j
+	 *            �߶�
+	 */
+	public static void setImg(final ImageView imageview, String headUrl, int i,
+			int j) {
+
+		ImageRequest request = new ImageRequest(headUrl,
+				new Listener<Bitmap>() {
+					@Override
+					public void onResponse(Bitmap bitmap) {
+							imageview.setImageBitmap(bitmap);
+
+					}
+				}, i, j, Config.RGB_565, new ErrorListener() {
+					@Override
+					public void onErrorResponse(VolleyError volleyError) {
+						imageview.setImageResource(R.mipmap.background_no);
+					}
+				});
+
+		// ���������Tag��ǩ��������ȫ�����������ͨ��Tag��ǩ��������Ĳ���
+		request.setTag("loadImage");
+		// ͨ��Tag��ǩȡ����������ж�Ӧ��ȫ������
+		MyApplication.getHttpQueues().add(request);
+	}
+
+	/**
+	 * @param imageview
+	 *            ͼƬ�ؼ�
+	 * @param headUrl
+	 *            ͼ��url
+	 * @param i
+	 *            �ߴ�
+	 * @param j
+	 *            �ߴ�
+	 */
+	public static void setBackground(final ImageView imageview, String headUrl,
+			int i, int j) {
+
+		ImageRequest request = new ImageRequest(headUrl,
+				new Listener<Bitmap>() {
+					@Override
+					public void onResponse(Bitmap bitmap) {
+						Drawable drawable = new BitmapDrawable(bitmap);
+						imageview.setBackgroundDrawable(drawable);
+					}
+				}, i, j, Config.RGB_565, new ErrorListener() {
+					@Override
+					public void onErrorResponse(VolleyError volleyError) {
+						imageview
+								.setBackgroundResource(R.mipmap.background_no);
+					}
+				});
+
+		// ���������Tag��ǩ��������ȫ�����������ͨ��Tag��ǩ��������Ĳ���
+		request.setTag("loadBackground");
+		// ͨ��Tag��ǩȡ����������ж�Ӧ��ȫ������
+		MyApplication.getHttpQueues().add(request);
+	}
+
+	/**
+	 * @param context
+	 *            ������
+	 * @param urlpath
+	 *            ͼƬurl
+	 * @return bitmap��ʽͼƬ
+	 */
+	public static Bitmap getBitMBitmap(Context context, String urlpath) {
+		Bitmap map = null;
+		try {
+			URL url = new URL(urlpath);
+			URLConnection conn = url.openConnection();
+			conn.connect();
+			InputStream in;
+			in = conn.getInputStream();
+			map = BitmapFactory.decodeStream(in);
+			// TODO Auto-generated catch block
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return zoomImage(context, map, 100, 100);
+	}
+
+	/**
+	 * @param context
+	 *            ������
+	 * @param bgimage
+	 *            bitmap��ʽͼƬ
+	 * @param newWidth
+	 *            ������
+	 * @param newHeight
+	 *            ����߶�
+	 * @return bitmapͼƬ
+	 */
+	public static Bitmap zoomImage(Context context, Bitmap bgimage,
+			double newWidth, double newHeight) {
+		// // ��ȡ���ͼƬ�Ŀ�͸�
+		// float width = bgimage.getWidth();
+		// float height = bgimage.getHeight();
+		// // ��������ͼƬ�õ�matrix����
+		// Matrix matrix = new Matrix();
+		// // ������������
+		// float scaleWidth = ((float) newWidth) / width;
+		// float scaleHeight = ((float) newHeight) / height;
+		// // ����ͼƬ����
+		// matrix.postScale(scaleWidth, scaleHeight);
+		// Bitmap bitmap = Bitmap.createBitmap(bgimage, 0, 0, (int) width,
+		// (int) height, matrix, true);
+		LayoutInflater factory = LayoutInflater.from(context);
+		View textEntryView = factory.inflate(R.layout.item_map_marker, null); // //����ͼת����Bitmap
+																				// ��ת����Drawable
+		ImageView imageview = (ImageView) textEntryView.findViewById(R.id.iv);
+		imageview.setImageBitmap(bgimage);
+		textEntryView.setDrawingCacheEnabled(true);
+		textEntryView.measure(
+				MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
+				MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
+		textEntryView.layout(0, 0, textEntryView.getMeasuredWidth(),
+				textEntryView.getMeasuredHeight());
+		textEntryView.buildDrawingCache();
+		Bitmap newbmp = textEntryView.getDrawingCache();
+
+		return newbmp;
+	}
+
+}

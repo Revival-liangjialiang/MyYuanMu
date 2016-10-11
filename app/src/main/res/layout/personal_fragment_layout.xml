@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+              android:background="@color/BackgroundStyleColor"
+    android:layout_height="match_parent">
+<RelativeLayout
+    android:background="@color/StyleColor"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:orientation="horizontal"
+    >
+    <TextView
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="个人中心"
+        android:textSize="@dimen/navigation_font_unified_size"
+        android:textColor="@color/white"
+        />
+    <ImageView
+        android:id="@+id/mSetting_img"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/setup_ic"
+        />
+</RelativeLayout>
+    <!-- 个人资料布局 -->
+    <com.example.yuanmu.lunbo.Custom.MyScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <include layout="@layout/personal_sign_in_success_layout"></include>
+            <include layout="@layout/personal_not_logged_in_layout"></include>
+        </FrameLayout>
+    </com.example.yuanmu.lunbo.Custom.MyScrollView>
+</LinearLayout>

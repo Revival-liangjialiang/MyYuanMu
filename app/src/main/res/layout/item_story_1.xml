@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:padding="10dp" >
+
+        <com.example.yuanmu.lunbo.Custom.CircleImageView
+            android:id="@+id/civ_img"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@mipmap/myviewtest"
+            app:border_color="#ffffff"
+            app:border_width="1dp" />
+
+        <TextView
+            android:id="@+id/tv_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/civ_img"
+            android:ellipsize="end"
+            android:maxEms="10"
+            android:text="昵称"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/tv_createdAt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_nickname"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/civ_img"
+            android:text="2015.06.23"
+            android:textColor="#888888"
+            android:textSize="8sp" />
+
+        <TextView
+            android:id="@+id/tv_commentcount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_margin="5dp"
+            android:drawableRight="@drawable/icon_comment"
+            android:gravity="center"
+            android:text="365 "
+            android:textColor="#888888"
+            android:textSize="10sp" />
+
+        <LinearLayout
+            android:id="@+id/lin_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_createdAt"
+            android:layout_marginTop="3dp"
+            android:orientation="horizontal"
+            android:weightSum="3" >
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:text="我这里连一张图片都懒得发，帮帮我吧。"
+                android:textSize="13sp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

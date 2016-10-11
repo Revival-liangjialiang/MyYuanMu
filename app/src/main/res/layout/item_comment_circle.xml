@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mReplyLayout"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<LinearLayout
+    android:id="@+id/commentLayout"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/white"
+              android:orientation="horizontal" >
+    <com.example.yuanmu.lunbo.Custom.CircleImageView
+        android:id="@+id/img_headPortrait"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_margin="5dp"
+        app:border_color="#ffffff"
+        app:border_width="2dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/tv_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="流月逐影"
+            android:textSize="12sp" />
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/myBlue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="回复"
+            />
+
+        <TextView
+            android:id="@+id/tv_createdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tv_nickname"
+            android:layout_margin="5dp"
+            android:text="2015.09.12"
+            android:textColor="@color/brown"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_nickname"
+            android:layout_marginLeft="5dp"
+            android:text="汕尾-城区"
+            android:textColor="@color/brown"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:textColor="@color/deep_brown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_location"
+            android:layout_margin="5dp"
+            android:text="今天上学的时候我看到地上有一堆屎，我瞬间就大吃一惊了。" />
+    </RelativeLayout>
+</LinearLayout>
+</LinearLayout>

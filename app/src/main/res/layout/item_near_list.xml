@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:background="@color/white"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/img_iv"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_margin="5dp"
+        android:background="#f0f0f0"
+        android:scaleType="centerCrop" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="流月逐影"
+                android:textColor="#00bbff"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:background="#00bbff"
+                android:padding="2dp"
+                android:text="男"
+                android:textColor="#f0f0f0"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:background="#ff0088"
+                android:padding="2dp"
+                android:text="已认证"
+                android:textColor="#f0f0f0"
+                android:textSize="10sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/distance_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/icon_local"
+                android:gravity="center_vertical"
+                android:text=" 234km" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="23岁"
+                android:textColor="@color/brown" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="10dp"
+                android:layout_margin="3dp"
+                android:background="#f0f0f0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="广东-佛山"
+                android:textColor="@color/brown" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="仓管"
+                android:textColor="@color/brown" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="10dp"
+                android:layout_margin="3dp"
+                android:background="#f0f0f0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="大专"
+                android:textColor="@color/brown" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="10dp"
+                android:layout_margin="3dp"
+                android:background="#f0f0f0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="166cm"
+                android:textColor="@color/brown" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="出来社会已经三四年了，此时此刻的我已经深深地感觉到孤单寂寞冷。"
+                android:textColor="@color/brown" />
+
+        </TableRow>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,73 @@
+package com.example.yuanmu.lunbo.Util;
+
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.widget.ImageView;
+
+import com.android.volley.Response.ErrorListener;
+import com.android.volley.Response.Listener;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.NetworkImageView;
+import com.example.yuanmu.lunbo.R;
+
+public class ImgUtil {
+
+	public static void setImg(final ImageView imageview, String headUrl, int i,
+			int j) {
+
+		ImageRequest request = new ImageRequest(headUrl,
+				new Listener<Bitmap>() {
+					@Override
+					public void onResponse(Bitmap bitmap) {
+						if (imageview != null) {
+							imageview.setImageBitmap(bitmap);
+						}else{
+							imageview
+							.setImageResource(R.mipmap.ic_launcher);
+						}
+					}
+				}, i, j, Config.RGB_565, new ErrorListener() {
+					@Override
+					public void onErrorResponse(VolleyError volleyError) {
+						imageview
+								.setImageResource(R.mipmap.ic_launcher);
+					}
+				});
+		request.setTag("loadImage");
+		MyApplication.getHttpQueues().add(request);
+	}
+	public static void setBackground(final ImageView imageview, String headUrl,
+									 int i, int j) {
+
+		ImageRequest request = new ImageRequest(headUrl,
+				new Listener<Bitmap>() {
+					@Override
+					public void onResponse(Bitmap bitmap) {
+						// Bitmap bitmapbackground =
+						// BlurBitmapUtil.doBlur(bitmap,
+						// 25, false);
+						Drawable drawable = new BitmapDrawable(bitmap);
+						imageview.setBackgroundDrawable(drawable);
+					}
+				}, i, j, Config.RGB_565, new ErrorListener() {
+			@Override
+			public void onErrorResponse(VolleyError volleyError) {
+				imageview
+						.setBackgroundResource(R.mipmap.ic_launcher);
+			}
+		});
+		request.setTag("loadBackground");
+		MyApplication.getHttpQueues().add(request);
+	}
+	public static void setImg(final NetworkImageView imageview, String headUrl){
+		if(imageview != null&&!headUrl.equals("")){
+			imageview.setDefaultImageResId(R.mipmap.ic_launcher);
+			imageview.setErrorImageResId(R.mipmap.ic_launcher);
+			imageview.setImageUrl(headUrl, MyApplication.getImageLoader());
+		}
+	}
+
+}

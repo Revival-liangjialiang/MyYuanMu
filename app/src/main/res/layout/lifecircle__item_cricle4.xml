@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="horizontal" >
+
+    <com.example.yuanmu.lunbo.Custom.CircleImageView
+        android:id="@+id/civ_img"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_margin="5dp"
+        android:src="@mipmap/myviewtest"
+        app:border_color="#ffffff" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/tv_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="流月逐影" />
+
+        <TextView
+            android:drawableLeft="@drawable/icon_eye"
+            android:id="@+id/tv_eye"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_margin="5dp"
+            android:text=" 320"
+            android:textColor="@color/brown" />
+
+        <TextView
+            android:id="@+id/tv_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_nickname"
+            android:layout_marginLeft="5dp"
+            android:text="汕尾-城区"
+            android:textColor="@color/brown"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_location"
+            android:layout_margin="5dp"
+            android:text="今天上学的时候我看到地上有一堆屎，我瞬间就大吃一惊了。" />
+
+        <com.example.yuanmu.lunbo.Custom.MyCircleitemGridView
+            android:id="@+id/gv_img"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_content"
+            android:columnWidth="90dp"
+            android:gravity="center"
+            android:horizontalSpacing="5dp"
+            android:numColumns="3"
+            android:scrollbars="none"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="5dp" />
+
+        <LinearLayout
+            android:id="@+id/ll_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gv_img"
+            android:layout_marginRight="5dp"
+            android:gravity="center_vertical"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/tv_createdAt"
+                android:text="2015.04.23"
+                android:textSize="12sp"
+                android:layout_width="0dp"
+                android:padding="5dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/iv_good"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+                android:background="@drawable/fillet_background_5"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:src="@drawable/icon_good_yes" />
+
+            <ImageView
+                android:id="@+id/comment_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:background="@drawable/fillet_background_5"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:src="@drawable/icon_msg" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_2"
+            android:layout_below="@id/ll_1"
+            android:orientation="vertical"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+</LinearLayout>

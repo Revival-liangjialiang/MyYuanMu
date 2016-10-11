@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/FlycoTabLayout_Lib/FlycoTabLayout_Lib.iml" filepath="$PROJECT_DIR$/FlycoTabLayout_Lib/FlycoTabLayout_Lib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/IMKitRong/IMKitRong.iml" filepath="$PROJECT_DIR$/IMKitRong/IMKitRong.iml" />
+      <module fileurl="file://$PROJECT_DIR$/IMKitRong/Rong_Cloud_Android_IMKit_SDK_v2_7_3_stable.iml" filepath="$PROJECT_DIR$/IMKitRong/Rong_Cloud_Android_IMKit_SDK_v2_7_3_stable.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pullToRefreshlibrary/pullToRefreshlibrary.iml" filepath="$PROJECT_DIR$/pullToRefreshlibrary/pullToRefreshlibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rollviewpager/rollviewpager.iml" filepath="$PROJECT_DIR$/rollviewpager/rollviewpager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/volley/volley.iml" filepath="$PROJECT_DIR$/volley/volley.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wheelview/wheelview.iml" filepath="$PROJECT_DIR$/wheelview/wheelview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/yuanmu.iml" filepath="$PROJECT_DIR$/yuanmu.iml" />
+    </modules>
+  </component>
+</project>

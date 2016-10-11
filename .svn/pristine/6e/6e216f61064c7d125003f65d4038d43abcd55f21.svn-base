@@ -1,0 +1,82 @@
+package com.example.yuanmu.lunbo.Activity;
+
+import android.os.Bundle;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+
+import com.example.yuanmu.lunbo.Adapter.Main_ViewPager_Adapter;
+import com.example.yuanmu.lunbo.R;
+import com.example.yuanmu.lunbo.Util.TabEntity;
+import com.flyco.tablayout.CommonTabLayout;
+import com.flyco.tablayout.listener.CustomTabEntity;
+import com.flyco.tablayout.listener.OnTabSelectListener;
+
+import java.util.ArrayList;
+
+public class MainActivity extends AppCompatActivity  {
+ViewPager mViewPager;
+
+    private String[] mTitles = {"首页", "生活圈", "附近", "消息","个人"};
+//导航主控件
+    CommonTabLayout mCommonTabLayout;
+    //未选中的导航图
+    private int[] mIconUnselectIds = {
+            R.drawable.home_ic,R.drawable.lifecircle_ic,
+            R.drawable.nearby_ic, R.drawable.news_ic,R.drawable.personal_ic};
+    //选中后的图片
+    private int[] mIconSelectIds = {
+            R.drawable.home_ic_2, R.drawable.lifecircle_ic_2,
+            R.drawable.nearby_ic_2, R.drawable.news_ic_2,R.drawable.personal_ic_2};
+
+    //CustomTabEntity为接口，实现类是TabEntity，用来存储每个Tab的标题，和点击前和点击后的两张图
+    private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main_layout);
+        //加入导航所需的的数据
+        for (int i = 0; i < mTitles.length; i++) {
+            mTabEntities.add(new TabEntity(mTitles[i], mIconSelectIds[i], mIconUnselectIds[i]));
+        }
+        initView();
+        // 轮播图
+    }
+
+    private void initView() {
+        mViewPager = (ViewPager) findViewById(R.id.main_viewPager);
+        mCommonTabLayout = (CommonTabLayout) findViewById(R.id.tl_2);
+        mCommonTabLayout.setTabData(mTabEntities);
+        mCommonTabLayout.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelect(int position) {
+                //TODO 完成ViewPager的切换
+                mViewPager.setCurrentItem(position);
+            }
+
+            @Override
+            public void onTabReselect(int position) {
+
+            }
+        });
+        mViewPager.setAdapter(new Main_ViewPager_Adapter(getSupportFragmentManager()));
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                mCommonTabLayout.setCurrentTab(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+
+
+}

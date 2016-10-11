@@ -1,0 +1,40 @@
+package com.example.yuanmu.lunbo.Util;
+
+
+import android.app.Application;
+import android.content.Context;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.Volley;
+
+public class MyApplication extends Application {
+	private static RequestQueue queues;
+	private static Context context;
+	private static ImageLoader imageLoader;
+	@Override
+	public void onCreate() {
+		super.onCreate();
+
+		// 获取全局context
+		context = getApplicationContext();
+		// 获取请求队列
+		queues = Volley.newRequestQueue(getApplicationContext());
+		imageLoader = new ImageLoader(queues, new BitmapCache());
+
+	}
+
+	public static Context getContext() {
+		return context;
+
+	}
+
+	public static RequestQueue getHttpQueues() {
+		return queues;
+
+	}
+	public static ImageLoader getImageLoader() {
+		return imageLoader;
+
+	}
+}

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:scaleType="centerInside"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="二婚殿堂"
+        android:textSize="17sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:padding="10dp"
+        android:text="    二婚是合法结婚，所以二婚的可享受法定婚假。
+    根据国家有关职工婚丧假的规定精神，再婚者与初婚者的法律地位相同，用人单位对再婚职工应当参照国家有关规定，给予同初婚职工一样的婚假待遇。
+    需要注意的是，二婚的可享受法定婚假，不能享受晚婚假。根据《婚姻法》规定，只有在同时符合女年满23周岁、男年满25周岁和“双方均为初婚”这两个条件的情况下，才可以认定为 “晚婚”。因此，即使二婚年龄达到晚婚的标准，也不属于晚婚情形，是不能享受晚婚待遇的。当然，结婚双方中有一方是初婚，一方是二婚的，只要初婚一方符合晚婚情形，就能依法享受晚婚待遇。
+    综上，二婚和初婚享有平等的婚假待遇。用人单位在婚假问题的处理上不应有所偏倚。" />
+</LinearLayout>

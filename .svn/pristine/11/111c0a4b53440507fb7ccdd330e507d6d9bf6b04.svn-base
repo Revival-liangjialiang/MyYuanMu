@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">再爱一回</string>
+    <string name="gift_number">收到礼物数</string>
+    <string name="edit">编辑</string>
+    <string name="monologue_content">这家伙很懒，神马也没留下！</string>
+    <string name="monologue">内心独白</string>
+    <string name="Album">相册</string>
+</resources>

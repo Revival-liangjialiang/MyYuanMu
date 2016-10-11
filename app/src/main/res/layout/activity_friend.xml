@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white" >
+
+    <RelativeLayout
+        android:id="@+id/rl_fri"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white" >
+
+        <TextView
+            android:id="@+id/tv_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="没有数据"
+            android:textColor="#d9d9d9"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/iv_no"
+            android:layout_marginBottom="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tv_no"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/ic_launcher" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/listview_friend"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none" >
+    </ListView>
+
+    <com.example.yuanmu.lunbo.Custom.LetterRetrievalRightTool
+        android:id="@+id/rightCharacterListView"
+        android:layout_width="30dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:background="#00000000" />
+
+</RelativeLayout>

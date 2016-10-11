@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">再爱一回</string>
+    <string name="gift_number">收到礼物数</string>
+    <string name="edit">编辑</string>
+    <string name="monologue_content">这家伙很懒，神马也没留下！</string>
+    <string name="monologue">内心独白</string>
+    <string name="Album">相册</string>
+    <string name="personal_data_text_content">请选择</string>
+    <string name="launched_location_sharing">发起了位置共享</string>
+    <string name="location_sharing_ended">位置共享已结束</string>
+    <string name="location">位置</string>
+    <string name="send_location">发送位置</string>
+    <string name="real_time_location_sharing">实时位置共享</string>
+    <string name="fetching">获取中……</string>
+    <string name="geographical_position">地理位置</string>
+    <string name="you_are_sharing_location">你正在共享位置</string>
+    <string name="person_is_sharing_loaction">人正在共享位置</string>
+    <string name="persons_are_sharing_loaction">人正在共享位置</string>
+    <string name="location_sharing_exit_promt">退出当前页面将会终止实时位置共享,确定退出？</string>
+    <string name="prompt">提示</string>
+    <string name="launched_a_location_sharing">我发起了位置共享</string>
+    <string name="confirm">确认</string>
+    <string name="cancel">取消</string>
+    <string name="add_contacts">添加好友</string>
+</resources>

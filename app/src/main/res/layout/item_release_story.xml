@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <EditText
+            android:id="@+id/et_1"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#ffffff"
+            android:gravity="top"
+            android:hint="请输入文字。。。"
+            android:padding="10dp" />
+
+
+        <TextView
+            android:id="@+id/tv_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="5dp"
+            android:background="@drawable/fillet_background_5"
+            android:padding="5dp"
+            android:text="添加一行" />
+
+        <TextView
+            android:id="@+id/tv_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="5dp"
+            android:layout_toLeftOf="@id/tv_2"
+            android:background="@drawable/fillet_background_5"
+            android:padding="5dp"
+            android:text="插入图片" />
+    </RelativeLayout>
+    <ImageView
+        android:id="@+id/iv_1"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

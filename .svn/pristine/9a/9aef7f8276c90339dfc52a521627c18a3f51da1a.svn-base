@@ -1,0 +1,19 @@
+package com.example.yuanmu.lunbo.user;
+
+/**
+ * Created by Administrator on 2016/9/1 0001.
+ */
+public class ResponseData {
+    public String code;
+    public String userId;
+    public String token;
+    public String getCode(){
+        return code;
+    }
+    public String getUserId(){
+        return userId;
+    }
+    public String getToken(){
+        return token;
+    }
+}

@@ -1,0 +1,52 @@
+package com.example.yuanmu.lunbo.Fragment;
+
+import android.graphics.BitmapFactory;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.example.yuanmu.lunbo.Activity.Lovematch;
+import com.example.yuanmu.lunbo.Custom.Frame_MyView;
+import com.example.yuanmu.lunbo.R;
+
+public class TestFragment extends Fragment implements OnClickListener{
+	public ImageView iv;
+	public Frame_MyView mCollection_view;
+	Lovematch m;
+	@Override
+	public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
+		View rootView = inflater.inflate(R.layout.frag_layout, container, false);
+		m = (Lovematch) getActivity();
+		initUI(rootView);
+		return rootView;
+	}
+	private void initUI(View root){
+		iv = (ImageView) root.findViewById(R.id.imageView1);
+		mCollection_view = (Frame_MyView)root.findViewById(R.id.collection_view);
+		Log.i("ok","----------------mCollection_view = "+mCollection_view);
+		mCollection_view.bitmap = BitmapFactory.decodeResource(m.getResources(),R.mipmap.oo);
+		mCollection_view.postInvalidate();
+		mCollection_view.setOnClickListener(this);
+		//iv.setImageResource(res);
+		iv.setOnClickListener(this);
+	}
+
+	@Override
+	public void onClick(View view) {
+		switch (view.getId()){
+			case R.id.imageView1:
+				Toast.makeText(getContext(), "您点击了第"+m.Indexes+"个MM", Toast.LENGTH_SHORT).show();
+				break;
+			case R.id.collection_view:
+				Toast.makeText(getContext(), "您收藏了第"+m.Indexes+"个MM", Toast.LENGTH_SHORT).show();
+				break;
+			default:break;
+		}
+	}
+}

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <EditText
+            android:id="@+id/et_username"
+            android:layout_width="0dp"
+            android:layout_height="39dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1.0"
+            android:background="@color/white"
+            android:hint="请输入帐号"
+            android:paddingLeft="5dp"
+            android:singleLine="true"
+            android:textColorHint="#b3b3b3"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/bt_search"
+            android:layout_width="60dp"
+            android:layout_height="39dp"
+            android:layout_margin="10dp"
+            android:layout_marginRight="11dp"
+            android:background="#00bbff"
+            android:text="搜索"
+            android:textSize="14sp" />
+    </LinearLayout>
+    <ListView
+        android:background="#f0f0f0"
+        android:id="@+id/lv_findresult"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none" />
+</LinearLayout>

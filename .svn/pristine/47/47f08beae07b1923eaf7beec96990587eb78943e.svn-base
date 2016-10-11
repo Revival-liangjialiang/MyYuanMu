@@ -1,0 +1,27 @@
+package com.example.yuanmu.lunbo;
+
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+    private ViewPager mvPager;
+    private TextView mTextView;
+    private ImageView[] mImageViews;// 要循环显示的图片资源（也可以是其他的view）
+    // 轮播图专用
+    private String lunboimgsrc[] = new String[4];
+    private String lunbourl[] = new String[4];
+    private String lunbotitle[] = new String[4];
+    private int imgsize = 0;
+    private final int DURING_TIME = 2000; // 滚动延迟
+    private int currentIndex = 0;// （自动播放时）定时周期要显示的图片的索引（viewpager中的图片位置）
+    // 头条
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+    }
+}

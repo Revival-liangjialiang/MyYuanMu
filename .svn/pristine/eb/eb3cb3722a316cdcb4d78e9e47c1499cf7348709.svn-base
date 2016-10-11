@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.yuanmu.lunbo.Activity.MainActivity">
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="160dp" >
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/circlulate_pager"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp" >
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textColor="#ffffff"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/page"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:textColor="#ffffff"
+                android:textSize="12sp" />
+        </RelativeLayout>
+    </FrameLayout>
+    <com.flyco.tablayout.CommonTabLayout
+        android:layout_alignParentBottom="true"
+        android:id="@+id/tl_2"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:background="#ffffff"
+        tl:tl_iconHeight="24dp"
+        tl:tl_iconWidth="24dp"
+        tl:tl_indicator_color="#2C97DE"
+        tl:tl_indicator_height="0dp"
+        tl:tl_textSelectColor="#2C97DE"
+        tl:tl_textUnselectColor="#66000000"
+        tl:tl_textsize="14sp"
+        tl:tl_underline_color="#DDDDDD"
+        tl:tl_underline_height="1dp"/>
+</RelativeLayout>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f0f0f0"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#00bbff"
+        android:padding="10dp" >
+
+        <ImageButton
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            android:src="@drawable/icon_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="意见反馈"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/bg_edittext_normal"
+        android:orientation="vertical" >
+
+        <EditText
+            android:id="@+id/feedback"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:background="#00000000"
+            android:gravity="top"
+            android:hint="请输入您的意见并留下您的联系方式。"
+            android:padding="5dp"
+            android:textSize="13sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.8dp"
+            android:background="#BDC7D8" />
+
+        <EditText
+            android:id="@+id/phone_qq"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="#00000000"
+            android:hint="QQ或者电话号码"
+            android:padding="5dp"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/enter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="#00bbff"
+        android:text="提交"
+        android:textColor="@color/white" />
+
+
+</LinearLayout>

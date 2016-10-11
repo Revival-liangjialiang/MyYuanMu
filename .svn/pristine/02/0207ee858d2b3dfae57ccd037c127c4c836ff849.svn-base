@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="BackgroundStyleColor">#f3e8ee</color>
+    <color name="StyleColor">#FA99CC</color>
+    <color name="WhiteStyle">#FFFFFF</color>
+    <color name="StatusBarColor">#FF99DD</color>
+    <color name="AuthenticationColor">#0bf483</color>
+    <color name="grayStyle">#a9abaa</color>
+</resources>

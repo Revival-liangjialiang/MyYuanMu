@@ -1,0 +1,51 @@
+package com.example.yuanmu.lunbo.Util;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.widget.ImageView;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.Volley;
+
+
+/**
+ * Created by Administrator on 2016/8/25 0025.
+ */
+public class VolleyRequest {
+    RequestQueue mRequestQueue;
+    PictureRequestListener mListener;
+    Context mContext;
+    String[] mAddress;
+    int a = 0;
+    public VolleyRequest(Context context) {
+        mRequestQueue = Volley.newRequestQueue(context);
+        mContext = context;
+    }
+
+    //开始请求图片
+    public void startRequest(String[] address) {
+        mAddress = address;
+        for (; a < mAddress.length; a++) {
+            mRequestQueue.add(new ImageRequest(address[a], new Response.Listener<Bitmap>() {
+              String str = mAddress[a];
+                @Override
+                public void onResponse(Bitmap bitmap) {
+                    mListener.onRessponse(bitmap,str);
+                }
+            }, 720, 0, ImageView.ScaleType.CENTER_CROP, null, null));
+            if(a==mAddress.length){
+                a = 0;
+            }
+        }
+    }
+
+    interface PictureRequestListener {
+        void onRessponse(Bitmap bitmap,String str);
+    }
+
+    private void PictureRequestListener(PictureRequestListener listener) {
+        this.mListener = listener;
+    }
+}
