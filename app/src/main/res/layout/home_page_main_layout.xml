@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.example.yuanmu.lunbo.Custom.PercentLinearLayout
-    android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_heightPercent="40%w"
         app:layout_widthPercent="100%w">
+
         <com.jude.rollviewpager.RollPagerView
             android:id="@+id/roll_view_pager_top"
             android:layout_width="match_parent"
@@ -23,73 +24,84 @@
             app:rollviewpager_play_delay="5000">
         </com.jude.rollviewpager.RollPagerView>
     </LinearLayout>
+
     <LinearLayout
-        android:background="@android:color/white"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@android:color/white"
         android:orientation="vertical"
+        android:paddingBottom="12dp"
+        android:paddingTop="12dp"
         >
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             >
+
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 >
+
                 <com.example.yuanmu.lunbo.Custom.MyView
-                    android:layout_centerHorizontal="true"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
                     android:id="@+id/love_match"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_centerHorizontal="true"
                     >
                 </com.example.yuanmu.lunbo.Custom.MyView>
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 >
+
                 <com.example.yuanmu.lunbo.Custom.MyView
-                    android:layout_centerHorizontal="true"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
                     android:id="@+id/love_activity"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_centerHorizontal="true"
                     >
                 </com.example.yuanmu.lunbo.Custom.MyView>
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 >
+
                 <com.example.yuanmu.lunbo.Custom.MyView
-                    android:layout_centerHorizontal="true"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
                     android:id="@+id/storytelling_session"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_centerHorizontal="true"
                     >
                 </com.example.yuanmu.lunbo.Custom.MyView>
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 >
+
                 <com.example.yuanmu.lunbo.Custom.MyView
-                    android:layout_centerHorizontal="true"
+                    android:id="@+id/search_in_figure"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:id="@+id/search_in_figure"
+                    android:layout_centerHorizontal="true"
                     >
                 </com.example.yuanmu.lunbo.Custom.MyView>
             </RelativeLayout>
             <!--                              -->
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -101,56 +113,63 @@
                 android:layout_weight="1"
                 >
                 <TextView
-                    android:layout_centerHorizontal="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
                     android:text="爱匹配"
                     />
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 >
+
                 <TextView
-                    android:layout_centerHorizontal="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
                     android:text="爱活动"
                     />
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 >
                 <TextView
-                    android:layout_centerHorizontal="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
                     android:text="故事会"
                     />
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 >
+
                 <TextView
-                    android:layout_centerHorizontal="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
                     android:text="图中寻"
                     />
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
+
     <LinearLayout
-        android:layout_marginTop="10dp"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="10dp"
         app:layout_heightPercent="20%w"
         app:layout_widthPercent="100%w">
+
         <com.jude.rollviewpager.RollPagerView
             android:id="@+id/roll_view_pager_bottom"
             android:layout_width="match_parent"
@@ -163,4 +182,34 @@
             app:rollviewpager_play_delay="5000">
         </com.jude.rollviewpager.RollPagerView>
     </LinearLayout>
+<LinearLayout
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:layout_marginLeft="10dp"
+        android:textSize="18sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="精选动态"
+        />
+    <TextView
+        android:textColor="@color/grayStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+</LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/PartingLineColor"
+        />
+    <com.example.yuanmu.lunbo.Custom.StoryListView
+        android:id="@+id/mHomePage_lv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="#f0f0f0"
+        android:dividerHeight="1dp"
+        android:scrollbars="none"/>
 </com.example.yuanmu.lunbo.Custom.PercentLinearLayout>

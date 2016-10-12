@@ -229,6 +229,7 @@ public class ConditionalSelectionActivity extends AppCompatActivity implements V
                        mBundle.putSerializable("Condition",conditionalSD);
                        intent.putExtras(mBundle);
                        setResult(ConditionalSelectionActivity.RESULT_OK,intent);
+                       finish();
                        Toast.makeText(ConditionalSelectionActivity.this, "更新成功!", Toast.LENGTH_SHORT).show();
                    }else {
                        Toast.makeText(ConditionalSelectionActivity.this, "更新失败!", Toast.LENGTH_SHORT).show();

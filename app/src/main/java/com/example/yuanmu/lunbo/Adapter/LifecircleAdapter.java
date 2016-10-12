@@ -3,6 +3,7 @@ package com.example.yuanmu.lunbo.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.toolbox.NetworkImageView;
 import com.example.yuanmu.lunbo.Activity.Content_Circle;
@@ -18,6 +20,7 @@ import com.example.yuanmu.lunbo.Application.MyApplication;
 import com.example.yuanmu.lunbo.BmobBean.CircleComment;
 import com.example.yuanmu.lunbo.BmobBean.Reply;
 import com.example.yuanmu.lunbo.BmobBean.User;
+import com.example.yuanmu.lunbo.BmobBean._2.Fabulous.Lifecircle;
 import com.example.yuanmu.lunbo.Custom.CircleImageView;
 import com.example.yuanmu.lunbo.Custom.MyCircleitemGridView;
 import com.example.yuanmu.lunbo.R;
@@ -25,6 +28,7 @@ import com.example.yuanmu.lunbo.Util.DateUtil;
 import com.example.yuanmu.lunbo.Util.DateUtils;
 import com.example.yuanmu.lunbo.Util.ImgUtil;
 import com.example.yuanmu.lunbo.Util.MyLog;
+import com.example.yuanmu.lunbo.Util.NoLoginUtil;
 import com.example.yuanmu.lunbo.Util.ScreenUtil;
 import com.example.yuanmu.lunbo.interfaces.ListItemBtnClickListener;
 
@@ -33,10 +37,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.QueryListener;
+import cn.bmob.v3.listener.UpdateListener;
+
 /**
  * Created by yuanmu on 2016/8/24.
  */
 public class LifecircleAdapter extends BaseAdapter {
+    private User user;
     private Reply reply;
 //    private CircleComment circleComment;
     private CommentLsiener CommentListener;
@@ -52,7 +63,6 @@ public class LifecircleAdapter extends BaseAdapter {
     private Map<String,List> mCommentListMap = new HashMap<>();
     //回复集合
     private Map<String,List> mReplyListMap = new HashMap<>();
-    private String mArticleId;
 
     //
 //   private List<CircleComment> mCommentCopyList;
@@ -63,6 +73,7 @@ public class LifecircleAdapter extends BaseAdapter {
         this.mlist = list;
         mCommentListMap = comments;
         mReplyListMap = replys;
+        user = BmobUser.getCurrentUser(User.class);
     }
 
     /**
@@ -111,7 +122,6 @@ public class LifecircleAdapter extends BaseAdapter {
         if (imgarray.size() == 4) {
             return 2;
         }
-
         return 3;
     }
 
@@ -122,7 +132,6 @@ public class LifecircleAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
-        MyLog.i("ko","getView（）");
         ViewHolder1 holder1 = null;
         ViewHolder2 holder2 = null;
         ViewHolder3 holder3 = null;
@@ -145,6 +154,7 @@ public class LifecircleAdapter extends BaseAdapter {
                 convertView = LayoutInflater.from(mcontext).inflate(
                         R.layout.lifecircle_item_cricle1, parent, false);
                 holder1 = new ViewHolder1();
+                holder1.iv_good = (ImageView) convertView.findViewById(R.id.iv_good);
                 holder1.comment_img = (ImageView) convertView.findViewById(R.id.comment_img);
                 holder1.ll_2 = (LinearLayout) convertView.findViewById(R.id.ll_2);
                 holder1.civ_img = (CircleImageView) convertView
@@ -162,6 +172,7 @@ public class LifecircleAdapter extends BaseAdapter {
                 convertView = LayoutInflater.from(mcontext).inflate(
                         R.layout.lifecircle_item_cricle2, parent, false);
                 holder2 = new ViewHolder2();
+                holder2.iv_good = (ImageView) convertView.findViewById(R.id.iv_good);
                 holder2.comment_img = (ImageView) convertView.findViewById(R.id.comment_img);
                 holder2.civ_img = (CircleImageView) convertView
                         .findViewById(R.id.civ_img);
@@ -179,6 +190,7 @@ public class LifecircleAdapter extends BaseAdapter {
                 convertView = LayoutInflater.from(mcontext).inflate(
                         R.layout.lifecircle_item_cricle3, parent, false);
                 holder3 = new ViewHolder3();
+                holder3.iv_good = (ImageView) convertView.findViewById(R.id.iv_good);
                 holder3.comment_img = (ImageView) convertView.findViewById(R.id.comment_img);
                 holder3.civ_img = (CircleImageView) convertView
                         .findViewById(R.id.civ_img);
@@ -197,6 +209,7 @@ public class LifecircleAdapter extends BaseAdapter {
                 convertView = LayoutInflater.from(mcontext).inflate(
                         R.layout.lifecircle__item_cricle4, parent, false);
                 holder4 = new ViewHolder4();
+                holder4.iv_good = (ImageView) convertView.findViewById(R.id.iv_good);
                 holder4.comment_img = (ImageView) convertView.findViewById(R.id.comment_img);
                 holder4.civ_img = (CircleImageView) convertView
                         .findViewById(R.id.civ_img);
@@ -232,7 +245,6 @@ public class LifecircleAdapter extends BaseAdapter {
                     break;
             }
         }
-
         switch (type) {
             case 0://无图
                 ImgUtil.setImg(holder1.civ_img, img, 150, 150);
@@ -246,6 +258,54 @@ public class LifecircleAdapter extends BaseAdapter {
                     @Override
                     public void onClick(View view) {
                         CommentListener.commentClick(articleIdCopy);
+                    }
+                });
+                //点赞图标点击事件
+                holder1.iv_good.setOnClickListener(new View.OnClickListener() {
+                    boolean addAndDeleteSwitch = true;
+                    String articleIdCopy = articleId;
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(MyApplication.getContext(), "测试点赞成功!", Toast.LENGTH_SHORT).show();
+                        if (MyApplication.isLogin) {
+                            if (addAndDeleteSwitch) {
+                               //todo
+                                BmobQuery<Lifecircle> query = new BmobQuery<>();
+                                query.getObject(articleIdCopy, new QueryListener<Lifecircle>() {
+                                    @Override
+                                    public void done(Lifecircle object, BmobException e) {
+                                        if(e==null){
+                                            Lifecircle lifecircle = new Lifecircle();
+                                            List<String> list = new ArrayList<String>();
+                                            list.add(user.getNickname());
+                                            lifecircle.setObjectId(articleIdCopy);
+                                            lifecircle.setFabulous(list);
+                                            lifecircle.update(new UpdateListener() {
+                                                @Override
+                                                public void done(BmobException e) {
+                                               if(e == null){
+                                                   Toast.makeText(MyApplication.getContext(), "点赞成功!", Toast.LENGTH_SHORT).show();
+                                                   addAndDeleteSwitch = false;
+                                               }else {
+                                                   Toast.makeText(MyApplication.getContext(), "点赞失败!", Toast.LENGTH_SHORT).show();
+                                                   MyLog.i("fff","e = "+e);
+                                               }
+                                                }
+                                            });
+                                        }else{
+                                            Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
+                                        }
+                                    }
+
+                                });
+                            } else {
+                            /*Fabulous fabulous = new Fabulous();*/
+                            }
+                        }else{
+                            Toast.makeText(MyApplication.getContext(), "未登录", Toast.LENGTH_SHORT).show();
+                            NoLoginUtil.login(MyApplication.getContext());
+                        }
+
                     }
                 });
                 List<CircleComment> mCommentCopyList0 = mCommentListMap.get(holder1.ll_2.getTag() + "");
@@ -647,7 +707,7 @@ public class LifecircleAdapter extends BaseAdapter {
 
 
     class ViewHolder1 {
-        ImageView comment_img;
+        ImageView comment_img,iv_good;
         CircleImageView civ_img;
         TextView tv_nickname;
         TextView tv_content;
@@ -656,7 +716,7 @@ public class LifecircleAdapter extends BaseAdapter {
     }
 
     class ViewHolder2 {
-        ImageView comment_img;
+        ImageView comment_img,iv_good;
         CircleImageView civ_img;
         TextView tv_nickname;
         TextView tv_createdAt;
@@ -666,7 +726,7 @@ public class LifecircleAdapter extends BaseAdapter {
     }
 
     class ViewHolder3 {
-        ImageView comment_img;
+        ImageView comment_img,iv_good;
         CircleImageView civ_img;
         TextView tv_nickname;
         TextView tv_content;
@@ -676,7 +736,7 @@ public class LifecircleAdapter extends BaseAdapter {
     }
 
     class ViewHolder4 {
-        ImageView comment_img;
+        ImageView comment_img,iv_good;
         CircleImageView civ_img;
         TextView tv_nickname;
         TextView tv_content;

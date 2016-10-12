@@ -17,6 +17,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.yuanmu.lunbo.Adapter.DataViewPagerAdapter;
 import com.example.yuanmu.lunbo.BmobBean.User;
@@ -40,7 +41,7 @@ public class DataActivity extends FragmentActivity implements View.OnClickListen
    private Fragment mPersonalDataFragment,mConditionalSelectionFeagment;
     //头像控件
     MyCircularView mHeadPortrait_cu;
-    TextView edit_condition_TV,mEditPersonalData_TV,mUserName;
+    TextView edit_condition_TV,mEditPersonalData_TV,mUserName,mEditMonologue_tv;
     ImageView mBack_IV,mUserDataSetup;
     public RelativeLayout mPopup_layout;
     CommonTabLayout mTab;
@@ -106,6 +107,7 @@ public class DataActivity extends FragmentActivity implements View.OnClickListen
     }
 
     private void initView() {
+        mEditMonologue_tv = (TextView) findViewById(R.id.mEditMonologue_tv);
         mHeadPortrait_cu = (MyCircularView) findViewById(R.id.mHeadPortrait_cu);
         mUserName = (TextView) findViewById(R.id.mUserName);
         mEditPersonalData_TV = (TextView) findViewById(R.id.mEditPersonalData_TV);
@@ -121,6 +123,7 @@ public class DataActivity extends FragmentActivity implements View.OnClickListen
         mPopup_layout.setOnClickListener(this);
         edit_condition_TV.setOnClickListener(this);
         mEditPersonalData_TV.setOnClickListener(this);
+        mEditMonologue_tv.setOnClickListener(this);
     }
 
     @Override
@@ -171,13 +174,18 @@ public class DataActivity extends FragmentActivity implements View.OnClickListen
             case R.id.edit_condition_TV:
                 startActivityForResult(new Intent(this,ConditionalSelectionActivity.class),1);
                 break;
+            //启动个人数据编辑活动
             case R.id.mEditPersonalData_TV:
-                    startActivity(new Intent(this, EditPersonalDataActivity.class));
+                    startActivityForResult(new Intent(this, EditPersonalDataActivity.class),30);
                     mPopup_layout.setVisibility(View.GONE);
                    break;
             case R.id.mBack_IV:
                 finish();
                 overridePendingTransition(R.anim.exit_left,R.anim.exit_right);
+                break;
+            case R.id.mEditMonologue_tv:
+                startActivityForResult(new Intent(DataActivity.this, EditPersonalDataActivity.class),30);
+                mPopup_layout.setVisibility(View.GONE);
                 break;
             default:break;
         }
@@ -185,11 +193,26 @@ public class DataActivity extends FragmentActivity implements View.OnClickListen
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Toast.makeText(DataActivity.this, "requestCode = "+requestCode, Toast.LENGTH_SHORT).show();
         super.onActivityResult(requestCode, resultCode, data);
-        if(mPersonalDataFragment!=null&&requestCode == 0) {
-            mPersonalDataFragment.onActivityResult(requestCode, resultCode, data);
-        }else {
-            mConditionalSelectionFeagment.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case 0:
+            if (mPersonalDataFragment != null) {
+                mPersonalDataFragment.onActivityResult(requestCode, resultCode, data);
+            }
+                break;
+            case 1:
+                if(mConditionalSelectionFeagment!=null) {
+                    mConditionalSelectionFeagment.onActivityResult(requestCode, resultCode, data);
+                }
+                break;
+            case 30:
+                if (mPersonalDataFragment != null) {
+                    mPersonalDataFragment.onActivityResult(requestCode, resultCode, data);
+                }
+                break;
+            default:
+                break;
         }
     }
 

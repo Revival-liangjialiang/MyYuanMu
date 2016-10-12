@@ -1,9 +1,11 @@
 package com.example.yuanmu.lunbo.BmobBean;
 
 
-import cn.bmob.v3.BmobUser;
+import java.util.ArrayList;
 
+import cn.bmob.v3.BmobUser;
 public class User extends BmobUser {
+    private ArrayList<String> fabulous = new ArrayList();
     private String conditionId;
     //独白
     private String monologue = "这家伙很懒，什么也没留下!";
@@ -16,8 +18,6 @@ public class User extends BmobUser {
 
     private String img;
     private String installationId;
-    //
-
     //月收入
     private String income = "未知";
     //工作地区
@@ -58,6 +58,9 @@ public class User extends BmobUser {
     private String education = "未知";
     //婚姻状况
     private String marital_status = "未知";
+    public User(){
+        fabulous.add(" ");
+    }
 
     public String getIncome() {
         return income;

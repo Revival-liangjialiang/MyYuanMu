@@ -19,7 +19,8 @@ import android.widget.Toast;
 
 import com.example.yuanmu.lunbo.Adapter.AlbumRVAdapter;
 import com.example.yuanmu.lunbo.Adapter.HeadPortraitReAdapter;
-import com.example.yuanmu.lunbo.BmobBean._2.User;
+import com.example.yuanmu.lunbo.BmobBean.User;
+import com.example.yuanmu.lunbo.Fragment.Personal.PersonalDataFragment;
 import com.example.yuanmu.lunbo.R;
 import com.example.yuanmu.lunbo.Util.MyLog;
 import com.example.yuanmu.lunbo.Util.MyMap;
@@ -45,6 +46,7 @@ import cn.bmob.v3.listener.UpdateListener;
  * 资料修改活动
  */
 public class EditPersonalDataActivity extends AppCompatActivity implements View.OnClickListener{
+    private PersonalDataFragment personalDataFragment;
     //网络监听字段
     private IntentFilter intentfilter;// IntentFilter：意图过滤器。
     private NetworkChangeReceier networkchangereceier;
@@ -335,7 +337,7 @@ public class EditPersonalDataActivity extends AppCompatActivity implements View.
             //todo SaveButton
             //保存用户资料到后台
             case R.id.mSave_tv:
-                    User data = BmobUser.getCurrentUser(User.class);
+                    final User data = BmobUser.getCurrentUser(User.class);
                     data.setIncome(mMonthlyIncome_TV.getText().toString());
                     data.setWorking_area(mWorkingArea_TV.getText().toString());
                     data.setThere_is_no_child(mHave_no_children_TV.getText().toString());
@@ -361,6 +363,12 @@ public class EditPersonalDataActivity extends AppCompatActivity implements View.
                         public void done(BmobException e) {
                        if(e == null){
                            Toast.makeText(EditPersonalDataActivity.this, "保存成功!", Toast.LENGTH_SHORT).show();
+                           Intent intent = new Intent();
+                           Bundle bundle1 = new Bundle();
+                           bundle1.putSerializable("user",data);
+                           intent.putExtras(bundle1);
+                           setResult(EditPersonalDataActivity.RESULT_OK,intent);
+                           finish();
                        }else{
                            Toast.makeText(EditPersonalDataActivity.this, "保存失败!", Toast.LENGTH_SHORT).show();
                            MyLog.i("kkk","e = "+e);
@@ -602,8 +610,6 @@ public class EditPersonalDataActivity extends AppCompatActivity implements View.
         }
     }
 
-
-
     public List<String> initMonthlyIncomeWheelviewData() {
         List list = new ArrayList<>();
         list.add("请选择");
@@ -803,6 +809,11 @@ public class EditPersonalDataActivity extends AppCompatActivity implements View.
         list.add("丧偶");
         return list;
     }
+
+    public void setPersonalDataFragment(PersonalDataFragment personalDataFragment) {
+        this.personalDataFragment = personalDataFragment;
+    }
+
     class NetworkChangeReceier extends BroadcastReceiver {// BroadcastReceiver：广播接收机。
         @Override
         public void onReceive(Context context, Intent intent) {// 网络发生变化时就会调用这个方法。

@@ -58,6 +58,7 @@ public class PersonalDataFragment extends Fragment{
         }
         mHeight_tv.setText(object.getHeight());
         mIncome_tv.setText(object.getIncome());
+        MyLog.i("ggg",">>>>>>"+object.getEducation());
         mEducation_tv.setText(object.getEducation());
         mMaritalStatus_tv.setText(object.getMarital_status());
         mHousingSituation_tv.setText(object.getHousing_situation());
@@ -83,6 +84,7 @@ public class PersonalDataFragment extends Fragment{
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mActivity = (DataActivity) getActivity();
+        mActivity.setmPersonalDataFragment(this);
         initView();
         User user = BmobUser.getCurrentUser(User.class);
         BmobQuery<User> query = new BmobQuery<>();
@@ -117,7 +119,7 @@ public class PersonalDataFragment extends Fragment{
         mBuying_a_car_tv = (TextView) mActivity.findViewById(R.id.mBuying_a_car_tv);
         mHousingSituation_tv = (TextView) mActivity.findViewById(R.id.mHousingSituation_tv);
         mMaritalStatus_tv = (TextView) mActivity.findViewById(R.id.mMaritalStatus_tv);
-        mEducation_tv = (TextView) mActivity.findViewById(R.id.mEducation_tv);
+        mEducation_tv = (TextView) mActivity.findViewById(R.id.mEducation_tv_1);
         mIncome_tv = (TextView) mActivity.findViewById(R.id.mIncome_tv);
         mAge_tv = (TextView) mActivity.findViewById(R.id.mAge_tv);
         mWorkingArea_tv = (TextView) mActivity.findViewById(R.id.mWorkingArea_tv);
@@ -139,7 +141,7 @@ public class PersonalDataFragment extends Fragment{
         mPersonalEdit_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(mActivity, EditPersonalDataActivity.class));
+                startActivityForResult(new Intent(mActivity, EditPersonalDataActivity.class),30);
                 mActivity.mPopup_layout.setVisibility(View.GONE);
             }
         });
@@ -158,6 +160,7 @@ public class PersonalDataFragment extends Fragment{
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
+            //返回独白内容
             case 0:
             if (resultCode == mActivity.RESULT_OK) {
             String content = data.getStringExtra(ConditionalSelectionActivity.VALUE);
@@ -177,8 +180,13 @@ public class PersonalDataFragment extends Fragment{
                 });
             }
                 break;
-            case 1:
-
+            //返回修改好的个人数据
+            case 30:
+            if(resultCode == mActivity.RESULT_OK){
+                Toast.makeText(mActivity, "调用成功!", Toast.LENGTH_SHORT).show();
+               User user = (User) data.getSerializableExtra("user");
+                getData(user);
+            }
                 break;
             default:break;
         }

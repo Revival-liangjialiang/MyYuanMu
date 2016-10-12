@@ -35,8 +35,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import cn.bmob.v3.BmobInstallation;
-import cn.bmob.v3.BmobPushManager;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobRelation;
@@ -59,8 +57,9 @@ public class Lifecircle_Fragment extends Fragment implements View.OnClickListene
     private AppCompatActivity mActivity;
     private boolean mCommentAndReplySwitch;
     private ViewGroup view;
-    private ListView lv_1;
     private String articleId;
+    private ListView lv_1;
+
     private LifecircleAdapter adapter;
     private Map<String, Object> map;
     private Context context;
@@ -160,7 +159,6 @@ public class Lifecircle_Fragment extends Fragment implements View.OnClickListene
         mPullToRefreshView = (PullToRefreshView) view.findViewById(R.id.pull_to_refresh);
     }
     public void getData() {
-        MyLog.i("ko","加载数据!");
         mCircleCommentList.clear();
         mReplyListMap.clear();
         mCommentListMap.clear();
@@ -229,7 +227,6 @@ public class Lifecircle_Fragment extends Fragment implements View.OnClickListene
         }
     }
     public void startCommentQuery(){
-        MyLog.i("value","启动文章评论请求!");
         adapter.notifyDataSetChanged();
         Toast.makeText(MyApplication.getContext(), "启动文章评论请求!", Toast.LENGTH_SHORT).show();
         //查询文章的评论
@@ -334,14 +331,6 @@ public class Lifecircle_Fragment extends Fragment implements View.OnClickListene
                                     mCommentAndReplySwitch = true;
                                     Toast.makeText(context, "保存成功", Toast.LENGTH_SHORT)
                                             .show();
-                                    //bmob推送评论后推送消息
-                                    Toast.makeText(MyApplication.getContext(), "推送开始!", Toast.LENGTH_SHORT).show();
-                                    String installationId = "28FB74F34E24EFF946282FF688B776B9";
-                                    BmobPushManager bmobPush = new BmobPushManager<>();
-                                    BmobQuery<BmobInstallation> query = BmobInstallation.getQuery();
-                                    query.addWhereEqualTo("installationId", installationId);
-                                    bmobPush.setQuery(query);
-                                    bmobPush.pushMessage("我来啦 哈哈！");
                                 } else {
                                     Toast.makeText(context, "保存失败", Toast.LENGTH_SHORT)
                                             .show();

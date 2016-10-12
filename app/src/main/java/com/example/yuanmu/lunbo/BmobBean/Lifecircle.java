@@ -1,11 +1,15 @@
 package com.example.yuanmu.lunbo.BmobBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.datatype.BmobRelation;
 
 public class Lifecircle extends BmobObject {
+	public Lifecircle(){
+		fabulous.add(" ");
+	}
 	public String getContent() {
 		return content;
 	}
@@ -47,5 +51,5 @@ public class Lifecircle extends BmobObject {
 	private List<String> imgarray;
 	private BmobRelation comment;
 	private List<String> commentarray;
-
+	private List<String> fabulous = new ArrayList<>();
 }

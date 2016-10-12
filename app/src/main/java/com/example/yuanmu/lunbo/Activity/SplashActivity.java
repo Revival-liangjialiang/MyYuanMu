@@ -24,10 +24,8 @@ import com.example.yuanmu.lunbo.Util.SharedUtil;
 import com.example.yuanmu.lunbo.interfaces.LoginInterface;
 import com.example.yuanmu.lunbo.interfaces.LoginUtil;
 
-import cn.bmob.push.BmobPush;
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobConfig;
-import cn.bmob.v3.BmobInstallation;
 
 public class SplashActivity extends Activity {
 	ImageView rlRoot;
@@ -52,11 +50,6 @@ public class SplashActivity extends Activity {
 				// 文件的过期时间(单位为秒)：默认1800s
 				.setFileExpiration(2500).build();
 		Bmob.initialize(config);
-		Bmob.initialize(this, "d6aba0f132596eb927dcde680f807bec");
-		// 使用推送服务时的初始化操作
-		BmobInstallation.getCurrentInstallation().save();
-		// 启动推送服务
-		BmobPush.startWork(this);
 		rlRoot = (ImageView) findViewById(R.id.rl_root);
 		startAnim();
 	}

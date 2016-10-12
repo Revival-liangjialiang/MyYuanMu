@@ -21,16 +21,29 @@ import com.example.yuanmu.lunbo.Activity.LoveActivity;
 import com.example.yuanmu.lunbo.Activity.Lovematch;
 import com.example.yuanmu.lunbo.Activity.MainActivity;
 import com.example.yuanmu.lunbo.Activity.StoryActivity;
+import com.example.yuanmu.lunbo.Adapter.HomePageAdapter;
+import com.example.yuanmu.lunbo.Application.MyApplication;
 import com.example.yuanmu.lunbo.BmobBean.Carousel;
+import com.example.yuanmu.lunbo.BmobBean.CircleComment;
+import com.example.yuanmu.lunbo.BmobBean.Lifecircle;
+import com.example.yuanmu.lunbo.BmobBean.Reply;
 import com.example.yuanmu.lunbo.Custom.MyView;
+import com.example.yuanmu.lunbo.Custom.StoryListView;
 import com.example.yuanmu.lunbo.R;
+import com.example.yuanmu.lunbo.Util.MyLog;
 import com.example.yuanmu.lunbo.Util.VolleyRequest;
 import com.jingchen.pulltorefresh.PullToRefreshLayout;
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.adapter.LoopPagerAdapter;
 import com.jude.rollviewpager.hintview.IconHintView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
@@ -40,6 +53,23 @@ import cn.bmob.v3.listener.FindListener;
  * Created by Administrator on 2016/8/25 0025.
  */
 public class HomePage_Fragment extends Fragment implements View.OnClickListener {
+    //生活圈字段
+    StoryListView mHomePage_lv;
+    private HomePageAdapter adapter;
+    //文章集合
+    private List<Map<String, Object>> mList = new ArrayList<Map<String, Object>>();
+    //评论集合
+    private Map<String,List> mCommentListMap = new HashMap<>();
+    //回复集合
+    private Map<String,List> mReplyListMap = new HashMap<>();
+    private Map<String, Object> map;
+    private List<List> mCircleCommentList = new ArrayList<>();
+    private String articleId;
+    private String mQueryArticleId;
+    private int mCommentValue = 0;
+    private String mStartCommentId;
+    private int mCommentCount = 0,mCommentCountCopy = 0;
+
     public int mDownload_complete_switch = 0;
     String[] mAddressTop,mAddressBottom;
     VolleyRequest mRequestTop,mRequestBottom;
@@ -56,7 +86,6 @@ public class HomePage_Fragment extends Fragment implements View.OnClickListener 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Log.i("kkk","yes!");
         ViewGroup view = (ViewGroup) inflater.from(container.getContext()).inflate(R.layout.home_page_fragment_layout, container, false);
         return view;
     }
@@ -74,6 +103,8 @@ public class HomePage_Fragment extends Fragment implements View.OnClickListener 
         getRequestPictureAddressBottom();
         initView();
         initRollViewPager();
+        initData();
+        getData();
     }
 
     private void setPictureListenerBottom() {
@@ -168,6 +199,7 @@ public class HomePage_Fragment extends Fragment implements View.OnClickListener 
 
 
     private void initView() {
+        mHomePage_lv = (StoryListView) m.findViewById(R.id.mHomePage_lv);
         mLove_match = (MyView) m.findViewById(R.id.love_match);
         mLoveActivity = (MyView) m.findViewById(R.id.love_activity);
         mStorytelling_session = (MyView) m.findViewById(R.id.storytelling_session);
@@ -492,5 +524,134 @@ public class HomePage_Fragment extends Fragment implements View.OnClickListener 
                 m.mLruCache.put(str, bitmap);
             }
         }, 720, 0, ImageView.ScaleType.CENTER_CROP, null, null));
+    }
+    private void initData() {
+        adapter = new HomePageAdapter(getActivity(), mList,mCommentListMap,mReplyListMap);
+        mHomePage_lv.setAdapter(adapter);
+    }
+    public void getData() {
+        mCircleCommentList.clear();
+        mReplyListMap.clear();
+        mCommentListMap.clear();
+        mList.clear();
+        //查询文章
+        BmobQuery<Lifecircle> query = new BmobQuery<Lifecircle>();
+        query.order("-createdAt");
+        query.setLimit(10);
+        query.include("user");// 希望在查询帖子信息的同时也把发布人的信息查询出来
+        query.findObjects(new FindListener<Lifecircle>() {
+            @Override
+            public void done(List<Lifecircle> object, BmobException e) {
+                //2
+                if (e == null) {
+                    Log.i("主页", object.size() + "");
+                    for (int i = 0; i < object.size(); i++) {
+                        //获取文章ID
+                        articleId = object.get(i).getObjectId();
+                        String nickname = object.get(i).getUser()
+                                .getNickname();
+                        String img = object.get(i).getUser().getImg();
+                        String content = object.get(i).getContent();
+                        String objectId = object.get(i).getObjectId();
+                        String createdAt = object.get(i).getCreatedAt();
+                        Date date = null;
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                        try {
+                            date = sdf.parse(createdAt);
+                            MyLog.i("value","date = "+date);
+                        } catch (ParseException el) {
+                            el.printStackTrace();
+                        }
+                        List<String> imgarray = object.get(i).getImgarray();
+                        List<String> commentarray = object.get(i)
+                                .getCommentarray();
+                        map = new HashMap<String, Object>();
+                        map.put("id",articleId);
+                        map.put("nickname", nickname);
+                        map.put("img", img);
+                        map.put("content", content);
+                        map.put("objectId", objectId);
+                        map.put("createdAt", createdAt);
+                        map.put("imgarray", imgarray);
+                        map.put("commentarray", commentarray);
+                        Toast.makeText(MyApplication.getContext(), "加载文章成功!", Toast.LENGTH_SHORT).show();
+                        mList.add(map);
+                    }
+                    //查询文章的评论
+                    startCommentQuery();
+                    Log.i("主页", mList.size() + "");
+                    adapter.notifyDataSetChanged();
+                } else {
+                    Log.i("问题", e + "");
+                }
+            }
+
+        });
+    }
+    public void startCommentQuery(){
+        adapter.notifyDataSetChanged();
+        Toast.makeText(MyApplication.getContext(), "启动文章评论请求!", Toast.LENGTH_SHORT).show();
+        //查询文章的评论
+        for(int a = 0;a<mList.size();a++) {
+            mQueryArticleId = (String) mList.get(a).get("id");
+            BmobQuery<CircleComment> query = new BmobQuery<CircleComment>();
+            query.include("user");
+            query.addWhereEqualTo("belong", mQueryArticleId);
+            query.findObjects(new FindListener<CircleComment>() {
+                //文章ID
+                String articleIdCopy = mQueryArticleId;
+                @Override
+                public void done(final List<CircleComment> list, BmobException e) {
+                    //有多少文章就会加多少次
+                    if (e == null) {
+                        mCommentValue++;
+                        //将一篇文章的所有的评论放进去，待请求回复用
+                        mCircleCommentList.add(list);
+                        //存放文章的评论,索引是文章的objectId
+                        MyLog.i("value","存放评论信息数量为："+list.size());
+                        mCommentListMap.put(articleIdCopy, list);
+                        if(mCommentValue == mList.size()){
+                            startReplyQuery();
+                        }
+                    } else {
+                        Log.i("ppp","请求文章错误信息为:"+e);
+                    }
+                }
+            });
+        }
+        //------------------
+    }
+    public void startReplyQuery(){
+        //继续进行查询评论回复
+        for(int a = 0;a<mCircleCommentList.size();a++) {
+            //取出某个文章的评论进行查询
+            List<CircleComment> list = mCircleCommentList.get(a);
+            for(int b = 0;b<list.size();b++) {
+                mStartCommentId = list.get(b).getObjectId();
+                BmobQuery<Reply> query = new BmobQuery<>();
+                query.addWhereEqualTo("belong",mStartCommentId);
+                query.findObjects(new FindListener<Reply>() {
+                    String id = mStartCommentId;
+                    @Override
+                    public void done(List<Reply> list, BmobException e) {
+                        if(e == null) {
+                            mCommentCountCopy++;
+                            mReplyListMap.put(id, list);
+                            //当相等时，可以进行适配器刷新操作!
+                            if(mCommentCount==mCommentCountCopy){
+                                adapter.notifyDataSetChanged();
+                                mCommentCountCopy = 0;
+                                mCommentCount = 0;
+                                mCommentValue = 0;
+                            }
+                        }else{
+                            Toast.makeText(MyApplication.getContext(), "QueryReplyFail!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                mCommentCount++;
+            }
+        }
+        //----------------------
     }
 }

@@ -9,19 +9,41 @@
     android:layout_height="52dp"
     android:background="@color/StyleColor"
     >
+    <TextView
+        android:textSize="20sp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="遇见对的你"
+        />
 </RelativeLayout>
+
+
     <com.jingchen.pulltorefresh.PullToRefreshLayout
         android:id="@+id/refresh_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/navigation"
         android:background="@color/BackgroundStyleColor">
-
         <com.jingchen.pulltorefresh.PullableScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             >
-            <include layout="@layout/home_page_main_layout"></include>
+            <include layout="@layout/home_page_main_layout"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"></include>
+
         </com.jingchen.pulltorefresh.PullableScrollView>
     </com.jingchen.pulltorefresh.PullToRefreshLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/textView"
+        android:layout_gravity="right"/>
 </LinearLayout>

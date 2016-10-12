@@ -63,7 +63,7 @@ public class ConditionalSelectionFeagment extends Fragment {
         mAge_tv = (TextView) mActivity.findViewById(R.id.mAge_tv_2);
         mHeight_tv = (TextView) mActivity.findViewById(R.id.mHeight_tv_2);
         mIncome_tv = (TextView) mActivity.findViewById(R.id.mIncome_tv_2);
-        mEducation_tv = (TextView) mActivity.findViewById(R.id.mEducation_tv_2);
+        mEducation_tv = (TextView) mActivity.findViewById(R.id.mEducation_tv_3);
         mWeight_tv = (TextView) mActivity.findViewById(R.id.mWeight_tv);
         mMaritalStatus_tv = (TextView) mActivity.findViewById(R.id.mMaritalStatus_tv_2);
         mWorkingArea_tv = (TextView) mActivity.findViewById(R.id.mWorkingArea_tv_2);
