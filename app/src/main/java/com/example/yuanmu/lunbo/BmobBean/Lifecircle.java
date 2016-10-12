@@ -7,9 +7,9 @@ import cn.bmob.v3.BmobObject;
 import cn.bmob.v3.datatype.BmobRelation;
 
 public class Lifecircle extends BmobObject {
-	public Lifecircle(){
+	/*public Lifecircle(){
 		fabulous.add(" ");
-	}
+	}*/
 	public String getContent() {
 		return content;
 	}
@@ -52,4 +52,12 @@ public class Lifecircle extends BmobObject {
 	private BmobRelation comment;
 	private List<String> commentarray;
 	private List<String> fabulous = new ArrayList<>();
+
+	public List<String> getFabulous() {
+		return fabulous;
+	}
+
+	public void setFabulous(List<String> fabulous) {
+		this.fabulous = fabulous;
+	}
 }

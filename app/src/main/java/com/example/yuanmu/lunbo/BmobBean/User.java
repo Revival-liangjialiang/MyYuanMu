@@ -2,20 +2,17 @@ package com.example.yuanmu.lunbo.BmobBean;
 
 
 import java.util.ArrayList;
-
 import cn.bmob.v3.BmobUser;
 public class User extends BmobUser {
     private ArrayList<String> fabulous = new ArrayList();
     private String conditionId;
     //独白
     private String monologue = "这家伙很懒，什么也没留下!";
-
     private String token;
     private String city;
     private String longitute;
     private String latitude;
     private String nickname;
-
     private String img;
     private String installationId;
     //月收入

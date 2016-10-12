@@ -276,7 +276,12 @@ public class LifecircleAdapter extends BaseAdapter {
                                     public void done(Lifecircle object, BmobException e) {
                                         if(e==null){
                                             Lifecircle lifecircle = new Lifecircle();
-                                            List<String> list = new ArrayList<String>();
+                                            List<String> list = object.getFabulous();
+                                            for(int a = 0;a<list.size();a++){
+                                                if(list.get(a).equals(user.getNickname())){
+                                                    return;
+                                                }
+                                            }
                                             list.add(user.getNickname());
                                             lifecircle.setObjectId(articleIdCopy);
                                             lifecircle.setFabulous(list);
@@ -285,7 +290,7 @@ public class LifecircleAdapter extends BaseAdapter {
                                                 public void done(BmobException e) {
                                                if(e == null){
                                                    Toast.makeText(MyApplication.getContext(), "点赞成功!", Toast.LENGTH_SHORT).show();
-                                                   addAndDeleteSwitch = false;
+                                                   /*addAndDeleteSwitch = false;*/
                                                }else {
                                                    Toast.makeText(MyApplication.getContext(), "点赞失败!", Toast.LENGTH_SHORT).show();
                                                    MyLog.i("fff","e = "+e);

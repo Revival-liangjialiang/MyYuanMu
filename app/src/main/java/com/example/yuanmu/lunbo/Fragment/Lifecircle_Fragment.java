@@ -183,6 +183,7 @@ public class Lifecircle_Fragment extends Fragment implements View.OnClickListene
                         String content = object.get(i).getContent();
                         String objectId = object.get(i).getObjectId();
                         String createdAt = object.get(i).getCreatedAt();
+                        List<String> fabulousList = object.get(i).getFabulous();
                         Date date = null;
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                         try {
@@ -195,6 +196,7 @@ public class Lifecircle_Fragment extends Fragment implements View.OnClickListene
                         List<String> commentarray = object.get(i)
                                 .getCommentarray();
                         map = new HashMap<String, Object>();
+                        map.put("fabulous",fabulousList);
                         map.put("id",articleId);
                         map.put("nickname", nickname);
                         map.put("img", img);
