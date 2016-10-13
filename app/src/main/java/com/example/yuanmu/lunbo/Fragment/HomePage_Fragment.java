@@ -57,6 +57,7 @@ import cn.bmob.v3.listener.FindListener;
  * Created by Administrator on 2016/8/25 0025.
  */
 public class HomePage_Fragment extends Fragment implements View.OnClickListener {
+    int o = 0;
     //加载布局
     RelativeLayout mLoading_layout;
     RotateLoading rotateLoading;
