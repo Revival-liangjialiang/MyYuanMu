@@ -26,6 +26,7 @@ android {
 }
 
 dependencies {
+    compile project(':load')
     compile project(':library')
     compile project(':wheelview')
     compile project(':volley')

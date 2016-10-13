@@ -58,6 +58,7 @@
                 android:textSize="16sp" />
 
             <TextView
+                android:id="@+id/occupation_tv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -86,7 +87,7 @@
 
             <TextView
                 android:layout_toRightOf="@+id/dubai"
-                android:id="@+id/tv_content"
+                android:id="@+id/monologue_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
@@ -184,6 +185,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/mEducation_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
@@ -196,6 +198,7 @@
                     android:background="@color/background" />
 
                 <TextView
+                    android:id="@+id/mHeight_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
@@ -208,6 +211,7 @@
                     android:background="@color/background" />
 
                 <TextView
+                    android:id="@+id/mWeight_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
@@ -220,6 +224,7 @@
                     android:background="@color/background" />
 
                 <TextView
+                    android:id="@+id/mIncome_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
@@ -294,6 +299,7 @@
                 android:textColor="#000033" />
 
             <TextView
+                android:id="@+id/mAddressAndBirthday_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"

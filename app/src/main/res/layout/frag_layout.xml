@@ -1,18 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/card_bg" >
+<com.example.yuanmu.lunbo.Custom.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                       android:id="@+id/percentLayout"
+                                                       android:layout_width="match_parent"
+                                                       android:layout_height="match_parent"
+                                                       xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                       android:background="@drawable/card_bg">
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        app:layout_heightPercent="100%w"
         android:scaleType="centerCrop" />
+    <TextView
+        android:id="@+id/monologue_tv"
+        android:text="这家伙很懒，什么也没写！"
+        android:layout_below="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_heightPercent="15%"
+        />
 <RelativeLayout
     android:layout_alignParentBottom="true"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
+    android:layout_height="0dp"
+    app:layout_heightPercent="13%h"
     android:background="#7000"
     >
     <LinearLayout
@@ -22,6 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     <TextView
+        android:id="@+id/userName"
         android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,13 +47,14 @@
         android:orientation="horizontal"
         >
         <TextView
+            android:id="@+id/age_tv"
             android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="23"
             />
         <TextView
-            android:textColor="@color/white"
+            android:textColor="@color/StyleColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="岁"
@@ -55,10 +69,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
+            android:textColor="@color/StyleColor"
             android:text="cm"
             />
         <TextView
+            android:id="@+id/constellation_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
@@ -77,4 +92,4 @@
         android:id="@+id/collection_view"
         >
     </com.example.yuanmu.lunbo.Custom.Frame_MyView>
-</RelativeLayout>
+</com.example.yuanmu.lunbo.Custom.PercentRelativeLayout>

@@ -176,14 +176,13 @@ public class Lifecircle_Fragment extends Fragment implements View.OnClickListene
                     Log.i("数量", object.size() + "");
                     for (int i = 0; i < object.size(); i++) {
                         //获取文章ID
-                         articleId = object.get(i).getObjectId();
+                        articleId = object.get(i).getObjectId();
                         String nickname = object.get(i).getUser()
                                 .getNickname();
                         String img = object.get(i).getUser().getImg();
                         String content = object.get(i).getContent();
                         String objectId = object.get(i).getObjectId();
                         String createdAt = object.get(i).getCreatedAt();
-                        List<String> fabulousList = object.get(i).getFabulous();
                         Date date = null;
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                         try {
@@ -192,6 +191,7 @@ public class Lifecircle_Fragment extends Fragment implements View.OnClickListene
                         } catch (ParseException el) {
                             el.printStackTrace();
                         }
+                        List<String> fabulousList = object.get(i).getFabulous();
                         List<String> imgarray = object.get(i).getImgarray();
                         List<String> commentarray = object.get(i)
                                 .getCommentarray();

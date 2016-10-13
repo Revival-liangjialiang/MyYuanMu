@@ -59,7 +59,7 @@ public class Nearby_Fragment extends Fragment{
 //查询playerName叫“比目”的数据
         query.addWhereEqualTo("city", "广州市");
 //返回50条数据，如果不加上这条语句，默认返回10条数据
-        query.setLimit(50);
+        query.setLimit(20);
 //执行查询方法
         query.findObjects(new FindListener<User>() {
             @Override

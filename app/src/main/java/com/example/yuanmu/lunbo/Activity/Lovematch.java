@@ -1,13 +1,18 @@
 package com.example.yuanmu.lunbo.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.yuanmu.lunbo.Adapter.TestFragPagerAdapter;
+import com.example.yuanmu.lunbo.BmobBean.User;
 import com.example.yuanmu.lunbo.R;
+import com.example.yuanmu.lunbo.Util.StatusBarColorUtil;
 import com.example.yuanmu.lunbo.widget.jellyviewpager_widget.JellyViewPager;
+
+import java.util.List;
 
 /**
  * Created by Administrator on 2016/9/2 0002.
@@ -19,13 +24,17 @@ public class Lovematch extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_love_match_layout);
-        initView();
+        new StatusBarColorUtil(this,R.color.StatusBarColor);
+        Intent intent = getIntent();
+        List<User> user = (List<User>) intent.getSerializableExtra("list");
+        initView(user);
     }
 
-    private void initView() {
+
+    private void initView(List<User> users) {
         pager = (JellyViewPager) findViewById(R.id.myViewPager1);
         //pager.setAdapter(new TestPagerAdapter(this));
-        pager.setAdapter(new TestFragPagerAdapter(getSupportFragmentManager()));
+        pager.setAdapter(new TestFragPagerAdapter(getSupportFragmentManager(),users));
         pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrollStateChanged(int state) {

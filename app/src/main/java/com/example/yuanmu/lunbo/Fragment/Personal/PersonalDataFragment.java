@@ -58,7 +58,6 @@ public class PersonalDataFragment extends Fragment{
         }
         mHeight_tv.setText(object.getHeight());
         mIncome_tv.setText(object.getIncome());
-        MyLog.i("ggg",">>>>>>"+object.getEducation());
         mEducation_tv.setText(object.getEducation());
         mMaritalStatus_tv.setText(object.getMarital_status());
         mHousingSituation_tv.setText(object.getHousing_situation());

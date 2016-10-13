@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android.volley.Response;
@@ -27,6 +28,7 @@ import com.example.yuanmu.lunbo.BmobBean.Carousel;
 import com.example.yuanmu.lunbo.BmobBean.CircleComment;
 import com.example.yuanmu.lunbo.BmobBean.Lifecircle;
 import com.example.yuanmu.lunbo.BmobBean.Reply;
+import com.example.yuanmu.lunbo.BmobBean.User;
 import com.example.yuanmu.lunbo.Custom.MyView;
 import com.example.yuanmu.lunbo.Custom.StoryListView;
 import com.example.yuanmu.lunbo.R;
@@ -36,7 +38,9 @@ import com.jingchen.pulltorefresh.PullToRefreshLayout;
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.adapter.LoopPagerAdapter;
 import com.jude.rollviewpager.hintview.IconHintView;
+import com.victor.loading.rotate.RotateLoading;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -53,6 +57,11 @@ import cn.bmob.v3.listener.FindListener;
  * Created by Administrator on 2016/8/25 0025.
  */
 public class HomePage_Fragment extends Fragment implements View.OnClickListener {
+    //加载布局
+    RelativeLayout mLoading_layout;
+    RotateLoading rotateLoading;
+    boolean loadSwitch = true,mStartActivitySwitch = true;
+
     //生活圈字段
     StoryListView mHomePage_lv;
     private HomePageAdapter adapter;
@@ -83,6 +92,14 @@ public class HomePage_Fragment extends Fragment implements View.OnClickListener 
     MainActivity m;
     MyView mLove_match, mLoveActivity, mStorytelling_session, mSearch_in_figure;
 
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            mLoading_layout.setVisibility(View.GONE);
+        }
+    };
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -94,7 +111,6 @@ public class HomePage_Fragment extends Fragment implements View.OnClickListener 
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         m = (MainActivity) getActivity();
-        //TODO
         mRequestTop = new VolleyRequest(getContext());
         mRequestBottom = new VolleyRequest(getContext());
         setPictureListenerTop();
@@ -199,6 +215,8 @@ public class HomePage_Fragment extends Fragment implements View.OnClickListener 
 
 
     private void initView() {
+        rotateLoading = (RotateLoading) m.findViewById(R.id.rotateloading);
+        mLoading_layout = (RelativeLayout) m.findViewById(R.id.loading_layout);
         mHomePage_lv = (StoryListView) m.findViewById(R.id.mHomePage_lv);
         mLove_match = (MyView) m.findViewById(R.id.love_match);
         mLoveActivity = (MyView) m.findViewById(R.id.love_activity);
@@ -216,10 +234,10 @@ public class HomePage_Fragment extends Fragment implements View.OnClickListener 
         mLoveActivity.setOnClickListener(this);
         mStorytelling_session.setOnClickListener(this);
         mSearch_in_figure.setOnClickListener(this);
+        mLoading_layout.setOnClickListener(this);
         //初始化下拉控件
         mPullToRefreshLayout = ((PullToRefreshLayout) m.findViewById(R.id.refresh_view));
         mPullToRefreshLayout.setOnPullListener(new MyPullListener());
-        //TODO--------------------------------
         //加载更多的监听
         mPullToRefreshLayout.setOnLoadmoreProcessListener(new MyOnPullProcessListener_Top());
         //下拉刷新的监听
@@ -341,8 +359,45 @@ public class HomePage_Fragment extends Fragment implements View.OnClickListener 
                 break;
             //爱匹配点击
             case R.id.love_match:
-                Intent love_match_intent = new Intent(m, Lovematch.class);
-                startActivity(love_match_intent);
+                mStartActivitySwitch = true;
+                if(loadSwitch) {
+                    loadSwitch = false;
+                    rotateLoading.start();
+                    mLoading_layout.setVisibility(View.VISIBLE);
+                    BmobQuery<User> query = new BmobQuery<User>();
+                    query.addWhereEqualTo("city", "广州市");
+                    query.setLimit(20);
+                    query.findObjects(new FindListener<User>() {
+                        @Override
+                        public void done(List<User> object, BmobException e) {
+                            if (e == null) {
+                                if(mStartActivitySwitch) {
+                                    // TODO: 2016/10/13 0013
+                                    loadSwitch = true;
+                                    Intent love_match_intent = new Intent(m, Lovematch.class);
+                                    Bundle bundle = new Bundle();
+                                    bundle.putSerializable("list", (Serializable) object);
+                                    love_match_intent.putExtras(bundle);
+                                    startActivity(love_match_intent);
+                                    rotateLoading.stop();
+                                    new Thread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            try {
+                                                Thread.sleep(700);
+                                                handler.sendMessage(new Message());
+                                            } catch (InterruptedException e1) {
+                                                e1.printStackTrace();
+                                            }
+                                        }
+                                    }).start();
+                                }
+                            } else {
+                                Log.i("bmob", "失败：" + e.getMessage() + "," + e.getErrorCode());
+                            }
+                        }
+                    });
+                }
                 break;
             //爱生活点击
             case R.id.love_activity:
@@ -356,6 +411,24 @@ public class HomePage_Fragment extends Fragment implements View.OnClickListener 
                 break;
             //图中寻
             case R.id.search_in_figure:
+                break;
+            case R.id.loading_layout:
+               // 先关加载器，一秒后再关布局
+                rotateLoading.stop();
+                loadSwitch = true;
+                mStartActivitySwitch = false;
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(700);
+                            Message message = new Message();
+                            handler.sendMessage(message);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
                 break;
             default:
                 break;
@@ -383,7 +456,7 @@ public class HomePage_Fragment extends Fragment implements View.OnClickListener 
         //刷新完成的时候调用一次
         @Override
         public void onFinish(View v, int which) {
-            // TODO Auto-generated method stub
+
             Toast.makeText(getContext(), "上拉刷新完成！", Toast.LENGTH_SHORT).show();
         }
 
@@ -418,7 +491,7 @@ public class HomePage_Fragment extends Fragment implements View.OnClickListener 
         //刷新完成的时候调用一次
         @Override
         public void onFinish(View v, int which) {
-            // TODO Auto-generated method stub
+
             Toast.makeText(getContext(), "下拉刷新完成！", Toast.LENGTH_SHORT).show();
         }
 

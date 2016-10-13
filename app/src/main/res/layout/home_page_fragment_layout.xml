@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="52dp"
-    android:background="@color/StyleColor"
     >
-    <TextView
-        android:textSize="20sp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:textColor="@color/white"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="遇见对的你"
-        />
-</RelativeLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:background="@color/StyleColor"
+        >
+        <TextView
+            android:textSize="20sp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="遇见对的你"
+            />
+    </RelativeLayout>
 
 
     <com.jingchen.pulltorefresh.PullToRefreshLayout
@@ -30,11 +34,11 @@
         <com.jingchen.pulltorefresh.PullableScrollView
             android:fillViewport="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             >
             <include layout="@layout/home_page_main_layout"
                      android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"></include>
+                     android:layout_height="match_parent"></include>
 
         </com.jingchen.pulltorefresh.PullableScrollView>
     </com.jingchen.pulltorefresh.PullToRefreshLayout>
@@ -47,3 +51,5 @@
         android:id="@+id/textView"
         android:layout_gravity="right"/>
 </LinearLayout>
+    <include layout="@layout/load_layout"></include>
+</RelativeLayout>

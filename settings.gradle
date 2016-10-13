@@ -1,1 +1,1 @@
-include ':app', ':FlycoTabLayout_Lib', ':rollviewpager', ':volley', ':pullToRefreshlibrary', ":library", ':wheelview', ':IMKitRong'
+include ':app', ':FlycoTabLayout_Lib', ':rollviewpager', ':volley', ':pullToRefreshlibrary', ":library", ':wheelview', ':IMKitRong', ':load'
