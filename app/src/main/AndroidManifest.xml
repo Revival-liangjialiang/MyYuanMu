@@ -156,6 +156,8 @@
                   android:windowSoftInputMode="adjustResize"
                   android:theme="@style/Transparent"
             ></activity>
+        <!-- 图中寻活动 -->
+        <activity android:name="com.example.yuanmu.lunbo.Activity.CustomMarkerActivity"></activity>
         <activity android:name=".Activity.LocalImageActivity"></activity>
         <!--发送地图-->
         <activity android:name="com.example.yuanmu.lunbo.Activity.AMAPLocationActivity"/>

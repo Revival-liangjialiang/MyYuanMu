@@ -58,7 +58,8 @@ import io.rong.message.LocationMessage;
  * Created by AMing on 16/5/9.
  * Company RongCloud
  */
-public class AMAPLocationActivity extends ActionBarActivity implements View.OnClickListener, LocationSource, GeocodeSearch.OnGeocodeSearchListener, AMapLocationListener, AMap.OnCameraChangeListener {
+public class AMAPLocationActivity extends ActionBarActivity implements View.OnClickListener, LocationSource, GeocodeSearch.OnGeocodeSearchListener,
+        AMapLocationListener, AMap.OnCameraChangeListener {
     static public final int REQUEST_CODE_ASK_PERMISSIONS = 101;
     private MapView mapView;
     private AMap aMap;

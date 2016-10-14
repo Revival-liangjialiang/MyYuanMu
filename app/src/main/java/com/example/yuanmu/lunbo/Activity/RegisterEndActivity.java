@@ -42,7 +42,6 @@ public class RegisterEndActivity extends AppCompatActivity implements View.OnCli
 
     static final int REGISTER_SUCCESS = 0,REGISTER_FAIL = 1;
     EditText mUserNickNameET,mPassWordET_1,mPassWordET_2;
-    String mUserNameStr;
     String mTelephoneStr;
     //完成
     TextView mComplete;

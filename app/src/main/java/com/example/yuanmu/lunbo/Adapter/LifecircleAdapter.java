@@ -60,7 +60,6 @@ public class LifecircleAdapter extends BaseAdapter {
     private Map<String,List> mCommentListMap = new HashMap<>();
     //回复集合
     private Map<String,List> mReplyListMap = new HashMap<>();
-
     //
 //   private List<CircleComment> mCommentCopyList;
     private List<Reply> mReplyCopyList;
@@ -291,25 +290,42 @@ public class LifecircleAdapter extends BaseAdapter {
                 });
                 //点赞图标点击事件
                 holder1.iv_good.setOnClickListener(new View.OnClickListener() {
+                    List<String> list = fabulousList;
                     boolean addAndDeleteSwitch = true;
                     String articleIdCopy = articleId;
                     @Override
                     public void onClick(View view) {
-                        Toast.makeText(MyApplication.getContext(), "测试点赞成功!", Toast.LENGTH_SHORT).show();
                         if (MyApplication.isLogin) {
                             if (addAndDeleteSwitch) {
+                                addAndDeleteSwitch = false;
                                 //todo
-                                List<String> list = fabulousList;
                                 //点赞人数大于0，就需要判断点赞重复问题，反之直接点赞成功!
                                 if(list.size()>0){
                                     String str = user.getNickname();
-                                    for(int f = 0;f<list.size();f++){
-                                        if(list.get(f).equals(str)){
-                                            //若该用户点赞过了，不再做任何操作!
-                                            return;
-                                        }else{
+                                    for(int f = 0;f<list.size();f++) {
+                                        //如果此人已点过，则删除此人的点赞
+                                        if (list.get(f).equals(str)) {
+                                           list.remove(f);
                                             Lifecircle lifecircle = new Lifecircle();
+                                            lifecircle.setObjectId(articleIdCopy);
+                                            lifecircle.setFabulous(list);
+                                            lifecircle.update(new UpdateListener() {
+                                                @Override
+                                                public void done(BmobException e) {
+                                                    if(e == null){
+                                                        Toast.makeText(MyApplication.getContext(), "删除点赞成功!", Toast.LENGTH_SHORT).show();
+                                                        notifyDataSetChanged();
+                                                        addAndDeleteSwitch = true;
+                                                    }else {
+                                                        Toast.makeText(MyApplication.getContext(), "删除点赞失败!", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            });
+                                            return;
+                                        }
+                                    }
                                             list.add(user.getNickname());
+                                            Lifecircle lifecircle = new Lifecircle();
                                             lifecircle.setObjectId(articleIdCopy);
                                             lifecircle.setFabulous(list);
                                             lifecircle.update(new UpdateListener() {
@@ -317,16 +333,14 @@ public class LifecircleAdapter extends BaseAdapter {
                                                 public void done(BmobException e) {
                                                     if(e == null){
                                                         Toast.makeText(MyApplication.getContext(), "点赞成功!", Toast.LENGTH_SHORT).show();
-                                                        fabulousList.add(user.getNickname());
-                                                        addAndDeleteSwitch = false;
+                                                        notifyDataSetChanged();
+                                                        addAndDeleteSwitch = true;
                                                     }else {
                                                         Toast.makeText(MyApplication.getContext(), "点赞失败!", Toast.LENGTH_SHORT).show();
-                                                        MyLog.i("fff","e = "+e);
                                                     }
                                                 }
                                             });
-                                        }
-                                    }
+
                                 }else{
                                     Lifecircle lifecircle = new Lifecircle();
                                     list.add(user.getNickname());
@@ -337,7 +351,7 @@ public class LifecircleAdapter extends BaseAdapter {
                                         public void done(BmobException e) {
                                             if(e == null){
                                                 Toast.makeText(MyApplication.getContext(), "点赞成功!", Toast.LENGTH_SHORT).show();
-                                                addAndDeleteSwitch = false;
+                                                addAndDeleteSwitch = true;
                                             }else {
                                                 Toast.makeText(MyApplication.getContext(), "点赞失败!", Toast.LENGTH_SHORT).show();
                                                 MyLog.i("fff","e = "+e);
@@ -346,13 +360,10 @@ public class LifecircleAdapter extends BaseAdapter {
                                     });
                                 }
 
-                            } else {
-                            /*Fabulous fabulous = new Fabulous();*/
                             }
                         }else{
                             Toast.makeText(MyApplication.getContext(), "未登录", Toast.LENGTH_SHORT).show();
                         }
-
                     }
                 });
                 List<CircleComment> mCommentCopyList0 = mCommentListMap.get(holder1.ll_2.getTag() + "");

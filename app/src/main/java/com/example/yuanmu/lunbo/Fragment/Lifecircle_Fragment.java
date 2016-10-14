@@ -84,6 +84,7 @@ public class Lifecircle_Fragment extends Fragment implements View.OnClickListene
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        MyLog.i("lg","真的噢！");
         view = (ViewGroup) inflater.from(container.getContext()).inflate(R.layout.fragment_lifecircle, container, false);
         context = getActivity();
         mCurrentUser = BmobUser.getCurrentUser(User.class);
@@ -205,7 +206,6 @@ public class Lifecircle_Fragment extends Fragment implements View.OnClickListene
                         map.put("createdAt", createdAt);
                         map.put("imgarray", imgarray);
                         map.put("commentarray", commentarray);
-                        Toast.makeText(MyApplication.getContext(), "加载文章成功!", Toast.LENGTH_SHORT).show();
                         mList.add(map);
                     }
                     //查询文章的评论
@@ -230,7 +230,6 @@ public class Lifecircle_Fragment extends Fragment implements View.OnClickListene
     }
     public void startCommentQuery(){
         adapter.notifyDataSetChanged();
-        Toast.makeText(MyApplication.getContext(), "启动文章评论请求!", Toast.LENGTH_SHORT).show();
         //查询文章的评论
         for(int a = 0;a<mList.size();a++) {
             mQueryArticleId = (String) mList.get(a).get("id");
@@ -248,7 +247,6 @@ public class Lifecircle_Fragment extends Fragment implements View.OnClickListene
                         //将一篇文章的所有的评论放进去，待请求回复用
                         mCircleCommentList.add(list);
                         //存放文章的评论,索引是文章的objectId
-                        MyLog.i("value","存放评论信息数量为："+list.size());
                         mCommentListMap.put(articleIdCopy, list);
                         if(mCommentValue == mList.size()){
                             startReplyQuery();

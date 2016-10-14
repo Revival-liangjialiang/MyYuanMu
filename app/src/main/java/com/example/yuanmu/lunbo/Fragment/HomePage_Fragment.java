@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.toolbox.ImageRequest;
+import com.example.yuanmu.lunbo.Activity.CustomMarkerActivity;
 import com.example.yuanmu.lunbo.Activity.LoveActivity;
 import com.example.yuanmu.lunbo.Activity.Lovematch;
 import com.example.yuanmu.lunbo.Activity.MainActivity;
@@ -57,7 +58,6 @@ import cn.bmob.v3.listener.FindListener;
  * Created by Administrator on 2016/8/25 0025.
  */
 public class HomePage_Fragment extends Fragment implements View.OnClickListener {
-    int o = 0;
     //加载布局
     RelativeLayout mLoading_layout;
     RotateLoading rotateLoading;
@@ -213,8 +213,6 @@ public class HomePage_Fragment extends Fragment implements View.OnClickListener 
             }
         });
     }
-
-
     private void initView() {
         rotateLoading = (RotateLoading) m.findViewById(R.id.rotateloading);
         mLoading_layout = (RelativeLayout) m.findViewById(R.id.loading_layout);
@@ -410,8 +408,45 @@ public class HomePage_Fragment extends Fragment implements View.OnClickListener 
                 Intent storytelling_session_intent = new Intent(m, StoryActivity.class);
                 startActivity(storytelling_session_intent);
                 break;
+            // TODO: 2016/10/14 0014
             //图中寻
             case R.id.search_in_figure:
+                mStartActivitySwitch = true;
+                if(loadSwitch) {
+                    loadSwitch = false;
+                    rotateLoading.start();
+                    mLoading_layout.setVisibility(View.VISIBLE);
+                    BmobQuery<User> query = new BmobQuery<User>();
+                    query.addWhereEqualTo("city", "广州市");
+                    query.setLimit(20);
+                    query.findObjects(new FindListener<User>() {
+                        @Override
+                        public void done(List<User> object, BmobException e) {
+                            if (e == null) {
+                                loadSwitch = true;
+                                Intent intent = new Intent(m, CustomMarkerActivity.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putSerializable("list", (Serializable) object);
+                                intent.putExtras(bundle);
+                                startActivity(intent);
+                                rotateLoading.stop();
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            Thread.sleep(700);
+                                            handler.sendMessage(new Message());
+                                        } catch (InterruptedException e1) {
+                                            e1.printStackTrace();
+                                        }
+                                    }
+                                }).start();
+                            } else {
+                                Log.i("bmob", "失败：" + e.getMessage() + "," + e.getErrorCode());
+                            }
+                        }
+                    });
+                }
                 break;
             case R.id.loading_layout:
                // 先关加载器，一秒后再关布局
@@ -508,7 +543,6 @@ public class HomePage_Fragment extends Fragment implements View.OnClickListener 
 
         @Override
         public void onRefresh(final PullToRefreshLayout pullToRefreshLayout) {
-            Log.i("ok", "下拉手已松开！");
             // 下拉刷新操作
             new Handler() {
                 @Override
@@ -521,7 +555,6 @@ public class HomePage_Fragment extends Fragment implements View.OnClickListener 
 
         @Override
         public void onLoadMore(final PullToRefreshLayout pullToRefreshLayout) {
-            Log.i("ok", ">>>>>>>>>>>>>>>>>>>>>>>上拉手已松开！");
             // 加载操作
             new Handler() {
                 @Override

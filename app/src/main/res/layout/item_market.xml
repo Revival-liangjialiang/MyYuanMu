@@ -11,7 +11,7 @@
         android:layout_marginTop="40dp"
         android:gravity="top|center_horizontal"
         android:text="▼"
-        android:textColor="#ffffff"
+        android:textColor="#D4D0C8"
         android:textSize="18sp" />
 
     <com.example.yuanmu.lunbo.Custom.CircleImageView
