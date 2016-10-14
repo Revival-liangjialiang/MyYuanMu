@@ -359,7 +359,6 @@ public class LifecircleAdapter extends BaseAdapter {
                                         }
                                     });
                                 }
-
                             }
                         }else{
                             Toast.makeText(MyApplication.getContext(), "未登录", Toast.LENGTH_SHORT).show();

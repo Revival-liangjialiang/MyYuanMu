@@ -221,10 +221,10 @@ public class HomePage_Fragment extends Fragment implements View.OnClickListener 
         mLoveActivity = (MyView) m.findViewById(R.id.love_activity);
         mStorytelling_session = (MyView) m.findViewById(R.id.storytelling_session);
         mSearch_in_figure = (MyView) m.findViewById(R.id.search_in_figure);
-        mLove_match.bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.myviewtest);
-        mLoveActivity.bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.myviewtest);
-        mStorytelling_session.bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.myviewtest);
-        mSearch_in_figure.bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.myviewtest);
+        mLove_match.bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.n1);
+        mLoveActivity.bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.n2);
+        mStorytelling_session.bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.n3);
+        mSearch_in_figure.bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.n4);
         mLove_match.postInvalidate();
         mLoveActivity.postInvalidate();
         mStorytelling_session.postInvalidate();
