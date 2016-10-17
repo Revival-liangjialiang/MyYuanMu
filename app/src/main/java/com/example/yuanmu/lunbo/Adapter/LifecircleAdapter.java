@@ -3,6 +3,7 @@ package com.example.yuanmu.lunbo.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -274,6 +275,7 @@ public class LifecircleAdapter extends BaseAdapter {
                             LinearLayout.LayoutParams.WRAP_CONTENT,
                             LinearLayout.LayoutParams.WRAP_CONTENT
                     );
+                    IvlayoutParams.gravity = Gravity.CENTER_HORIZONTAL;
                     imageView.setLayoutParams(IvlayoutParams);
                     imageView.setImageResource(R.drawable.icon_fabulous);
                     fLinearLayout.addView(imageView);
@@ -397,7 +399,6 @@ public class LifecircleAdapter extends BaseAdapter {
                             public void onClick(View view) {
                                 //传入即将被回复的用户和用户昵称还有评论的ID
                                 CommentReplyListener.commentClick(circleCommentCopy.getUser(),circleCommentCopy.getUser().getNickname(),circleCommentCopy.getObjectId());
-                                MyLog.i("iii","");
                             }
                         });
                         //添加到评论区

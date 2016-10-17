@@ -243,7 +243,6 @@ public class HomePage_Fragment extends Fragment implements View.OnClickListener 
         mPullToRefreshLayout.setOnRefreshProcessListener(new MyOnPullProcessListener_Bottom());
         Log.i("初始化View完成！", "");
     }
-
     public void getRequestPictureAddressBottom() {
         BmobQuery<Carousel> query = new BmobQuery<>();
         query.findObjects(new FindListener<Carousel>() {
