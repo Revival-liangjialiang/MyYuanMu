@@ -84,7 +84,6 @@ public class Lifecircle_Fragment extends Fragment implements View.OnClickListene
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        MyLog.i("lg","真的噢！");
         view = (ViewGroup) inflater.from(container.getContext()).inflate(R.layout.fragment_lifecircle, container, false);
         context = getActivity();
         mCurrentUser = BmobUser.getCurrentUser(User.class);

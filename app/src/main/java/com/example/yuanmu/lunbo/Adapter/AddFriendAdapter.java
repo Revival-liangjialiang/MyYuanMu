@@ -74,7 +74,6 @@ public class AddFriendAdapter extends BaseAdapter{
 
 
 		convertView.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
 				friclick.onfriclick(username);

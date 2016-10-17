@@ -13,9 +13,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.yuanmu.lunbo.Adapter.AddFriendAdapter;
-import com.example.yuanmu.lunbo.R;
 import com.example.yuanmu.lunbo.BmobBean.Focus;
 import com.example.yuanmu.lunbo.BmobBean.User;
+import com.example.yuanmu.lunbo.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -104,6 +104,7 @@ public class AddFriend extends Activity implements AddFriendAdapter.FindResultFr
 		Focus one = new Focus();
 		one.setMyusername(User.getCurrentUser().getUsername());
 		one.setTarget(target);
+		//设置备注
 		one.setRemark(lists.get(0).get("nickname") + "");
 
 

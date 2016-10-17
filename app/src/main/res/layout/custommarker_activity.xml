@@ -1,62 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:id="@+id/marker_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="获取marker" />
-
-        <TextView
-            android:id="@+id/mark_listenter_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="拖动marker1" />
-    </LinearLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+    >
         <com.amap.api.maps2d.MapView
             android:id="@+id/map"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
+    <RelativeLayout
+        android:id="@+id/mAuxiliaryLayout"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/mClickLayout"
+        android:background="#F0FAFC"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="130dp">
+        <ImageView
+            android:id="@+id/headportrait_iv"
+            android:src="@mipmap/myviewtest"
+            android:layout_width="130dp"
+            android:layout_height="130dp"/>
+        <!-- 用户资料 -->
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:background="#D999"
+            android:layout_marginLeft="5dp"
+            android:paddingTop="50dp"
             android:orientation="vertical"
-            android:padding="5dp">
-
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+            <!--昵称布局-->
+           <LinearLayout
+               android:orientation="horizontal"
+               android:layout_width="wrap_content"
+               android:layout_height="0dp"
+               android:layout_weight="1"
+               >
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="昵称:"
+                   />
+               <TextView
+                   android:id="@+id/nickName_tv"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   />
+           </LinearLayout>
+            <!--性别布局-->
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <Button
-                    android:id="@+id/clearMap"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:text="清空!" />
-
-                <Button
-                    android:id="@+id/resetMap"
+                    android:text="性别:"
+                    />
+                <TextView
+                    android:id="@+id/sex_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:text="复位!" />
+                    />
             </LinearLayout>
-
+            <!--年龄布局-->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="年龄:"
+                    />
+                <TextView
+                    android:id="@+id/age_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+            </LinearLayout>
+            <!--籍贯布局-->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="籍贯:"
+                    />
+                <TextView
+                    android:id="@+id/place_of_origin_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+            </LinearLayout>
         </LinearLayout>
-    </FrameLayout>
-</LinearLayout>
+        <ImageView
+            android:src="@drawable/max_right_arrow"
+            android:layout_gravity="center_vertical"
+            android:layout_width="70dp"
+            android:layout_height="70dp"/>
+    </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

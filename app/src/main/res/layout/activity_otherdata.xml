@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <FrameLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="200dp">
 
@@ -22,25 +22,49 @@
                 android:src="@mipmap/a" />
 
             <com.example.yuanmu.lunbo.Custom.CircleImageView
+                android:layout_marginTop="50dp"
                 android:id="@+id/mCiv_img"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
+                android:layout_centerHorizontal="true"
                 app:border_color="#ffffff"
-                app:border_width="5dp" />
+                app:border_width="1dp" />
+            <TextView
+                android:textColor="@color/white"
+                android:layout_marginTop="5dp"
+                android:layout_centerHorizontal="true"
+                android:text="Revival"
+                android:layout_below="@+id/mCiv_img"
+                android:id="@+id/mUserName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
             <ImageView
-                android:layout_margin="5dp"
+                android:id="@+id/mBack_tv"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="25dp"
                 android:src="@drawable/icon_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <ImageView
-                android:layout_margin="5dp"
-                android:layout_gravity="right"
+            <TextView
+                android:layout_marginRight="5dp"
+               android:layout_marginTop="25dp"
+                android:id="@+id/mFollow"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/white"
+                android:paddingRight="20dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:background="@drawable/follw_press_change_color"
+                android:layout_marginBottom="20dp"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </FrameLayout>
-
+                android:layout_height="wrap_content"
+                android:text="关注"
+                />
+        </RelativeLayout>
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -49,23 +73,6 @@
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:paddingTop="5dp">
-
-            <TextView
-                android:id="@+id/mUserName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="可爱的唐尼"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/occupation_tv"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="right"
-                android:text="仓管员"
-                android:textColor="#00bbff"
-                android:textSize="12sp" />
         </TableRow>
 
         <RelativeLayout

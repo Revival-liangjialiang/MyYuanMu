@@ -8,10 +8,12 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.example.yuanmu.lunbo.Adapter.Main_ViewPager_Adapter;
 import com.example.yuanmu.lunbo.Application.MyApplication;
@@ -30,6 +32,7 @@ import io.rong.imlib.RongIMClient;
 
 
 public class MainActivity extends AppCompatActivity {
+    private int a = 0;
     ViewPager mViewPager;
     public LruCache<String, Bitmap> mLruCache;
     Personal_Fragment personal_fragment;
@@ -191,5 +194,29 @@ public class MainActivity extends AppCompatActivity {
     public void setFragment(Personal_Fragment fragment) {
         personal_fragment = fragment;
     }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+                a++;
+                if(a<2) {
+                    Toast.makeText(this, "再点击一次将退出程序", Toast.LENGTH_SHORT).show();
+                }
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(3000);
+                            a=0;
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
 
+        }
+        if(a==2){
+            finish();
+        }
+        return false;
+    }
 }

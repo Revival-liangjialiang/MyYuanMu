@@ -250,6 +250,7 @@ public class LifecircleAdapter extends BaseAdapter {
                 holder1.tv_nickname.setText(nickname);
                 holder1.tv_createdAt.setText(ptime);
                 holder1.ll_2.removeAllViews();
+                //加载点赞图标
                 if(fabulousList!=null&&fabulousList.size()>0) {
                     stringBuilder = new StringBuilder();
                         for (int f = 0; f < fabulousList.size(); f++) {
@@ -275,21 +276,13 @@ public class LifecircleAdapter extends BaseAdapter {
                             LinearLayout.LayoutParams.WRAP_CONTENT,
                             LinearLayout.LayoutParams.WRAP_CONTENT
                     );
-                    IvlayoutParams.gravity = Gravity.CENTER_HORIZONTAL;
+                    IvlayoutParams.gravity = Gravity.CENTER_VERTICAL;
                     imageView.setLayoutParams(IvlayoutParams);
                     imageView.setImageResource(R.drawable.icon_fabulous);
                     fLinearLayout.addView(imageView);
                     fLinearLayout.addView(textView);
                     holder1.ll_2.addView(fLinearLayout);
                 }
-                //评论图标点击事件
-                holder1.comment_img.setOnClickListener(new View.OnClickListener() {
-                    String articleIdCopy = articleId;
-                    @Override
-                    public void onClick(View view) {
-                        CommentListener.commentClick(articleIdCopy);
-                    }
-                });
                 //点赞图标点击事件
                 holder1.iv_good.setOnClickListener(new View.OnClickListener() {
                     List<String> list = fabulousList;
@@ -365,6 +358,14 @@ public class LifecircleAdapter extends BaseAdapter {
                         }else{
                             Toast.makeText(MyApplication.getContext(), "未登录", Toast.LENGTH_SHORT).show();
                         }
+                    }
+                });
+                //评论图标点击事件
+                holder1.comment_img.setOnClickListener(new View.OnClickListener() {
+                    String articleIdCopy = articleId;
+                    @Override
+                    public void onClick(View view) {
+                        CommentListener.commentClick(articleIdCopy);
                     }
                 });
                 List<CircleComment> mCommentCopyList0 = mCommentListMap.get(holder1.ll_2.getTag() + "");
@@ -461,6 +462,118 @@ public class LifecircleAdapter extends BaseAdapter {
                 holder2.tv_nickname.setText(nickname);
                 holder2.tv_createdAt.setText(ptime);
                 holder2.ll_2.removeAllViews();
+                // TODO: 2016/10/17 0017
+                //加载点赞图标
+                if(fabulousList!=null&&fabulousList.size()>0) {
+                    stringBuilder = new StringBuilder();
+                    for (int f = 0; f < fabulousList.size(); f++) {
+                        if(f>0) {
+                            stringBuilder.append("、");
+                        }
+                        stringBuilder.append(fabulousList.get(f));
+                    }
+                    //以下是加载点赞块
+                    TextView textView = new TextView(mcontext);
+                    textView.setTextColor(Color.parseColor("#3EC3EC"));
+                    textView.setText(stringBuilder.toString());
+                    LinearLayout fLinearLayout = new LinearLayout(mcontext);
+                    fLinearLayout.setOrientation(fLinearLayout.HORIZONTAL);
+                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.WRAP_CONTENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                    );
+                    fLinearLayout.setLayoutParams(layoutParams);
+                    //加个点赞图标
+                    ImageView imageView = new ImageView(mcontext);
+                    LinearLayout.LayoutParams IvlayoutParams = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.WRAP_CONTENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                    );
+                    IvlayoutParams.gravity = Gravity.CENTER_VERTICAL;
+                    imageView.setLayoutParams(IvlayoutParams);
+                    imageView.setImageResource(R.drawable.icon_fabulous);
+                    fLinearLayout.addView(imageView);
+                    fLinearLayout.addView(textView);
+                    holder2.ll_2.addView(fLinearLayout);
+                }
+                //点赞图标点击事件
+                holder2.iv_good.setOnClickListener(new View.OnClickListener() {
+                    List<String> list = fabulousList;
+                    boolean addAndDeleteSwitch = true;
+                    String articleIdCopy = articleId;
+                    @Override
+                    public void onClick(View view) {
+                        if (MyApplication.isLogin) {
+                            if (addAndDeleteSwitch) {
+                                addAndDeleteSwitch = false;
+                                //todo
+                                //点赞人数大于0，就需要判断点赞重复问题，反之直接点赞成功!
+                                if(list.size()>0){
+                                    String str = user.getNickname();
+                                    for(int f = 0;f<list.size();f++) {
+                                        //如果此人已点过，则删除此人的点赞
+                                        if (list.get(f).equals(str)) {
+                                            list.remove(f);
+                                            Lifecircle lifecircle = new Lifecircle();
+                                            lifecircle.setObjectId(articleIdCopy);
+                                            lifecircle.setFabulous(list);
+                                            lifecircle.update(new UpdateListener() {
+                                                @Override
+                                                public void done(BmobException e) {
+                                                    if(e == null){
+                                                        Toast.makeText(MyApplication.getContext(), "删除点赞成功!", Toast.LENGTH_SHORT).show();
+                                                        notifyDataSetChanged();
+                                                        addAndDeleteSwitch = true;
+                                                    }else {
+                                                        Toast.makeText(MyApplication.getContext(), "删除点赞失败!", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            });
+                                            return;
+                                        }
+                                    }
+                                    list.add(user.getNickname());
+                                    Lifecircle lifecircle = new Lifecircle();
+                                    lifecircle.setObjectId(articleIdCopy);
+                                    lifecircle.setFabulous(list);
+                                    lifecircle.update(new UpdateListener() {
+                                        @Override
+                                        public void done(BmobException e) {
+                                            if(e == null){
+                                                Toast.makeText(MyApplication.getContext(), "点赞成功!", Toast.LENGTH_SHORT).show();
+                                                notifyDataSetChanged();
+                                                addAndDeleteSwitch = true;
+                                            }else {
+                                                Toast.makeText(MyApplication.getContext(), "点赞失败!", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+
+                                }else{
+                                    Lifecircle lifecircle = new Lifecircle();
+                                    list.add(user.getNickname());
+                                    lifecircle.setObjectId(articleIdCopy);
+                                    lifecircle.setFabulous(list);
+                                    lifecircle.update(new UpdateListener() {
+                                        @Override
+                                        public void done(BmobException e) {
+                                            if(e == null){
+                                                Toast.makeText(MyApplication.getContext(), "点赞成功!", Toast.LENGTH_SHORT).show();
+                                                addAndDeleteSwitch = true;
+                                            }else {
+                                                Toast.makeText(MyApplication.getContext(), "点赞失败!", Toast.LENGTH_SHORT).show();
+                                                MyLog.i("fff","e = "+e);
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+                        }else{
+                            Toast.makeText(MyApplication.getContext(), "未登录", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                // TODO: 2016/10/17 0017 ---------
                 holder2.comment_img.setOnClickListener(new View.OnClickListener() {
                     String articleIdCopy = articleId;
                     @Override
@@ -566,6 +679,117 @@ public class LifecircleAdapter extends BaseAdapter {
                 adapter = new MyCricleitemGridAdapter(mcontext, imgarray);
                 holder3.gv_img.setAdapter(adapter);
                 holder3.ll_2.removeAllViews();
+                // TODO: 2016/10/17 0017
+                //加载点赞图标
+                if(fabulousList!=null&&fabulousList.size()>0) {
+                    stringBuilder = new StringBuilder();
+                    for (int f = 0; f < fabulousList.size(); f++) {
+                        if(f>0) {
+                            stringBuilder.append("、");
+                        }
+                        stringBuilder.append(fabulousList.get(f));
+                    }
+                    //以下是加载点赞块
+                    TextView textView = new TextView(mcontext);
+                    textView.setTextColor(Color.parseColor("#3EC3EC"));
+                    textView.setText(stringBuilder.toString());
+                    LinearLayout fLinearLayout = new LinearLayout(mcontext);
+                    fLinearLayout.setOrientation(fLinearLayout.HORIZONTAL);
+                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.WRAP_CONTENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                    );
+                    fLinearLayout.setLayoutParams(layoutParams);
+                    //加个点赞图标
+                    ImageView imageView = new ImageView(mcontext);
+                    LinearLayout.LayoutParams IvlayoutParams = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.WRAP_CONTENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                    );
+                    IvlayoutParams.gravity = Gravity.CENTER_VERTICAL;
+                    imageView.setLayoutParams(IvlayoutParams);
+                    imageView.setImageResource(R.drawable.icon_fabulous);
+                    fLinearLayout.addView(imageView);
+                    fLinearLayout.addView(textView);
+                    holder3.ll_2.addView(fLinearLayout);
+                }
+                //点赞图标点击事件
+                holder3.iv_good.setOnClickListener(new View.OnClickListener() {
+                    List<String> list = fabulousList;
+                    boolean addAndDeleteSwitch = true;
+                    String articleIdCopy = articleId;
+                    @Override
+                    public void onClick(View view) {
+                        if (MyApplication.isLogin) {
+                            if (addAndDeleteSwitch) {
+                                addAndDeleteSwitch = false;
+                                //todo
+                                //点赞人数大于0，就需要判断点赞重复问题，反之直接点赞成功!
+                                if(list.size()>0){
+                                    String str = user.getNickname();
+                                    for(int f = 0;f<list.size();f++) {
+                                        //如果此人已点过，则删除此人的点赞
+                                        if (list.get(f).equals(str)) {
+                                            list.remove(f);
+                                            Lifecircle lifecircle = new Lifecircle();
+                                            lifecircle.setObjectId(articleIdCopy);
+                                            lifecircle.setFabulous(list);
+                                            lifecircle.update(new UpdateListener() {
+                                                @Override
+                                                public void done(BmobException e) {
+                                                    if(e == null){
+                                                        Toast.makeText(MyApplication.getContext(), "删除点赞成功!", Toast.LENGTH_SHORT).show();
+                                                        notifyDataSetChanged();
+                                                        addAndDeleteSwitch = true;
+                                                    }else {
+                                                        Toast.makeText(MyApplication.getContext(), "删除点赞失败!", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            });
+                                            return;
+                                        }
+                                    }
+                                    list.add(user.getNickname());
+                                    Lifecircle lifecircle = new Lifecircle();
+                                    lifecircle.setObjectId(articleIdCopy);
+                                    lifecircle.setFabulous(list);
+                                    lifecircle.update(new UpdateListener() {
+                                        @Override
+                                        public void done(BmobException e) {
+                                            if(e == null){
+                                                Toast.makeText(MyApplication.getContext(), "点赞成功!", Toast.LENGTH_SHORT).show();
+                                                notifyDataSetChanged();
+                                                addAndDeleteSwitch = true;
+                                            }else {
+                                                Toast.makeText(MyApplication.getContext(), "点赞失败!", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+
+                                }else{
+                                    Lifecircle lifecircle = new Lifecircle();
+                                    list.add(user.getNickname());
+                                    lifecircle.setObjectId(articleIdCopy);
+                                    lifecircle.setFabulous(list);
+                                    lifecircle.update(new UpdateListener() {
+                                        @Override
+                                        public void done(BmobException e) {
+                                            if(e == null){
+                                                Toast.makeText(MyApplication.getContext(), "点赞成功!", Toast.LENGTH_SHORT).show();
+                                                addAndDeleteSwitch = true;
+                                            }else {
+                                                Toast.makeText(MyApplication.getContext(), "点赞失败!", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+                        }else{
+                            Toast.makeText(MyApplication.getContext(), "未登录", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                // TODO: 2016/10/17 0017 ---------
                 holder3.comment_img.setOnClickListener(new View.OnClickListener() {
                     String articleIdCopy = articleId;
                     @Override
@@ -663,6 +887,118 @@ public class LifecircleAdapter extends BaseAdapter {
                 adapter = new MyCricleitemGridAdapter(mcontext, imgarray);
                 holder4.gv_img.setAdapter(adapter);
                 holder4.ll_2.removeAllViews();
+                // TODO: 2016/10/17 0017
+                //加载点赞图标
+                if(fabulousList!=null&&fabulousList.size()>0) {
+                    stringBuilder = new StringBuilder();
+                    for (int f = 0; f < fabulousList.size(); f++) {
+                        if(f>0) {
+                            stringBuilder.append("、");
+                        }
+                        stringBuilder.append(fabulousList.get(f));
+                    }
+                    //以下是加载点赞块
+                    TextView textView = new TextView(mcontext);
+                    textView.setTextColor(Color.parseColor("#3EC3EC"));
+                    textView.setText(stringBuilder.toString());
+                    LinearLayout fLinearLayout = new LinearLayout(mcontext);
+                    fLinearLayout.setOrientation(fLinearLayout.HORIZONTAL);
+                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.WRAP_CONTENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                    );
+                    fLinearLayout.setLayoutParams(layoutParams);
+                    //加个点赞图标
+                    ImageView imageView = new ImageView(mcontext);
+                    LinearLayout.LayoutParams IvlayoutParams = new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.WRAP_CONTENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                    );
+                    IvlayoutParams.gravity = Gravity.CENTER_VERTICAL;
+                    imageView.setLayoutParams(IvlayoutParams);
+                    imageView.setImageResource(R.drawable.icon_fabulous);
+                    fLinearLayout.addView(imageView);
+                    fLinearLayout.addView(textView);
+                    holder4.ll_2.addView(fLinearLayout);
+                }
+                //点赞图标点击事件
+                holder4.iv_good.setOnClickListener(new View.OnClickListener() {
+                    List<String> list = fabulousList;
+                    boolean addAndDeleteSwitch = true;
+                    String articleIdCopy = articleId;
+                    @Override
+                    public void onClick(View view) {
+                        if (MyApplication.isLogin) {
+                            if (addAndDeleteSwitch) {
+                                addAndDeleteSwitch = false;
+                                //todo
+                                //点赞人数大于0，就需要判断点赞重复问题，反之直接点赞成功!
+                                if(list.size()>0){
+                                    String str = user.getNickname();
+                                    for(int f = 0;f<list.size();f++) {
+                                        //如果此人已点过，则删除此人的点赞
+                                        if (list.get(f).equals(str)) {
+                                            list.remove(f);
+                                            Lifecircle lifecircle = new Lifecircle();
+                                            lifecircle.setObjectId(articleIdCopy);
+                                            lifecircle.setFabulous(list);
+                                            lifecircle.update(new UpdateListener() {
+                                                @Override
+                                                public void done(BmobException e) {
+                                                    if(e == null){
+                                                        Toast.makeText(MyApplication.getContext(), "删除点赞成功!", Toast.LENGTH_SHORT).show();
+                                                        notifyDataSetChanged();
+                                                        addAndDeleteSwitch = true;
+                                                    }else {
+                                                        Toast.makeText(MyApplication.getContext(), "删除点赞失败!", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            });
+                                            return;
+                                        }
+                                    }
+                                    list.add(user.getNickname());
+                                    Lifecircle lifecircle = new Lifecircle();
+                                    lifecircle.setObjectId(articleIdCopy);
+                                    lifecircle.setFabulous(list);
+                                    lifecircle.update(new UpdateListener() {
+                                        @Override
+                                        public void done(BmobException e) {
+                                            if(e == null){
+                                                Toast.makeText(MyApplication.getContext(), "点赞成功!", Toast.LENGTH_SHORT).show();
+                                                notifyDataSetChanged();
+                                                addAndDeleteSwitch = true;
+                                            }else {
+                                                Toast.makeText(MyApplication.getContext(), "点赞失败!", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+
+                                }else{
+                                    Lifecircle lifecircle = new Lifecircle();
+                                    list.add(user.getNickname());
+                                    lifecircle.setObjectId(articleIdCopy);
+                                    lifecircle.setFabulous(list);
+                                    lifecircle.update(new UpdateListener() {
+                                        @Override
+                                        public void done(BmobException e) {
+                                            if(e == null){
+                                                Toast.makeText(MyApplication.getContext(), "点赞成功!", Toast.LENGTH_SHORT).show();
+                                                addAndDeleteSwitch = true;
+                                            }else {
+                                                Toast.makeText(MyApplication.getContext(), "点赞失败!", Toast.LENGTH_SHORT).show();
+                                                MyLog.i("fff","e = "+e);
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+                        }else{
+                            Toast.makeText(MyApplication.getContext(), "未登录", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                // TODO: 2016/10/17 0017 ---------
                 holder4.comment_img.setOnClickListener(new View.OnClickListener() {
                     String articleIdCopy = articleId;
                     @Override

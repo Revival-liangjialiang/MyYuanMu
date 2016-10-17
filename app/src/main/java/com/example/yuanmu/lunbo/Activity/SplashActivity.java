@@ -1,10 +1,10 @@
 package com.example.yuanmu.lunbo.Activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.WindowManager;
@@ -21,13 +21,14 @@ import com.example.yuanmu.lunbo.Application.MyApplication;
 import com.example.yuanmu.lunbo.R;
 import com.example.yuanmu.lunbo.Util.PrefUtils;
 import com.example.yuanmu.lunbo.Util.SharedUtil;
+import com.example.yuanmu.lunbo.Util.StatusBarColorUtil;
 import com.example.yuanmu.lunbo.interfaces.LoginInterface;
 import com.example.yuanmu.lunbo.interfaces.LoginUtil;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobConfig;
 
-public class SplashActivity extends Activity {
+public class SplashActivity extends AppCompatActivity {
 	ImageView rlRoot;
 	private Context context;
 	@Override
@@ -39,6 +40,7 @@ public class SplashActivity extends Activity {
 					WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 		}
 		setContentView(R.layout.activity_splash);
+
 		context = SplashActivity.this;
 		BmobConfig config = new BmobConfig.Builder(this)
 		// 设置appkey
@@ -52,6 +54,7 @@ public class SplashActivity extends Activity {
 		Bmob.initialize(config);
 		rlRoot = (ImageView) findViewById(R.id.rl_root);
 		startAnim();
+		new StatusBarColorUtil(this,R.color.MyZongSe);
 	}
 
 	/**

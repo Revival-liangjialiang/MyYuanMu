@@ -634,6 +634,27 @@ public class HomePage_Fragment extends Fragment implements View.OnClickListener 
     private void initData() {
         adapter = new HomePageAdapter(getActivity(), mList,mCommentListMap,mReplyListMap);
         mHomePage_lv.setAdapter(adapter);
+        //回复监听
+        adapter.setReplyListener(new HomePageAdapter.ReplyClickListener() {
+            @Override
+            public void replyClick(String targetUserNickName, String commentId) {
+
+            }
+        });
+        //评论监听
+        adapter.setCommentListener(new HomePageAdapter.CommentLsiener() {
+            @Override
+            public void commentClick(String articleId) {
+
+            }
+        });
+        //设置点击评论的回复监听
+        adapter.setCommentReplyListener(new HomePageAdapter.CommentReplyClickListener() {
+            @Override
+            public void commentClick(User targetUser, String nickName, String commentId) {
+
+            }
+        });
     }
     public void getData() {
         mCircleCommentList.clear();
@@ -650,7 +671,7 @@ public class HomePage_Fragment extends Fragment implements View.OnClickListener 
             public void done(List<Lifecircle> object, BmobException e) {
                 //2
                 if (e == null) {
-                    Log.i("主页", object.size() + "");
+                    Log.i("数量", object.size() + "");
                     for (int i = 0; i < object.size(); i++) {
                         //获取文章ID
                         articleId = object.get(i).getObjectId();
@@ -668,10 +689,12 @@ public class HomePage_Fragment extends Fragment implements View.OnClickListener 
                         } catch (ParseException el) {
                             el.printStackTrace();
                         }
+                        List<String> fabulousList = object.get(i).getFabulous();
                         List<String> imgarray = object.get(i).getImgarray();
                         List<String> commentarray = object.get(i)
                                 .getCommentarray();
                         map = new HashMap<String, Object>();
+                        map.put("fabulous",fabulousList);
                         map.put("id",articleId);
                         map.put("nickname", nickname);
                         map.put("img", img);
@@ -680,12 +703,10 @@ public class HomePage_Fragment extends Fragment implements View.OnClickListener 
                         map.put("createdAt", createdAt);
                         map.put("imgarray", imgarray);
                         map.put("commentarray", commentarray);
-                        Toast.makeText(MyApplication.getContext(), "加载文章成功!", Toast.LENGTH_SHORT).show();
                         mList.add(map);
                     }
                     //查询文章的评论
                     startCommentQuery();
-                    Log.i("主页", mList.size() + "");
                     adapter.notifyDataSetChanged();
                 } else {
                     Log.i("问题", e + "");

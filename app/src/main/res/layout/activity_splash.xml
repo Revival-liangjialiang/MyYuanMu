@@ -3,7 +3,7 @@
                                                      xmlns:app="http://schemas.android.com/apk/res-auto"
                                                      android:layout_width="match_parent"
                                                      android:layout_height="match_parent"
-                                                     android:background="@mipmap/splash_bg_newyear">
+                                                     >
 
     <ImageView
         android:id="@+id/rl_root"
@@ -12,10 +12,10 @@
         app:layout_heightPercent="85%h"
         android:fitsSystemWindows="true"
         android:scaleType="centerCrop"
-        android:src="@mipmap/splash_horse_newyear" />
+        android:src="@mipmap/mylove" />
 <com.example.yuanmu.lunbo.Custom.PercentLinearLayout
     android:gravity="center"
-    android:background="#ffffff"
+    android:background="#BDE8A3"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="0dp"
@@ -23,17 +23,21 @@
     android:layout_alignParentBottom="true"
     >
     <ImageView
-        android:background="#9090"
+        android:background="@mipmap/myicon_2"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_heightPercent="80%h"
         app:layout_widthPercent="80%h"
         />
     <TextView
+        android:paddingRight="10dp"
+        android:textColor="#D693C6"
+        android:textStyle="italic"
+        android:textSize="28sp"
         android:layout_marginLeft="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="AppName"
+        android:text="遇见对的你"
         />
 </com.example.yuanmu.lunbo.Custom.PercentLinearLayout>
 </com.example.yuanmu.lunbo.Custom.PercentLinearLayout>

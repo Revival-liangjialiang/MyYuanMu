@@ -125,8 +125,7 @@ public class CircleImageView extends ImageView {
     public void setBorderWidth(int borderWidth) {  
         if (borderWidth == mBorderWidth) {  
             return;  
-        }  
-  
+        }
         mBorderWidth = borderWidth;  
         setup();  
     }  
@@ -162,8 +161,7 @@ public class CircleImageView extends ImageView {
         }  
   
         try {  
-            Bitmap bitmap;  
-  
+            Bitmap bitmap;
             if (drawable instanceof ColorDrawable) {  
                 bitmap = Bitmap.createBitmap(COLORDRAWABLE_DIMENSION, COLORDRAWABLE_DIMENSION, BITMAP_CONFIG);  
             } else {  

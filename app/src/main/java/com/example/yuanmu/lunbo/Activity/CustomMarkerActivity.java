@@ -8,7 +8,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
@@ -29,6 +31,8 @@ import com.amap.api.maps2d.model.MarkerOptions;
 import com.example.yuanmu.lunbo.BmobBean.User;
 import com.example.yuanmu.lunbo.Custom.CircleImageView;
 import com.example.yuanmu.lunbo.R;
+import com.example.yuanmu.lunbo.Util.ImgUtil;
+import com.example.yuanmu.lunbo.Util.MyLog;
 import com.example.yuanmu.lunbo.Util.VolleyRequest;
 
 import java.util.HashMap;
@@ -42,10 +46,15 @@ import io.rong.message.LocationMessage;
  */
 public class CustomMarkerActivity extends Activity implements OnMarkerClickListener,OnMapLoadedListener,LocationSource,AMapLocationListener,
         OnClickListener{
+    RelativeLayout mAuxiliaryLayout;
+    ImageView headportrait_iv;
+    LinearLayout mClickLayout;
+    TextView nickName_tv,sex_tv,age_tv,place_of_origin_tv;
+    //开启用户数据活动的时候传递过去
+    User mClickUser;
+
     Map<String,Bitmap> map = new HashMap();
     List<User> mUsers;
-    private TextView markerText;
-    private Button markerButton;// 获取屏幕内所有marker的button
     private AMap aMap;
     private MapView mapView;
     private LatLng latlng = new LatLng(36.061, 103.834);
@@ -61,13 +70,36 @@ public class CustomMarkerActivity extends Activity implements OnMarkerClickListe
         Intent intent = getIntent();
         mUsers = (List<User>) intent.getSerializableExtra("list");
         mapView = (MapView) findViewById(R.id.map);
+        initView();
         mapView.onCreate(savedInstanceState); // 此方法必须重写
         context = CustomMarkerActivity.this;
         init(mUsers);
         loadHeadportrait(mUsers);
-
     }
-//加载头像
+
+    private void initView() {
+        mAuxiliaryLayout = (RelativeLayout) findViewById(R.id.mAuxiliaryLayout);
+        headportrait_iv = (ImageView) findViewById(R.id.headportrait_iv);
+        mClickLayout = (LinearLayout) findViewById(R.id.mClickLayout);
+        nickName_tv = (TextView) findViewById(R.id.nickName_tv);
+        sex_tv = (TextView) findViewById(R.id.sex_tv);
+        age_tv = (TextView) findViewById(R.id.age_tv);
+        place_of_origin_tv = (TextView) findViewById(R.id.place_of_origin_tv);
+        mClickLayout.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO: 2016/10/17 0017
+                Intent intent = new Intent(CustomMarkerActivity.this,UserDataActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("user",mClickUser);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                mAuxiliaryLayout.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    //加载头像
     private void loadHeadportrait(final List<User> mUsers) {
         String[] str = new String[mUsers.size()];
         for(int a = 0;a<mUsers.size();a++){
@@ -93,13 +125,6 @@ public class CustomMarkerActivity extends Activity implements OnMarkerClickListe
      * 初始化AMap对象
      */
     private void init(List<User> users) {
-        markerText = (TextView) findViewById(R.id.mark_listenter_text);
-        markerButton = (Button) findViewById(R.id.marker_button);
-        markerButton.setOnClickListener(this);
-        Button clearMap = (Button) findViewById(R.id.clearMap);
-        clearMap.setOnClickListener(this);
-        Button resetMap = (Button) findViewById(R.id.resetMap);
-        resetMap.setOnClickListener(this);
         if (aMap == null) {
             aMap = mapView.getMap();
             aMap.setLocationSource(this);// 设置定位监听
@@ -163,7 +188,7 @@ public class CustomMarkerActivity extends Activity implements OnMarkerClickListe
             civ.setImageBitmap(map.get(user.getImg()));
             Bitmap bitmap = this.convertViewToBitmap(view);
             drawMarkerOnMap(new LatLng(Double.parseDouble(user.getLatitude())
-                    , Double.parseDouble(user.getLongitute())), bitmap, "大神");
+                    , Double.parseDouble(user.getLongitute())), bitmap, user.getNickname());
         }
 
     }
@@ -201,9 +226,28 @@ public class CustomMarkerActivity extends Activity implements OnMarkerClickListe
      */
     @Override
     public boolean onMarkerClick(final Marker marker) {
-        markerText.setText("你点击的是" + marker.getTitle());
+        //通过昵称找出被点击的用户传过去
+        for(int a = 0;a<mUsers.size();a++){
+            User user = mUsers.get(a);
+            if(user.getNickname().equals(marker.getTitle())){
+                loadUserPopup(user);
+                MyLog.i("sss","user.getNickname() = "+user.getNickname()+"  marker.getTitle() = "+marker.getTitle());
+            }
+        }
         return true;
     }
+
+    // TODO: 2016/10/17 0017
+    private void loadUserPopup(User user) {
+        mAuxiliaryLayout.setVisibility(View.VISIBLE);
+        ImgUtil.setImg(headportrait_iv,user.getImg(),200,200);
+        mClickUser = user;
+        nickName_tv.setText(user.getNickname());
+        sex_tv.setText(user.getGender());
+        age_tv.setText(user.getAge());
+        place_of_origin_tv.setText(user.getPlace_of_origin());
+    }
+
     /**
      * 监听amap地图加载成功事件回调
      */
@@ -225,40 +269,9 @@ public class CustomMarkerActivity extends Activity implements OnMarkerClickListe
 
     @Override
     public void onClick(View v) {
+
         switch (v.getId()) {
-            /**
-             * 清空地图上所有已经标注的marker
-             */
-            case R.id.clearMap:
-                if (aMap != null) {
-                    aMap.clear();
-                }
-                break;
-            /**
-             * 重新标注所有的marker
-             */
-            case R.id.resetMap:
-                if (aMap != null) {
-                    aMap.clear();
-                    /*addMarkersToMap(mUsers);*/
-                }
-                break;
             // 获取屏幕所有marker
-            case R.id.marker_button:
-                if (aMap != null) {
-                    List<Marker> markers = aMap.getMapScreenMarkers();
-                    if (markers == null || markers.size() == 0) {
-                        return;
-                    }
-                    String tile = "屏幕内有：";
-                    for (Marker marker : markers) {
-                        tile = tile + " " + marker.getTitle();
-
-                    }
-
-
-                }
-                break;
             default:
                 break;
         }
@@ -273,7 +286,6 @@ public class CustomMarkerActivity extends Activity implements OnMarkerClickListe
             double latitude = aMapLocation.getLatitude();
             double longitude = aMapLocation.getLongitude();
             LocationMessage.obtain(latitude, longitude, aMapLocation.getRoad() + aMapLocation.getStreet() + aMapLocation.getPoiName(), getMapUrl(latitude, longitude));
-
 
         }
     }

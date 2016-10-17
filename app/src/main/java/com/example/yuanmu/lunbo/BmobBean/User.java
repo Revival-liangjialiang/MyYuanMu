@@ -55,6 +55,8 @@ public class User extends BmobUser {
     private String education = "未知";
     //婚姻状况
     private String marital_status = "未知";
+    //年龄
+    private String age = "未知";
     public User(){
         fabulous.add(" ");
     }
@@ -289,5 +291,13 @@ public class User extends BmobUser {
 
     public void setConditionId(String conditionId) {
         this.conditionId = conditionId;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
     }
 }
