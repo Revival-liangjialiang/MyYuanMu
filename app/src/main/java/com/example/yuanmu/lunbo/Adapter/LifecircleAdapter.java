@@ -134,6 +134,7 @@ public class LifecircleAdapter extends BaseAdapter {
         ViewHolder3 holder3 = null;
         ViewHolder4 holder4 = null;
         //获取文章ID
+        final User myUser = (User) mlist.get(position).get("user");
         final List<String> fabulousList = (List<String>) mlist.get(position).get("fabulous");
         final String articleId = (String) mlist.get(position).get("id");
         final String content = (String) mlist.get(position).get("content");
@@ -152,6 +153,7 @@ public class LifecircleAdapter extends BaseAdapter {
                     convertView = LayoutInflater.from(mcontext).inflate(
                             R.layout.lifecircle_item_cricle1, parent, false);
                     holder1 = new ViewHolder1();
+                    holder1.tv_location = (TextView) convertView.findViewById(R.id.tv_location);
                     holder1.iv_good = (ImageView) convertView.findViewById(R.id.iv_good);
                     holder1.comment_img = (ImageView) convertView.findViewById(R.id.comment_img);
                     holder1.ll_2 = (LinearLayout) convertView.findViewById(R.id.ll_2);
@@ -170,6 +172,7 @@ public class LifecircleAdapter extends BaseAdapter {
                     convertView = LayoutInflater.from(mcontext).inflate(
                             R.layout.lifecircle_item_cricle2, parent, false);
                     holder2 = new ViewHolder2();
+                    holder2.tv_location = (TextView) convertView.findViewById(R.id.tv_location);
                     holder2.iv_good = (ImageView) convertView.findViewById(R.id.iv_good);
                     holder2.comment_img = (ImageView) convertView.findViewById(R.id.comment_img);
                     holder2.civ_img = (CircleImageView) convertView
@@ -188,6 +191,7 @@ public class LifecircleAdapter extends BaseAdapter {
                     convertView = LayoutInflater.from(mcontext).inflate(
                             R.layout.lifecircle_item_cricle3, parent, false);
                     holder3 = new ViewHolder3();
+                    holder3.tv_location = (TextView) convertView.findViewById(R.id.tv_location);
                     holder3.iv_good = (ImageView) convertView.findViewById(R.id.iv_good);
                     holder3.comment_img = (ImageView) convertView.findViewById(R.id.comment_img);
                     holder3.civ_img = (CircleImageView) convertView
@@ -207,6 +211,7 @@ public class LifecircleAdapter extends BaseAdapter {
                     convertView = LayoutInflater.from(mcontext).inflate(
                             R.layout.lifecircle__item_cricle4, parent, false);
                     holder4 = new ViewHolder4();
+                    holder4.tv_location = (TextView) convertView.findViewById(R.id.tv_location);
                     holder4.iv_good = (ImageView) convertView.findViewById(R.id.iv_good);
                     holder4.comment_img = (ImageView) convertView.findViewById(R.id.comment_img);
                     holder4.civ_img = (CircleImageView) convertView
@@ -249,6 +254,7 @@ public class LifecircleAdapter extends BaseAdapter {
                 holder1.tv_content.setText(content);
                 holder1.tv_nickname.setText(nickname);
                 holder1.tv_createdAt.setText(ptime);
+                holder1.tv_location.setText(myUser.getCity()+"-"+myUser.getDistrict());
                 holder1.ll_2.removeAllViews();
                 //加载点赞图标
                 if(fabulousList!=null&&fabulousList.size()>0) {
@@ -461,6 +467,7 @@ public class LifecircleAdapter extends BaseAdapter {
                 holder2.tv_content.setText(content);
                 holder2.tv_nickname.setText(nickname);
                 holder2.tv_createdAt.setText(ptime);
+                holder2.tv_location.setText(myUser.getCity()+"-"+myUser.getDistrict());
                 holder2.ll_2.removeAllViews();
                 // TODO: 2016/10/17 0017
                 //加载点赞图标
@@ -675,6 +682,7 @@ public class LifecircleAdapter extends BaseAdapter {
                 ImgUtil.setImg(holder3.civ_img, img, 150, 150);
                 holder3.tv_content.setText(content);
                 holder3.tv_nickname.setText(nickname);
+                holder3.tv_location.setText(myUser.getCity()+"-"+myUser.getDistrict());
                 holder3.tv_createdAt.setText(ptime);
                 adapter = new MyCricleitemGridAdapter(mcontext, imgarray);
                 holder3.gv_img.setAdapter(adapter);
@@ -882,6 +890,7 @@ public class LifecircleAdapter extends BaseAdapter {
             case 3://多张图
                 ImgUtil.setImg(holder4.civ_img, img, 150, 150);
                 holder4.tv_content.setText(content);
+                holder4.tv_location.setText(myUser.getCity()+"-"+myUser.getDistrict());
                 holder4.tv_nickname.setText(nickname);
                 holder4.tv_createdAt.setText(ptime);
                 adapter = new MyCricleitemGridAdapter(mcontext, imgarray);
@@ -1106,6 +1115,7 @@ public class LifecircleAdapter extends BaseAdapter {
         TextView tv_nickname;
         TextView tv_content;
         TextView tv_createdAt;
+        TextView tv_location;
         LinearLayout ll_2;
     }
 
@@ -1116,6 +1126,7 @@ public class LifecircleAdapter extends BaseAdapter {
         TextView tv_createdAt;
         NetworkImageView iv_img;
         TextView tv_content;
+        TextView tv_location;
         LinearLayout ll_2;
     }
 
@@ -1125,6 +1136,7 @@ public class LifecircleAdapter extends BaseAdapter {
         TextView tv_nickname;
         TextView tv_content;
         TextView tv_createdAt;
+        TextView tv_location;
         MyCircleitemGridView gv_img;
         LinearLayout ll_2;
     }
@@ -1135,6 +1147,7 @@ public class LifecircleAdapter extends BaseAdapter {
         TextView tv_nickname;
         TextView tv_content;
         TextView tv_createdAt;
+        TextView tv_location;
         MyCircleitemGridView gv_img;
         LinearLayout ll_2;
     }

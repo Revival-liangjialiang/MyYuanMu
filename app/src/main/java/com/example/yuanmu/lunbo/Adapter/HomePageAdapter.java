@@ -123,6 +123,7 @@ public class HomePageAdapter extends BaseAdapter {
         ViewHolder3 holder3 = null;
         ViewHolder4 holder4 = null;
         //获取文章ID
+        final User myUser = (User) mlist.get(position).get("user");
         final List<String> fabulousList = (List<String>) mlist.get(position).get("fabulous");
         final String articleId = (String) mlist.get(position).get("id");
         final String content = (String) mlist.get(position).get("content");
@@ -144,6 +145,7 @@ public class HomePageAdapter extends BaseAdapter {
                     holder1.ll_2 = (LinearLayout) convertView.findViewById(R.id.ll_2);
                     holder1.civ_img = (CircleImageView) convertView
                             .findViewById(R.id.civ_img);
+                    holder1.tv_location = (TextView) convertView.findViewById(R.id.tv_location);
                     holder1.tv_content = (TextView) convertView
                             .findViewById(R.id.tv_content);
                     holder1.tv_nickname = (TextView) convertView
@@ -159,6 +161,7 @@ public class HomePageAdapter extends BaseAdapter {
                     holder2 = new ViewHolder2();
                     holder2.civ_img = (CircleImageView) convertView
                             .findViewById(R.id.civ_img);
+                    holder2.tv_location = (TextView) convertView.findViewById(R.id.tv_location);
                     holder2.tv_nickname = (TextView) convertView
                             .findViewById(R.id.tv_nickname);
                     holder2.tv_createdAt = (TextView) convertView
@@ -175,6 +178,7 @@ public class HomePageAdapter extends BaseAdapter {
                     holder3 = new ViewHolder3();
                     holder3.civ_img = (CircleImageView) convertView
                             .findViewById(R.id.civ_img);
+                    holder3.tv_location = (TextView) convertView.findViewById(R.id.tv_location);
                     holder3.tv_content = (TextView) convertView
                             .findViewById(R.id.tv_content);
                     holder3.tv_nickname = (TextView) convertView
@@ -192,6 +196,7 @@ public class HomePageAdapter extends BaseAdapter {
                     holder4 = new ViewHolder4();
                     holder4.civ_img = (CircleImageView) convertView
                             .findViewById(R.id.civ_img);
+                    holder4.tv_location = (TextView) convertView.findViewById(R.id.tv_location);
                     holder4.tv_content = (TextView) convertView
                             .findViewById(R.id.tv_content);
                     holder4.tv_nickname = (TextView) convertView
@@ -228,6 +233,7 @@ public class HomePageAdapter extends BaseAdapter {
             case 0://无图
                 ImgUtil.setImg(holder1.civ_img, img, 150, 150);
                 holder1.tv_content.setText(content);
+                holder1.tv_location.setText(myUser.getCity()+"-"+myUser.getDistrict());
                 holder1.tv_nickname.setText(nickname);
                 holder1.tv_createdAt.setText(ptime);
                 holder1.ll_2.removeAllViews();
@@ -440,6 +446,7 @@ public class HomePageAdapter extends BaseAdapter {
                 ImgUtil.setImg(holder2.civ_img, img,100,100);
                 holder2.tv_content.setText(content);
                 holder2.tv_nickname.setText(nickname);
+                holder2.tv_location.setText(myUser.getCity()+"-"+myUser.getDistrict());
                 holder2.tv_createdAt.setText(ptime);
                 holder2.ll_2.removeAllViews();
                /* // TODO: 2016/10/17 0017
@@ -567,6 +574,7 @@ public class HomePageAdapter extends BaseAdapter {
                 ImgUtil.setImg(holder3.civ_img, img, 150, 150);
                 holder3.tv_content.setText(content);
                 holder3.tv_nickname.setText(nickname);
+                holder3.tv_location.setText(myUser.getCity()+"-"+myUser.getDistrict());
                 holder3.tv_createdAt.setText(ptime);
                 adapter = new MyCricleitemGridAdapter(mcontext, imgarray);
                 holder3.gv_img.setAdapter(adapter);
@@ -776,6 +784,7 @@ public class HomePageAdapter extends BaseAdapter {
                 ImgUtil.setImg(holder4.civ_img, img, 150, 150);
                 holder4.tv_content.setText(content);
                 holder4.tv_nickname.setText(nickname);
+                holder4.tv_location.setText(myUser.getCity()+"-"+myUser.getDistrict());
                 holder4.tv_createdAt.setText(ptime);
                 adapter = new MyCricleitemGridAdapter(mcontext, imgarray);
                 holder4.gv_img.setAdapter(adapter);
@@ -997,6 +1006,7 @@ public class HomePageAdapter extends BaseAdapter {
         ImageView comment_img,iv_good;
         CircleImageView civ_img;
         TextView tv_nickname;
+        TextView tv_location;
         TextView tv_content;
         TextView tv_createdAt;
         LinearLayout ll_2;
@@ -1007,6 +1017,7 @@ public class HomePageAdapter extends BaseAdapter {
         CircleImageView civ_img;
         TextView tv_nickname;
         TextView tv_createdAt;
+        TextView tv_location;
         NetworkImageView iv_img;
         TextView tv_content;
         LinearLayout ll_2;
@@ -1017,6 +1028,7 @@ public class HomePageAdapter extends BaseAdapter {
         CircleImageView civ_img;
         TextView tv_nickname;
         TextView tv_content;
+        TextView tv_location;
         TextView tv_createdAt;
         MyCircleitemGridView gv_img;
         LinearLayout ll_2;
@@ -1027,6 +1039,7 @@ public class HomePageAdapter extends BaseAdapter {
         CircleImageView civ_img;
         TextView tv_nickname;
         TextView tv_content;
+        TextView tv_location;
         TextView tv_createdAt;
         MyCircleitemGridView gv_img;
         LinearLayout ll_2;

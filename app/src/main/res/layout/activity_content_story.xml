@@ -4,24 +4,32 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#00bbff"
         android:padding="10dp">
-
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/icon_back" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="文章详情"
             android:textColor="#ffffff" />
+        <TextView
+            android:background="@drawable/from_transparent_to_gray"
+            android:layout_marginRight="3dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/white"
+            android:id="@+id/comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="评论"
+            />
     </RelativeLayout>
 
     <ScrollView
@@ -93,18 +101,6 @@
                 android:divider="#f0f0f0"
                 android:padding="5dp"
                 android:scrollbars="none" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                android:background="@color/white"
-                android:gravity="center"
-                android:padding="10dp"
-                android:text="--查看所有--"
-                android:layout_marginBottom="35dp"
-                android:textColor="@color/brown"
-                android:textSize="12sp" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -62,7 +62,6 @@ public class HomePage_Fragment extends Fragment implements View.OnClickListener 
     RelativeLayout mLoading_layout;
     RotateLoading rotateLoading;
     boolean loadSwitch = true,mStartActivitySwitch = true;
-
     //生活圈字段
     StoryListView mHomePage_lv;
     private HomePageAdapter adapter;
@@ -79,7 +78,6 @@ public class HomePage_Fragment extends Fragment implements View.OnClickListener 
     private int mCommentValue = 0;
     private String mStartCommentId;
     private int mCommentCount = 0,mCommentCountCopy = 0;
-
     public int mDownload_complete_switch = 0;
     String[] mAddressTop,mAddressBottom;
     VolleyRequest mRequestTop,mRequestBottom;
@@ -130,7 +128,6 @@ public class HomePage_Fragment extends Fragment implements View.OnClickListener 
             public void onRessponse(Bitmap bitmap, String str) {
                 m.mLruCache.put(str, bitmap);
             }
-
             @Override
             public void onFinish() {
                 Log.i("ok", "调用完成方法！");
@@ -358,6 +355,9 @@ public class HomePage_Fragment extends Fragment implements View.OnClickListener 
             //爱匹配点击
             case R.id.love_match:
                 mStartActivitySwitch = true;
+                if(!MyApplication.isLogin){
+                    break;
+                }
                 if(loadSwitch) {
                     loadSwitch = false;
                     rotateLoading.start();
@@ -693,6 +693,7 @@ public class HomePage_Fragment extends Fragment implements View.OnClickListener 
                         List<String> imgarray = object.get(i).getImgarray();
                         List<String> commentarray = object.get(i)
                                 .getCommentarray();
+                        User user = object.get(i).getUser();
                         map = new HashMap<String, Object>();
                         map.put("fabulous",fabulousList);
                         map.put("id",articleId);
@@ -703,6 +704,7 @@ public class HomePage_Fragment extends Fragment implements View.OnClickListener 
                         map.put("createdAt", createdAt);
                         map.put("imgarray", imgarray);
                         map.put("commentarray", commentarray);
+                        map.put("user",user);
                         mList.add(map);
                     }
                     //查询文章的评论

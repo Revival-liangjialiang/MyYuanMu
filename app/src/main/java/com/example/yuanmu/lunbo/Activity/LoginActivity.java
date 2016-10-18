@@ -73,11 +73,13 @@ public class LoginActivity extends Activity implements View.OnClickListener
                                     getLocationInfo locationInfo = new getLocationInfo(LoginActivity.this);
                                     locationInfo.setLocationListener(new getLocationInfo.LocationListener() {
                                         @Override
-                                        public void finish(Double longitude, Double latitude, String city) {
+                                        public void finish(Double longitude, Double latitude, String city,String district) {
                                             User user = BmobUser.getCurrentUser(User.class);
                                             user.setLongitute(String.valueOf(longitude));
                                             user.setLatitude(String.valueOf(latitude));
                                             user.setCity(city);
+                                            user.setDistrict(district);
+                                            user.setDistrict(district);
                                             user.update(new UpdateListener() {
                                                 @Override
                                                 public void done(BmobException e) {

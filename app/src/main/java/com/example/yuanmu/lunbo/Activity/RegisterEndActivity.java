@@ -68,6 +68,7 @@ public class RegisterEndActivity extends AppCompatActivity implements View.OnCli
                                     user.setLongitute(String.valueOf(mLocationInfo.mLongitude));
                                     user.setLatitude(String.valueOf(mLocationInfo.mLatitude));
                                     user.setCity(mLocationInfo.mCity);
+                                    user.setDistrict(mLocationInfo.mDistrict);
                                     user.setToken(mToken);
                                     user.setImg("https://ss1.baidu.com/9vo3dSag_xI4khGko9WTAnF6hhy/image/h%3D360/sign=51650b06b83eb1355bc7b1bd961fa8cb/7a899e510fb30f2493c8cbedcc95d143ac4b0389.jpg");
                                     user.signUp(new SaveListener<BmobUser>() {
@@ -134,13 +135,11 @@ public class RegisterEndActivity extends AppCompatActivity implements View.OnCli
            case R.id.tv_enter:
                if (mPassWordET_1.getText().toString().equals(mPassWordET_2.getText().toString())) {
                    new Thread(new Runnable() {
-
                        @Override
                        public void run() {
                            String response = GetToken.GetRongCloudToken(mTelephoneStr, mUserNickNameET.getText().toString(),
                                    "https://ss1.baidu.com/-4o3dSag_xI4khGko9WTAnF6hhy/image/h%3D200/sign=5f6ab3f5d00735fa8ef049b9ae500f9f/29381f30e924b8995d7368d66a061d950b7bf695.jpg");
                            JSONObject object = null;
-
                            try {
                                object = new JSONObject(response);
                                String status = object.getString("code");

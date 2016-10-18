@@ -2,6 +2,7 @@ package com.example.yuanmu.lunbo.BmobBean;
 
 
 import java.util.ArrayList;
+
 import cn.bmob.v3.BmobUser;
 public class User extends BmobUser {
     private ArrayList<String> fabulous = new ArrayList();
@@ -14,6 +15,9 @@ public class User extends BmobUser {
     private String latitude;
     private String nickname;
     private String img;
+    //区
+    private String district;
+    //手机识别码
     private String installationId;
     //月收入
     private String income = "未知";
@@ -299,5 +303,13 @@ public class User extends BmobUser {
 
     public void setAge(String age) {
         this.age = age;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
     }
 }

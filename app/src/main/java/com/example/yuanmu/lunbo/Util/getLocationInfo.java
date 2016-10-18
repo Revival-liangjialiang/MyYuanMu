@@ -16,6 +16,7 @@ public class getLocationInfo {
     public double mLongitude;
     public double mLatitude;
     public String mCity;
+    public String mDistrict;
     public boolean mUploadSwitch = false;
     private Context context;
     public getLocationInfo(Context context){
@@ -50,13 +51,13 @@ public class getLocationInfo {
         public void onLocationChanged(AMapLocation loc) {
             if (null != loc) {
                 //todo
-                MyLog.i("kkk","获取位置信息成功!");
                 mUploadSwitch = true;
                 mCity = loc.getCity();
+                mDistrict = loc.getDistrict();
                 mLongitude = loc.getLongitude();
                 mLatitude = loc.getLatitude();
                 if(LocationListener!=null) {
-                    LocationListener.finish(mLongitude, mLatitude, mCity);
+                    LocationListener.finish(mLongitude, mLatitude, mCity,mDistrict);
                 }
             } else {
                 MyLog.i("kkk","Fail!");
@@ -102,8 +103,16 @@ public class getLocationInfo {
         LocationListener = locationListener;
     }
 
+    public String getmDistrict() {
+        return mDistrict;
+    }
+
+    public void setmDistrict(String mDistrict) {
+        this.mDistrict = mDistrict;
+    }
+
 
     public interface LocationListener{
-        void finish(Double longitude,Double latitude,String city);
+        void finish(Double longitude,Double latitude,String city,String district);
     }
 }

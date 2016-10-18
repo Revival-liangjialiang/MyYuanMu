@@ -27,4 +27,6 @@
     <color name="Listener_network_layout_color">#FFFA9C</color>
     <color name="MyBule">#3EC3EC</color>
     <color name="MyZongSe">#FDF3CD</color>
+    <color name="ChangeFront">#f0f0f0</color>
+    <color name="ChangeBack">#BABBB3</color>
 </resources>

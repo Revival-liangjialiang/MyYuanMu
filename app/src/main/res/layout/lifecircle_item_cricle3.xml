@@ -26,15 +26,6 @@
             android:layout_margin="5dp"
             android:text="流月逐影" />
 
-        <TextView
-            android:drawableLeft="@drawable/icon_eye"
-            android:id="@+id/tv_eye"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_margin="5dp"
-            android:text=" 320"
-            android:textColor="@color/brown" />
 
         <TextView
             android:id="@+id/tv_location"
@@ -92,7 +83,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="2dp"
-                android:background="@drawable/fillet_background_5"
+                android:background="@drawable/fabulous_press_change_color"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:paddingLeft="10dp"
@@ -104,7 +95,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
-                android:background="@drawable/fillet_background_5"
+                android:background="@drawable/fabulous_press_change_color"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:paddingLeft="10dp"

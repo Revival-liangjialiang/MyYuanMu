@@ -59,7 +59,6 @@ public class Lifecircle_Fragment extends Fragment implements View.OnClickListene
     private ViewGroup view;
     private String articleId;
     private ListView lv_1;
-
     private LifecircleAdapter adapter;
     private Map<String, Object> map;
     private Context context;
@@ -67,7 +66,6 @@ public class Lifecircle_Fragment extends Fragment implements View.OnClickListene
     private PullToRefreshView mPullToRefreshView;
     public static final int REFRESH_DELAY = 2000;
     private ImageView iv_edit;
-
     //文章集合
     private List<Map<String, Object>> mList = new ArrayList<Map<String, Object>>();
     //评论集合
@@ -177,6 +175,7 @@ public class Lifecircle_Fragment extends Fragment implements View.OnClickListene
                     for (int i = 0; i < object.size(); i++) {
                         //获取文章ID
                         articleId = object.get(i).getObjectId();
+                        User user = object.get(i).getUser();
                         String nickname = object.get(i).getUser()
                                 .getNickname();
                         String img = object.get(i).getUser().getImg();
@@ -205,6 +204,7 @@ public class Lifecircle_Fragment extends Fragment implements View.OnClickListene
                         map.put("createdAt", createdAt);
                         map.put("imgarray", imgarray);
                         map.put("commentarray", commentarray);
+                        map.put("user",user);
                         mList.add(map);
                     }
                     //查询文章的评论
@@ -248,6 +248,7 @@ public class Lifecircle_Fragment extends Fragment implements View.OnClickListene
                         //存放文章的评论,索引是文章的objectId
                         mCommentListMap.put(articleIdCopy, list);
                         if(mCommentValue == mList.size()){
+                            mCommentValue = 0;
                             startReplyQuery();
                         }
                     } else {

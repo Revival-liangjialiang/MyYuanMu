@@ -26,15 +26,6 @@
             android:layout_margin="5dp"
             android:text="流月逐影" />
 
-        <TextView
-            android:id="@+id/tv_eye"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_margin="5dp"
-            android:drawableLeft="@drawable/icon_eye"
-            android:text=" 320"
-            android:textColor="@color/brown" />
 
         <TextView
             android:id="@+id/tv_location"

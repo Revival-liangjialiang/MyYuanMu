@@ -128,7 +128,7 @@ public class UserDataActivity extends AppCompatActivity implements View.OnClickL
                     } else {
                         BmobQuery<Focus> query = new BmobQuery();
                         query.include("target");
-                        query.addWhereEqualTo("remark", currentUser.getNickname());
+                        query.addWhereEqualTo("myusername", currentUser.getUsername());
                         query.findObjects(new FindListener<Focus>() {
                             @Override
                             public void done(List<Focus> list, BmobException e) {
@@ -138,8 +138,11 @@ public class UserDataActivity extends AppCompatActivity implements View.OnClickL
                                     for(int a = 0;a<list.size();a++){
                                         Focus focus = list.get(a);
                                         //如果关注过此人，则直接退出，不做任何逻辑处理
+                                        MyLog.i("qqqq","targetUser.getNickname() = "+targetUser.getNickname()+"  focus.getTarget().getNickname() = "+focus.getTarget().getNickname());
                                         if(targetUser.getNickname().equals(focus.getTarget().getNickname())) {
                                             Toast.makeText(UserDataActivity.this, "你已经关注过此人!", Toast.LENGTH_SHORT).show();
+                                            mFollow.setEnabled(false);
+                                            mFollow.setText("已关注!");
                                             mFollowSwitch = true;
                                             return;
                                         }
@@ -148,12 +151,14 @@ public class UserDataActivity extends AppCompatActivity implements View.OnClickL
                                         one.setMyusername(currentUser.getUsername());
                                         one.setTarget(targetUser);
                                         //设置备注
-                                        one.setRemark(currentUser.getNickname());
+                                        one.setRemark(targetUser.getNickname());
                                         one.save(new SaveListener<String>() {
                                             @Override
                                             public void done(String objectId, BmobException e) {
                                                 if (e == null) {
-                                                    Toast.makeText(MyApplication.getContext(), "关注成功，返回objectId为：" + objectId,
+                                                    mFollow.setEnabled(false);
+                                                    mFollow.setText("已关注!");
+                                                    Toast.makeText(MyApplication.getContext(), "关注成功!" + objectId,
                                                             Toast.LENGTH_SHORT).show();
                                                 } else {
                                                     Toast.makeText(MyApplication.getContext(), "关注失败：" + e.getMessage(),
@@ -162,17 +167,20 @@ public class UserDataActivity extends AppCompatActivity implements View.OnClickL
                                             }
                                         });
                                     } else {
+                                        MyLog.i("pppp","小于零！");
                                         //没有好友就直接关注
                                         Focus one = new Focus();
                                         one.setMyusername(currentUser.getUsername());
                                         one.setTarget(targetUser);
                                         //设置备注
-                                        one.setRemark(currentUser.getNickname());
+                                        one.setRemark(targetUser.getNickname());
                                         one.save(new SaveListener<String>() {
                                             @Override
                                             public void done(String objectId, BmobException e) {
                                                 if (e == null) {
-                                                    Toast.makeText(MyApplication.getContext(), "关注成功，返回objectId为：" + objectId,
+                                                    mFollow.setEnabled(false);
+                                                    mFollow.setText("已关注!");
+                                                    Toast.makeText(MyApplication.getContext(), "关注成功!",
                                                             Toast.LENGTH_SHORT).show();
                                                 } else {
                                                     Toast.makeText(MyApplication.getContext(), "关注失败：" + e.getMessage(),

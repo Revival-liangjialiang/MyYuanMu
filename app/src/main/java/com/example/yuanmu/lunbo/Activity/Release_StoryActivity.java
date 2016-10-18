@@ -7,20 +7,21 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.yuanmu.lunbo.Custom.RichTextEditor;
-import com.example.yuanmu.lunbo.R;
-import com.example.yuanmu.lunbo.Util.FileUtils;
-import com.example.yuanmu.lunbo.Application.MyApplication;
 import com.example.yuanmu.lunbo.BmobBean.Story;
 import com.example.yuanmu.lunbo.BmobBean.User;
+import com.example.yuanmu.lunbo.Custom.RichTextEditor;
+import com.example.yuanmu.lunbo.Data.ImageforArticle;
+import com.example.yuanmu.lunbo.R;
+import com.example.yuanmu.lunbo.Util.FileUtils;
+import com.example.yuanmu.lunbo.Util.MyLog;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -49,7 +50,7 @@ public class Release_StoryActivity extends Activity implements View.OnClickListe
     //	private InterceptLinearLayout line_intercept;
     private RichTextEditor richText;
     private EditText et_name;
-    private TextView tv_ok;
+    private TextView commit_tv;
     private boolean isKeyBoardUp, isEditTouch;// 判断软键盘的显示与隐藏
     private File mCameraImageFile;// 照相机拍照得到的图片
     private FileUtils mFileUtils;
@@ -71,12 +72,12 @@ public class Release_StoryActivity extends Activity implements View.OnClickListe
         mFileUtils = new FileUtils(context);
         line_rootView = (LinearLayout) findViewById(R.id.line_rootView);
 //		line_intercept = (InterceptLinearLayout) findViewById(R.id.line_intercept);
-        tv_ok = (TextView) findViewById(R.id.tv_ok);
-        tv_ok.setOnClickListener(this);
+        commit_tv = (TextView) findViewById(R.id.commit_tv);
+        commit_tv.setOnClickListener(this);
         et_name = (EditText) findViewById(R.id.et_name);
         richText = (RichTextEditor) findViewById(R.id.richText);
         initRichEdit();
-        tv_ok.setText("提交");
+        commit_tv.setText("提交");
     }
 
     private void initRichEdit() {
@@ -142,13 +143,14 @@ public class Release_StoryActivity extends Activity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tv_ok:
+            case R.id.commit_tv:
                 if(mSwitch) {
                     mSwitch = false;
-                    Log.i("打印信息", richText.getRichEditData().get("content") + "");
-                    path = new String[MyApplication.value];
-                    for (int a = 0; a < MyApplication.value; a++) {
-                        path[a] = MyApplication.img_path[a];
+                    mPic_uri = richText.getRichEditData().get("content") + "";
+                    final int size = ImageforArticle.imglist.size();
+                    path = new String[size];
+                    for(int a = 0 ; a < size ; a ++){
+                        path[a] = ImageforArticle.imglist.get(a);
                     }
                     BmobFile.uploadBatch(path, new UploadBatchListener() {
                         @Override
@@ -158,15 +160,13 @@ public class Release_StoryActivity extends Activity implements View.OnClickListe
 
                         @Override
                         public void onProgress(int curIndex, int curPercent, int total, int totalPercent) {
-                            Log.i("进度", curPercent + "");
                             mSwitch = true;
                         }
 
                         @Override
                         public void onSuccess(List<BmobFile> files, List<String> urls) {
-                            if (urls.size() == MyApplication.value) {//如果数量相等，则代表文件全部上传完成
+                            if (urls.size() == size) {//如果数量相等，则代表文件全部上传完成
                                 next(urls);
-                                MyApplication.value = 0;
                                 mSwitch = true;
                             }
                         }
@@ -186,31 +186,27 @@ public class Release_StoryActivity extends Activity implements View.OnClickListe
         }
     }
     void next(List<String> url) {
-        for (int a = 0; a < MyApplication.value; a++) {
+        for (int a = 0; a < ImageforArticle.imglist.size(); a++) {
             list_path.add(url.get(a));
         }
         User user = BmobUser.getCurrentUser(User.class);
-        Log.i("ok","user = "+user.getNickname());
         Story story = new Story();
         story.setTitle(et_name.getText().toString());
-        /*Log.i("ok","---------------------------Content = "+richText.getRichEditData().get("content") + "");*/
-        mPic_uri = richText.getRichEditData().get("content") + "";
-        for(int a = 0;a<MyApplication.value;a++){
-            /*Log.i("ok","MyApplication.img_path[a] = "+MyApplication.img_path[a]+"      url.get(a)"+url.get(a));*/
-        mPic_uri = mPic_uri.replaceAll(MyApplication.img_path[a],url.get(a));
+        for(int a = 0;a < ImageforArticle.imglist.size() ; a++){
+        mPic_uri = mPic_uri.replaceAll( ImageforArticle.imglist.get(a),url.get(a));
         }
-//        Log.i("ok", "-----------------------mPic_uri等于 = " +mPic_uri);
         story.setContent(mPic_uri);
         story.setImg(list_path);
+        MyLog.i("jjj","user = "+user);
         story.setUser(user);
         story.save(new SaveListener<String>() {
             @Override
             public void done(String s, BmobException e) {
                 if (e == null) {
-                    Log.i("ok", "Story上传成功！");
+                    Toast.makeText(Release_StoryActivity.this, "上传成功！", Toast.LENGTH_SHORT).show();
                     finish();
                 } else {
-                    Log.i("ok", "Story上传失败！");
+                    Toast.makeText(Release_StoryActivity.this, "上传失败！", Toast.LENGTH_SHORT).show();
                 }
             }
         });

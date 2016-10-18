@@ -161,6 +161,7 @@
         <activity android:name=".Activity.LocalImageActivity"></activity>
         <!--发送地图-->
         <activity android:name="com.example.yuanmu.lunbo.Activity.AMAPLocationActivity"/>
+
         <activity
             android:name="com.example.yuanmu.lunbo.Activity.ConversationActivity"
             android:screenOrientation="portrait"

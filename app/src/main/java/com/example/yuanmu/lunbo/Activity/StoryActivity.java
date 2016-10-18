@@ -9,9 +9,9 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.example.yuanmu.lunbo.Adapter.StoryAdapter;
+import com.example.yuanmu.lunbo.BmobBean.Story;
 import com.example.yuanmu.lunbo.Custom.StoryListView;
 import com.example.yuanmu.lunbo.R;
-import com.example.yuanmu.lunbo.BmobBean.Story;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -69,11 +69,6 @@ private static final int POS_INTENT_1 = 0;
                         map.put("createdAt", createdAt);
                         map.put("imgarray", imgarray);
                         map.put("objectId", objectId);
-                        Log.i("title", title);
-                        Log.i("img", img);
-                        Log.i("nickname", nickname);
-                        Log.i("createdAt", createdAt);
-                        Log.i("imgarray", imgarray.size() + "");
                         list.add(map);
                     }
                     adapter.notifyDataSetChanged();
@@ -82,47 +77,6 @@ private static final int POS_INTENT_1 = 0;
                 }
             }
         });
-
-
-//        list.clear();
-//        BmobQuery<Forum> querys = new BmobQuery<Forum>();
-//        querys.order("-updatedAt");
-//        querys.addWhereEqualTo("kind", "置顶");
-//        querys.include("author");// 希望在查询帖子信息的同时也把发布人的信息查询出来
-//        querys.findObjects(new FindListener<Forum>() {
-//
-//            @Override
-//            public void done(List<Forum> object, BmobException e) {
-//                if (e == null) {
-//                    for (int i = 0; i < object.size(); i++) {
-//                        String nickname = object.get(i).getAuthor()
-//                                .getNickname();
-//                        String img = object.get(i).getAuthor().getImg();
-//                        String title = object.get(i).getTitle();
-//                        String objectId = object.get(i).getObjectId();
-//                        String createdAt = object.get(i).getCreatedAt();
-//                        List<String> imgarray = object.get(i).getImgarray();
-//                        String kind = object.get(i).getKind();
-//                        String commentcount = object.get(i).getCommentcount();
-//                        // Log.i("数组", imgarray.size() + "");
-//                        map = new HashMap<String, Object>();
-//                        map.put("nickname", nickname);
-//                        map.put("img", img);
-//                        map.put("title", title);
-//                        map.put("objectId", objectId);
-//                        map.put("createdAt", createdAt);
-//                        map.put("imgarray", imgarray);
-//                        map.put("kind", kind);
-//                        map.put("commentcount", commentcount);
-//                        list.add(map);
-//                    }
-//                    getOtherData();
-//                }
-//            }
-//
-//        });
-
-
     }
 
     private void initEvent() {

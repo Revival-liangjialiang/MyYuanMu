@@ -2,6 +2,7 @@ package com.example.yuanmu.lunbo.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,8 +70,9 @@ public class Near_nearAdapter extends BaseAdapter{
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mcontext,UserDataActivity.class);
-                intent.putExtra(UserDataActivity.USER_NAME,user.getNickname());
-                intent.putExtra(UserDataActivity.HEAD_PORTRAIT_ADDRESS,user.getImg());
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("user",user);
+                intent.putExtras(bundle);
                 mcontext.startActivity(intent);
             }
         });

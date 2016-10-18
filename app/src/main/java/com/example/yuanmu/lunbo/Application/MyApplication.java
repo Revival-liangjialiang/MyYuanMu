@@ -25,8 +25,6 @@ public class MyApplication extends Application {
     public static String username = "";
     // 是否登陆
     public static boolean isLogin = false;
-    public static String[] img_path  = new String[50];
-    public static int value = 0;
     // bmob appid
     public static String userID = "";
     private static RequestQueue queues;

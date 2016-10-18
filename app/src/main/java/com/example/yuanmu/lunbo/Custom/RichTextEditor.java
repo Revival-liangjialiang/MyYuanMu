@@ -20,9 +20,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.example.yuanmu.lunbo.Data.ImageforArticle;
 import com.example.yuanmu.lunbo.R;
 import com.example.yuanmu.lunbo.Util.FileUtils;
-import com.example.yuanmu.lunbo.Application.MyApplication;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -499,15 +499,16 @@ public class RichTextEditor extends InterceptLinearLayout {
 						.findViewById(R.id.edit_imageView);
 				imgUrls.add(item.getAbsolutePath());
 				editTextSB.append(separator);
+				ImageforArticle.imglist.add(item.getAbsolutePath());
 				String img = "<img src='" + item.getAbsolutePath() + "' />";
 				content = content + img;
 				//TODO
 			}
 		}
-		for(int a = 0;a<imgUrls.size();a++){
-			MyApplication.img_path[a] = imgUrls.get(a);
-		}
-			MyApplication.value = imgUrls.size();
+//		for(int a = 0;a<imgUrls.size();a++){
+//			MyApplication.img_path[a] = imgUrls.get(a);
+//		}
+//			MyApplication.value = imgUrls.size();
 
 //		data.put("text", editTextSB);
 //		data.put("imgUrls", imgUrls);

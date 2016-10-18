@@ -13,6 +13,7 @@ import com.example.yuanmu.lunbo.Activity.Content_StoryActivity;
 import com.example.yuanmu.lunbo.Custom.CircleImageView;
 import com.example.yuanmu.lunbo.R;
 import com.example.yuanmu.lunbo.Util.ImgUtil;
+import com.example.yuanmu.lunbo.Util.MyLog;
 
 import java.util.List;
 import java.util.Map;
@@ -28,19 +29,16 @@ public class StoryAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
 		return mlist.size();
 	}
 
 	@Override
 	public Object getItem(int arg0) {
-		// TODO Auto-generated method stub
 		return mlist.get(arg0);
 	}
 
 	@Override
 	public long getItemId(int arg0) {
-		// TODO Auto-generated method stub
 		return arg0;
 	}
 
@@ -185,7 +183,9 @@ public class StoryAdapter extends BaseAdapter {
 		convertView.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
+				// TODO: 2016/10/18 0018
 				Intent intent = new Intent(mcontext, Content_StoryActivity.class);
+				MyLog.i("wan","objectId = "+objectId);
 				intent.putExtra("objectId",objectId);
 				mcontext.startActivity(intent);
 			}
