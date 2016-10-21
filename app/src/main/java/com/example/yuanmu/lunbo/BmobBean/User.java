@@ -15,10 +15,14 @@ public class User extends BmobUser {
     private String latitude;
     private String nickname;
     private String img;
+    //相册
+    private String[] album;
+    //省份
+    private String province = "未知";
     //区
-    private String district;
+    private String district = "未知";
     //手机识别码
-    private String installationId;
+    private String installationId = "未知";
     //月收入
     private String income = "未知";
     //工作地区
@@ -63,6 +67,8 @@ public class User extends BmobUser {
     private String age = "未知";
     public User(){
         fabulous.add(" ");
+        album = new String [1];
+        album[0] = "";
     }
 
     public String getIncome() {
@@ -311,5 +317,21 @@ public class User extends BmobUser {
 
     public void setDistrict(String district) {
         this.district = district;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String[] getAlbum() {
+        return album;
+    }
+
+    public void setAlbum(String[] album) {
+        this.album = album;
     }
 }

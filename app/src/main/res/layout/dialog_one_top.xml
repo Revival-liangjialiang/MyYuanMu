@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.yuanmu.lunbo.Custom.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_1"
+    android:background="#20000000"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal" >
+
+
+        <ListView
+            android:id="@+id/lv_1"
+            android:dividerHeight="0.5dp"
+            android:divider="#f0f0f0"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_heightPercent="70%h" >
+        </ListView>
+
+</com.example.yuanmu.lunbo.Custom.PercentLinearLayout>

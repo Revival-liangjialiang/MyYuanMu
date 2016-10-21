@@ -28,6 +28,7 @@ import com.example.yuanmu.lunbo.R;
 import com.example.yuanmu.lunbo.Util.ImgUtil;
 import com.example.yuanmu.lunbo.Util.MyLog;
 import com.example.yuanmu.lunbo.Util.ScreenUtil;
+import com.example.yuanmu.lunbo.Util.StatusBarColorUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,6 +48,7 @@ import cn.bmob.v3.listener.UpdateListener;
  * Created by yuanmu on 2016/8/29.
  */
 public class Content_Circle extends AppCompatActivity {
+    TextView mAddress_tv;
     String mTargetUserNickName;
     //判断是回复还是评论
     private boolean mReplyAndCommentSwitch = true;
@@ -68,21 +70,22 @@ public class Content_Circle extends AppCompatActivity {
     private CircleImageView civ_img;
     //文章里面的评论List控件
     private Comment_CircleListView lv_comment;
+
     private List<Map<String, Object>> commentlist = new ArrayList<Map<String, Object>>();
     private Map<String, Object> commentmap;
     private List<String> mcommentarray = new ArrayList<String>();
+
     private List<User> mUserList = new ArrayList<>();
     //评论发表人
-    public User mUser,mCurrentUser;
+    public User mCurrentUser;
     public String mReplyId;
     public Map<String,List> mListMap = new HashMap<>();
     private int mValue = 0;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content_circle);
+        new StatusBarColorUtil(this,R.color.StyleColor);
         context = Content_Circle.this;
         Intent intent = getIntent();
         //文章的ID
@@ -108,8 +111,8 @@ public class Content_Circle extends AppCompatActivity {
                     if (!MyApplication.isLogin) {
                         return;
                     }
-
                     final User user = BmobUser.getCurrentUser(User.class);
+                    mAddress_tv.setText(user.getCity()+"-"+user.getDistrict());
                     // 创建要发表的评论信息
                     CircleComment cc = new CircleComment();
                     cc.setContent(content);
@@ -394,6 +397,7 @@ public class Content_Circle extends AppCompatActivity {
     }
 
     private void initView() {
+        mAddress_tv = (TextView) findViewById(R.id.mAddress_tv);
         lv_comment = (Comment_CircleListView) findViewById(R.id.lv_comment);
         gv_1 = (Content_CircleGridView) findViewById(R.id.gv_1);
         iv_img = (NetworkImageView) findViewById(R.id.iv_img);

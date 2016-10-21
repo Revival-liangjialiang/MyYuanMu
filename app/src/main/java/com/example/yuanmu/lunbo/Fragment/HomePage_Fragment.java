@@ -34,6 +34,7 @@ import com.example.yuanmu.lunbo.Custom.MyView;
 import com.example.yuanmu.lunbo.Custom.StoryListView;
 import com.example.yuanmu.lunbo.R;
 import com.example.yuanmu.lunbo.Util.MyLog;
+import com.example.yuanmu.lunbo.Util.NoLoginUtil;
 import com.example.yuanmu.lunbo.Util.VolleyRequest;
 import com.jingchen.pulltorefresh.PullToRefreshLayout;
 import com.jude.rollviewpager.RollPagerView;
@@ -218,10 +219,10 @@ public class HomePage_Fragment extends Fragment implements View.OnClickListener 
         mLoveActivity = (MyView) m.findViewById(R.id.love_activity);
         mStorytelling_session = (MyView) m.findViewById(R.id.storytelling_session);
         mSearch_in_figure = (MyView) m.findViewById(R.id.search_in_figure);
-        mLove_match.bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.n1);
-        mLoveActivity.bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.n2);
-        mStorytelling_session.bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.n3);
-        mSearch_in_figure.bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.n4);
+        mLove_match.bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_home_1);
+        mLoveActivity.bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_home_2);
+        mStorytelling_session.bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_home_3);
+        mSearch_in_figure.bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.icon_home_4);
         mLove_match.postInvalidate();
         mLoveActivity.postInvalidate();
         mStorytelling_session.postInvalidate();
@@ -404,8 +405,13 @@ public class HomePage_Fragment extends Fragment implements View.OnClickListener 
                 break;
             //故事会
             case R.id.storytelling_session:
-                Intent storytelling_session_intent = new Intent(m, StoryActivity.class);
-                startActivity(storytelling_session_intent);
+                if(MyApplication.isLogin) {
+                    Intent storytelling_session_intent = new Intent(m, StoryActivity.class);
+                    startActivity(storytelling_session_intent);
+                }else{
+                    Toast.makeText(getContext(), "未登录!", Toast.LENGTH_SHORT).show();
+                    NoLoginUtil.login(getContext());
+                }
                 break;
             // TODO: 2016/10/14 0014
             //图中寻
@@ -546,6 +552,7 @@ public class HomePage_Fragment extends Fragment implements View.OnClickListener 
             new Handler() {
                 @Override
                 public void handleMessage(Message msg) {
+                    getData();
                     // 千万别忘了告诉控件刷新完毕了哦！
                     pullToRefreshLayout.refreshFinish(PullToRefreshLayout.SUCCEED);
                 }

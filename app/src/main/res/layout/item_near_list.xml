@@ -37,6 +37,7 @@
                 android:textSize="15sp" />
 
             <TextView
+                android:id="@+id/sex_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
@@ -79,6 +80,7 @@
             android:gravity="center_vertical">
 
             <TextView
+                android:id="@+id/age_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="23岁"
@@ -91,6 +93,7 @@
                 android:background="#f0f0f0" />
 
             <TextView
+                android:id="@+id/address_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="广东-佛山"
@@ -104,6 +107,7 @@
             android:gravity="center_vertical">
 
             <TextView
+                android:id="@+id/position_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="仓管"
@@ -116,6 +120,7 @@
                 android:background="#f0f0f0" />
 
             <TextView
+                android:id="@+id/education_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="大专"
@@ -128,6 +133,7 @@
                 android:background="#f0f0f0" />
 
             <TextView
+                android:id="@+id/height_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="166cm"
@@ -141,6 +147,7 @@
             android:gravity="center_vertical">
 
             <TextView
+                android:id="@+id/monologue_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="出来社会已经三四年了，此时此刻的我已经深深地感觉到孤单寂寞冷。"

@@ -1,8 +1,11 @@
 package com.example.yuanmu.lunbo.Activity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.util.LruCache;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
@@ -17,6 +20,8 @@ import android.widget.Toast;
 
 import com.example.yuanmu.lunbo.Adapter.Main_ViewPager_Adapter;
 import com.example.yuanmu.lunbo.Application.MyApplication;
+import com.example.yuanmu.lunbo.BmobBean.User;
+import com.example.yuanmu.lunbo.Fragment.Nearby_Fragment;
 import com.example.yuanmu.lunbo.Fragment.Personal.Personal_Fragment;
 import com.example.yuanmu.lunbo.R;
 import com.example.yuanmu.lunbo.Util.SystemBarTintManager;
@@ -26,17 +31,29 @@ import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
 
 
 public class MainActivity extends AppCompatActivity {
+    private boolean mRequestSwitch = true;
+   public Nearby_Fragment mNearby_fragment;
     private int a = 0;
     ViewPager mViewPager;
     public LruCache<String, Bitmap> mLruCache;
     Personal_Fragment personal_fragment;
-
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+                 mNearby_fragment.loading_layout.setVisibility(View.GONE);
+        }
+    };
 
     private String[] mTitles = {"首页", "生活圈", "附近", "消息", "个人"};
     //导航主控件
@@ -218,5 +235,75 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
         return false;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (resultCode) {
+            case RESULT_OK:
+            Toast.makeText(MainActivity.this, "筛选成功!", Toast.LENGTH_SHORT).show();
+            queryNearbyPeople(data);
+            //查询附近人
+                break;
+            case RESULT_CANCELED:
+                break;
+            default:break;
+        }
+    }
+
+    public void setmNearby_fragment(Nearby_Fragment fragment) {
+        this.mNearby_fragment = fragment;
+        this.mNearby_fragment.loading_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mNearby_fragment.rotateLoading.stop();
+                mRequestSwitch = false;
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(700);
+                            handler.sendMessage(new Message());
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+            }
+        });
+    }
+    private void queryNearbyPeople(Intent data) {
+        mNearby_fragment.loading_layout.setVisibility(View.VISIBLE);
+        mNearby_fragment.rotateLoading.start();
+        BmobQuery<User> query = new BmobQuery<User>();
+//查询playerName叫“比目”的数据
+        query.addWhereEqualTo("gender", data.getStringExtra(ConditionalSelectionActivity.VALUE));
+//返回50条数据，如果不加上这条语句，默认返回10条数据
+        query.setLimit(20);
+//执行查询方法
+        query.findObjects(new FindListener<User>() {
+            @Override
+            public void done(List<User> object, BmobException e) {
+                if(e==null){
+                    if(mRequestSwitch) {
+                        mNearby_fragment.mUserInfoList.clear();
+                        mNearby_fragment.rotateLoading.stop();
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                handler.sendMessage(new Message());
+                            }
+                        }).start();
+                        mNearby_fragment.mUserList = object;
+                        //计算附近人与本人的距离
+                        mNearby_fragment.calculationDistance();
+                    }
+                }else{
+                    Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
+                }
+                mRequestSwitch = true;
+            }
+        });
     }
 }

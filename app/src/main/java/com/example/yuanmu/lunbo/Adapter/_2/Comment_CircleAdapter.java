@@ -65,6 +65,7 @@ public class Comment_CircleAdapter extends BaseAdapter{
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
+        User user = (User) mlist.get(position).get("user");
         final String id = (String) mlist.get(position).get("id");
         final String nickname = (String) mlist.get(position).get("nickname");
         String targetuser = (String) mlist.get(position).get("targetuser");
@@ -74,6 +75,7 @@ public class Comment_CircleAdapter extends BaseAdapter{
         convertView = LayoutInflater.from(mcontext).inflate(
                 R.layout.item_comment_circle, parent, false);
         holder = new ViewHolder();
+        holder.tv_location = (TextView) convertView.findViewById(R.id.tv_location);
         holder.commentLayout = (LinearLayout) convertView.findViewById(R.id.commentLayout);
         mLinearLayoutCopy = (LinearLayout) convertView.findViewById(R.id.mReplyLayout);
         //HeadPortrait
@@ -85,12 +87,11 @@ public class Comment_CircleAdapter extends BaseAdapter{
         holder.tv_content = (TextView) convertView
                 .findViewById(R.id.tv_content);
         convertView.setTag(holder);
-
         holder.tv_content.setText(content);
         holder.tv_createdate.setText(createdAt);
+        holder.tv_location.setText(user.getCity()+"-"+user.getDistrict());
         //设置层主
         holder.tv_nickname.setText(nickname);
-
         ImgUtil.setImg(holder.img_headPortrait,headPortraitAddress,80,80);
         holder.commentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -179,6 +180,7 @@ public class Comment_CircleAdapter extends BaseAdapter{
     class ViewHolder {
         LinearLayout commentLayout;
         ImageView img_headPortrait;
+        TextView tv_location;
         TextView tv_reply;
         TextView tv_nickname;
         TextView tv_target;

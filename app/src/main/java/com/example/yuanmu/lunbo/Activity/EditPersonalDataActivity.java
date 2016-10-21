@@ -346,6 +346,9 @@ public class EditPersonalDataActivity extends AppCompatActivity implements View.
                     data.setBuying_a_car(mBuying_a_car_TV.getText().toString());
                     data.setOccupation(mOccupation_TV.getText().toString());
                     data.setPlace_of_origin(mPlace_of_origin_TV.getText().toString());
+                    if(!mPlace_of_origin_TV.getText().toString().equals("未知")){
+                        data.setProvince(mPlace_of_origin_TV.getText().toString().split("-")[0]);
+                    }
                     data.setWeight(mWeight_TV.getText().toString());
                     data.setShape(mShape_TV.getText().toString());
                     data.setSmoking_status(mSmoking_Status_TV.getText().toString());
@@ -355,6 +358,13 @@ public class EditPersonalDataActivity extends AppCompatActivity implements View.
                     data.setWhen_to_get_married(mWhen_to_get_married_TV.getText().toString());
                     data.setGender(mGender_TV.getText().toString());
                     data.setBirthday(mBirthday_TV.getText().toString());
+                if(mBirthday_TV.getText().toString().equals("未知")!=true){
+                        //计算年龄然后上传
+                    String str = mBirthday_TV.getText().toString();
+                    str = str.substring(0, str.indexOf("."));
+                    int value = 2016 - Integer.valueOf(str);
+                    data.setAge(value + "");
+                    }
                     data.setHeight(mHeight_TV.getText().toString());
                     data.setEducation(mEducation_TV.getText().toString());
                     data.setMarital_status(mMaritalStatus_TV.getText().toString());

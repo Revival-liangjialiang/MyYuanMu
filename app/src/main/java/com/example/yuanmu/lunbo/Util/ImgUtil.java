@@ -25,7 +25,6 @@ import java.net.URL;
 import java.net.URLConnection;
 
 public class ImgUtil {
-	static private PictureListener mListener;
 	public static void setImg(final ImageView imageview, String headUrl, int i,
 			int j) {
 		Log.i("test","调用加载头像方法！");
@@ -147,7 +146,7 @@ public class ImgUtil {
 	}
 	public static void setImg(String headUrl,
 				  int j,PictureListener listener) {
-		mListener = listener;
+		 final PictureListener mListener = listener;
 		Log.i("test","调用加载头像方法！");
 		ImageRequest request = new ImageRequest(headUrl,
 				new Listener<Bitmap>() {

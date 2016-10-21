@@ -1,9 +1,9 @@
 package com.example.yuanmu.lunbo.Activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,6 +12,7 @@ import com.example.yuanmu.lunbo.Adapter.StoryAdapter;
 import com.example.yuanmu.lunbo.BmobBean.Story;
 import com.example.yuanmu.lunbo.Custom.StoryListView;
 import com.example.yuanmu.lunbo.R;
+import com.example.yuanmu.lunbo.Util.StatusBarColorUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,7 +26,7 @@ import cn.bmob.v3.listener.FindListener;
 /**
  * Created by yuanmu on 2016/9/2.
  */
-public class StoryActivity extends Activity implements View.OnClickListener{
+public class StoryActivity extends AppCompatActivity implements View.OnClickListener{
     private Context context;
     private List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
     private Map<String, Object> map;
@@ -37,6 +38,7 @@ private static final int POS_INTENT_1 = 0;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_story);
+        new StatusBarColorUtil(this,R.color.StyleColor);
         context = StoryActivity.this;
         initView();
         initData();
@@ -97,6 +99,7 @@ private static final int POS_INTENT_1 = 0;
     @Override
     public void onClick(View view) {
         switch (view.getId()){
+            //编辑故事
             case R.id.iv_edit:
                 Intent intent = new Intent(context,Release_StoryActivity.class);
                 startActivityForResult(intent,POS_INTENT_1);

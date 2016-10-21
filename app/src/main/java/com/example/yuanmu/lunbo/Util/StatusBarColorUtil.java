@@ -1,8 +1,8 @@
 package com.example.yuanmu.lunbo.Util;
 
+import android.app.Activity;
 import android.os.Build;
 import android.support.v4.view.ViewCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -12,9 +12,9 @@ import android.view.WindowManager;
  * Created by Administrator on 2016/9/13 0013.
  */
 public class StatusBarColorUtil {
-    AppCompatActivity mActivity;
+    Activity mActivity;
     int mColor;
-    public StatusBarColorUtil(AppCompatActivity activity,int color){
+    public StatusBarColorUtil(Activity activity,int color){
         mActivity = activity;
         mColor = color;
         setStatusBarColor();

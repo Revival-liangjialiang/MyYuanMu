@@ -105,11 +105,14 @@
         <activity android:name=".Activity.PersonalSettingActivity.PushActivity"></activity>
         <activity android:name=".Activity.PersonalSettingActivity.TermActivity"></activity>
         <activity android:name=".Activity.Content_Circle"
-                  android:windowSoftInputMode="stateUnchanged"
+                  android:windowSoftInputMode="adjustResize"
             ></activity>
         <activity android:name=".Activity.Release_StoryActivity"></activity>
         <activity android:name=".Activity.StoryActivity"></activity>
-        <activity android:name=".Activity.Content_StoryActivity"></activity>
+        <!-- 故事会内容活动 -->
+        <activity android:name=".Activity.Content_StoryActivity"
+                  android:windowSoftInputMode="adjustResize"
+            ></activity>
         <activity android:name=".Activity.Release_LifeActivity"></activity>
         <activity android:name=".Activity.LocalImageList"></activity>
         <activity android:name=".Activity.LocalImage"></activity>
@@ -159,6 +162,8 @@
         <!-- 图中寻活动 -->
         <activity android:name="com.example.yuanmu.lunbo.Activity.CustomMarkerActivity"></activity>
         <activity android:name=".Activity.LocalImageActivity"></activity>
+        <!-- 我的关注活动! -->
+        <activity android:name=".Activity.MyConcern"></activity>
         <!--发送地图-->
         <activity android:name="com.example.yuanmu.lunbo.Activity.AMAPLocationActivity"/>
 

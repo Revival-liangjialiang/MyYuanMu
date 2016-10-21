@@ -1,8 +1,6 @@
 package com.example.yuanmu.lunbo.interfaces;
 
 
-import com.example.yuanmu.lunbo.interfaces.PublicInterface;
-
 public class KeywithValueUtil {
 	public static PublicInterface interfaces;
 

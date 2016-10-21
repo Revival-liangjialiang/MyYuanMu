@@ -84,8 +84,8 @@ public class PersonalDataFragment extends Fragment{
         super.onActivityCreated(savedInstanceState);
         mActivity = (DataActivity) getActivity();
         mActivity.setmPersonalDataFragment(this);
-        initView();
         User user = BmobUser.getCurrentUser(User.class);
+        initView(user);
         BmobQuery<User> query = new BmobQuery<>();
         query.getObject(user.getObjectId(), new QueryListener<User>() {
             @Override
@@ -99,8 +99,7 @@ public class PersonalDataFragment extends Fragment{
         });
     }
 
-
-    private void initView() {
+    private void initView(User user) {
         mHave_no_children_tv = (TextView) mActivity.findViewById(R.id.mHave_no_children_tv);
         mMonologueContent_tv = (TextView) mActivity.findViewById(R.id.mMonologueContent_tv);
         mEditMonologue_tv = (TextView) mActivity.findViewById(R.id.mEditMonologue_tv);
@@ -110,7 +109,7 @@ public class PersonalDataFragment extends Fragment{
         mWhether_or_not_to_have_children_tv = (TextView) mActivity.findViewById(R.id.mWhether_or_not_to_have_children_tv);
         mWhen_to_get_married_tv = (TextView) mActivity.findViewById(R.id.mWhen_to_get_married_tv);
         mShape_tv = (TextView) mActivity.findViewById(R.id.mShape_tv);
-        mWeight_tv = (TextView) mActivity.findViewById(R.id.mWeight_tv);
+        mWeight_tv = (TextView) mActivity.findViewById(R.id.mWeight_tv1);
         mPlace_of_origin_tv = (TextView) mActivity.findViewById(R.id.mPlace_of_origin_tv);
         mNation_tv = (TextView) mActivity.findViewById(R.id.mNation_tv);
         mConstellation_tv = (TextView) mActivity.findViewById(R.id.mConstellation_tv);
@@ -129,7 +128,8 @@ public class PersonalDataFragment extends Fragment{
         LinearLayoutManager layoutManager = new LinearLayoutManager(mActivity);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mAlbumRe.setLayoutManager(layoutManager);
-        mAlbumRe.setAdapter(new PersonalDataReAdapter());
+        // TODO: 2016/10/21 0021
+        mAlbumRe.setAdapter(new PersonalDataReAdapter(mActivity,user.getAlbum()));
         //初始化礼物Re
         mGiftRe = (RecyclerView) mActivity.findViewById(R.id.gift_RecyclerView);
         LinearLayoutManager giftLayoutManager = new LinearLayoutManager(mActivity);

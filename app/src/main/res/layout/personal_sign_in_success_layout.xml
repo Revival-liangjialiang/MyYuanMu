@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
-              android:visibility="gone"
+
               android:id="@+id/sign_in_success_layout"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
@@ -18,14 +18,14 @@
             android:layout_centerVertical="true"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:id="@+id/personal_MyView"
+            android:id="@+id/mHeadPortrait"
             >
         </com.example.yuanmu.lunbo.Custom.MyView>
         <LinearLayout
             android:layout_marginLeft="6dp"
             android:layout_centerVertical="true"
             android:id="@+id/linearLayout_1"
-            android:layout_toRightOf="@+id/personal_MyView"
+            android:layout_toRightOf="@+id/mHeadPortrait"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -35,6 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:id="@+id/mUserName_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="XXXX"
@@ -55,6 +56,7 @@
                     />
             </LinearLayout>
             <TextView
+                android:id="@+id/mID_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ID:"
@@ -81,10 +83,11 @@
             />
     </RelativeLayout>
     <TextView
+        android:id="@+id/mFollow_tv"
         android:layout_marginTop="20dp"
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
-        android:background="@color/WhiteStyle"
+        android:background="@drawable/from_white_to_gray"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:text="我的关注"

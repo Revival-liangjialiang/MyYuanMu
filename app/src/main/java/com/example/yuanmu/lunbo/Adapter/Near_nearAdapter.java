@@ -54,6 +54,14 @@ public class Near_nearAdapter extends BaseAdapter{
              convertView = LayoutInflater.from(mcontext).inflate(R.layout.item_near_list,
                     parent, false);
             holder = new ViewHolder();
+            holder.sex_tv = (TextView) convertView.findViewById(R.id.sex_tv);
+            holder.age_tv = (TextView) convertView.findViewById(R.id.age_tv);
+            holder.address_tv = (TextView) convertView.findViewById(R.id.address_tv);
+            holder.position_tv = (TextView) convertView.findViewById(R.id.position_tv);
+            holder.education_tv = (TextView) convertView.findViewById(R.id.education_tv);
+            holder.height_tv = (TextView) convertView.findViewById(R.id.height_tv);
+            holder.monologue_tv = (TextView) convertView.findViewById(R.id.monologue_tv);
+
             holder.distance_tv = (TextView) convertView.findViewById(R.id.distance_tv);
             holder.userName_tv = (TextView) convertView.findViewById(R.id.userName);
             holder.img_iv = (NetworkImageView) convertView.findViewById(R.id.img_iv);
@@ -61,9 +69,18 @@ public class Near_nearAdapter extends BaseAdapter{
         }else {
             holder = (ViewHolder) convertView.getTag();
         }
+        //设置附近人的个人资料
         DecimalFormat df = new DecimalFormat("0.00");
+        holder.sex_tv.setText(mUser.getGender());
         holder.distance_tv.setText(df.format(userInfo.getDistance())+"km");
         holder.userName_tv.setText(mUser.getNickname());
+        holder.age_tv.setText(mUser.getAge());
+        holder.position_tv.setText(mUser.getWorking_area());
+        holder.address_tv.setText(mUser.getCity()+"-"+mUser.getDistrict());
+        holder.education_tv.setText(mUser.getEducation());
+        holder.height_tv.setText(mUser.getHeight());
+        holder.monologue_tv.setText(mUser.getMonologue());
+
         ImgUtil.setImg(holder.img_iv, mUser.getImg());
         convertView.setOnClickListener(new View.OnClickListener() {
             User user = mUser;
@@ -79,6 +96,13 @@ public class Near_nearAdapter extends BaseAdapter{
         return convertView;
     }
     class ViewHolder{
+        TextView age_tv;
+        TextView sex_tv;
+        TextView address_tv;
+        TextView position_tv;
+        TextView education_tv;
+        TextView height_tv;
+        TextView monologue_tv;
         TextView distance_tv;
         TextView userName_tv;
         NetworkImageView img_iv;

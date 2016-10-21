@@ -557,7 +557,7 @@
                     android:text="体重"
                     />
                 <TextView
-                    android:id="@+id/mWeight_tv"
+                    android:id="@+id/mWeight_tv1"
                     android:textSize="@dimen/PAndS_TextSize"
                     android:layout_marginRight="10dp"
                     android:layout_alignParentRight="true"

@@ -58,7 +58,6 @@ public class FriendAdapter extends BaseAdapter implements OnClickListener {
 
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
-
 		final ViewHolder holder;
 		String pinyin = mpinyinList.get(position);
 		final String username = usernamemap.get(pinyin);
@@ -95,7 +94,12 @@ public class FriendAdapter extends BaseAdapter implements OnClickListener {
 		} else {
 			holder.friend_avator.setImageResource(R.mipmap.myviewtest);
 		}
-
+		holder.friend_remark.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				holder.friend_remark.setText("");
+			}
+		});
 		holder.friend_remark.setText(remark);
 
 		int idx = position - 1;

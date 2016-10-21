@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.yuanmu.lunbo.Custom.ZoomImageView;
 import com.example.yuanmu.lunbo.R;
 import com.example.yuanmu.lunbo.Util.ImgUtil;
+import com.example.yuanmu.lunbo.Util.StatusBarColorUtil;
 
 import java.util.List;
 
@@ -32,6 +33,7 @@ public class Gally extends Activity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gally);
+        new StatusBarColorUtil(this,R.color.StyleColor);
         context = Gally.this;
         vp = (ViewPager) findViewById(R.id.vp);
         page = (TextView) findViewById(R.id.page);

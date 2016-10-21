@@ -29,4 +29,6 @@
     <color name="MyZongSe">#FDF3CD</color>
     <color name="ChangeFront">#f0f0f0</color>
     <color name="ChangeBack">#BABBB3</color>
+    <color name="toptextcolor">#001133</color>
+    <color name="MyGray">#2000</color>
 </resources>

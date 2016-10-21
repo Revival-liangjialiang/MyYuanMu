@@ -32,6 +32,7 @@ import cn.bmob.v3.listener.UploadBatchListener;
  */
 public class Release_LifeActivity extends Activity implements View.OnClickListener {
     private Context context;
+    //用来放刚选好的图片
     private GridView gv_myimg;
     private ImageView iv_addphoto;
     private GridImageAdapter adapter;
@@ -58,6 +59,7 @@ public class Release_LifeActivity extends Activity implements View.OnClickListen
     private void initData() {
         LocalImageBean.init();
         adapter = new GridImageAdapter(this, LocalImageBean.list);
+        //为显示选好图片的控件，设置适配器
         gv_myimg.setAdapter(adapter);
     }
 
@@ -65,6 +67,7 @@ public class Release_LifeActivity extends Activity implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_addphoto:
+                // TODO: 2016/10/21 0021
                 Intent intent2 = new Intent();
                 intent2.putExtra("count", 9);
                 intent2.setClass(context, LocalImageList.class);
@@ -108,18 +111,13 @@ public class Release_LifeActivity extends Activity implements View.OnClickListen
                         if(urls.size()==imgarry.length){//如果数量相等，则代表文件全部上传完成
                             next(urls);
                         }
-
                     }
                 });
-
-
-
                 break;
         }
     }
 
     protected void next(List<String> urls) {
-
         User user = BmobUser.getCurrentUser(User.class);
         // 创建帖子信息
         Lifecircle post = new Lifecircle();
@@ -133,12 +131,10 @@ public class Release_LifeActivity extends Activity implements View.OnClickListen
                 if (e == null) {
                     Toast.makeText(context, "保存成功", Toast.LENGTH_SHORT)
                             .show();
-                    Log.i("bmob", "保存成功");
                     finish();
                 } else {
                     Toast.makeText(context, "保存失败", Toast.LENGTH_SHORT)
                             .show();
-                    Log.i("bmob", "保存失败：" + e.getMessage());
                 }
             }
         });

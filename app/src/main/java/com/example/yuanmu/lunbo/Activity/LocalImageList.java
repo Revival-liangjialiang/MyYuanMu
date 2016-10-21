@@ -43,6 +43,7 @@ public class LocalImageList extends Activity implements View.OnClickListener {
     private GroupAdapter adapter;
     private GridView mGroupGridView;
     private int needcount;
+    //选择完成!
     private TextView tv_count;
     private ImageView iv_back;
     private Handler mHandler = new Handler() {
@@ -60,9 +61,7 @@ public class LocalImageList extends Activity implements View.OnClickListener {
                     break;
             }
         }
-
     };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,22 +73,18 @@ public class LocalImageList extends Activity implements View.OnClickListener {
         iv_back = (ImageView) findViewById(R.id.iv_back);
         getImages();
         tv_count.setText("完成(" + LocalImageBean.Count + "/" + needcount + ")");
-
         mGroupGridView.setOnItemClickListener(new OnItemClickListener() {
-
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 List<String> childList = mGruopMap.get(list.get(position)
                         .getFolderName());
-
                 Intent mIntent = new Intent(LocalImageList.this,
                         LocalImage.class);
                 mIntent.putExtra("count", needcount);
                 mIntent.putStringArrayListExtra("data",
                         (ArrayList<String>) childList);
                 startActivityForResult(mIntent, 2);
-
             }
         });
         iv_back.setOnClickListener(this);
@@ -201,6 +196,7 @@ public class LocalImageList extends Activity implements View.OnClickListener {
             case R.id.iv_back:
                 finish();
                 break;
+            //选择完成点击事件
             case R.id.tv_count:
                 finish();
                 break;

@@ -8,11 +8,16 @@ import cn.bmob.v3.BmobObject;
  * Created by Administrator on 2016/9/7 0007.
  */
 public class Story extends BmobObject {
+    private String[][] storycomment = new String[1][1];
     private String title;
     private List<String> img;
     private String content;
     private User user;
-
+    public Story(){
+        String[] str = new String[1];
+        str[0] = "";
+        storycomment[0] = str;
+    }
     public String getTitle() {
         return title;
     }
@@ -43,5 +48,13 @@ public class Story extends BmobObject {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String[][] getStorycomment() {
+        return storycomment;
+    }
+
+    public void setStorycomment(String[][] storycomment) {
+        this.storycomment = storycomment;
     }
 }

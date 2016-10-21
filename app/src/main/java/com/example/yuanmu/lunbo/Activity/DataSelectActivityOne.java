@@ -46,8 +46,6 @@ private void initView() {
         mDetermineButton = (Button) findViewById(R.id.mDetermineButton);
         mCancelButton = (Button) findViewById(R.id.mCancelButton);
         hourWheelView = (WheelView) findViewById(R.id.hour_wheelview);
-        mAge_Select_Popup = (RelativeLayout) findViewById(R.id.mAge_Select_Popup);
-        mAge_Select_Popup.setOnClickListener(this);
         mCancelButton.setOnClickListener(this);
         mDetermineButton.setOnClickListener(this);
         }
@@ -55,7 +53,8 @@ private void initView() {
 public void onClick(View view) {
         switch (view.getId()) {
         case R.id.mCancelButton:
-        case R.id.mAge_Select_Popup:
+                Intent intent = new Intent();
+                setResult(RESULT_CANCELED, intent);
         finish();
         break;
         //确认按钮，确认之后返回数据

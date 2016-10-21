@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+              android:layout_height="match_parent">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="52dp"
         android:background="@color/StyleColor"
         >
         <TextView
-            android:id="@+id/mUserNickName"
             android:paddingRight="10dp"
             android:textStyle="italic"
             android:textSize="20sp"
@@ -18,11 +17,16 @@
             android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="我的关注"
             />
     </RelativeLayout>
-    <fragment
-        android:id="@+id/conversation"
-        android:name="io.rong.imkit.fragment.ConversationFragment"
+    <com.example.yuanmu.lunbo.Custom.MyScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        >
+<android.support.v7.widget.RecyclerView
+    android:id="@+id/mConcern_rv"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+    </com.example.yuanmu.lunbo.Custom.MyScrollView>
 </LinearLayout>

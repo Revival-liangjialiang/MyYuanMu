@@ -8,7 +8,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#00bbff"
+        android:background="@color/StyleColor"
         android:padding="10dp">
 
         <TextView
@@ -55,7 +55,7 @@
                     android:layout_marginRight="20dp"
                     android:layout_marginTop="5dp"
                     android:src="@mipmap/a"
-                    app:border_color="#00bbff"
+                    app:border_color="@color/StyleColor"
                     app:border_width="2dp" />
 
                 <TextView
