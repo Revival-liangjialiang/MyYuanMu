@@ -16,7 +16,6 @@ import com.example.yuanmu.lunbo.Custom.SquareBlockView;
 import com.example.yuanmu.lunbo.R;
 import com.example.yuanmu.lunbo.Util.ImgUtil;
 import com.example.yuanmu.lunbo.Util.LocalImageBean;
-import com.example.yuanmu.lunbo.Util.MyLog;
 
 /**
  * Created by Administrator on 2016/8/29 0029.
@@ -39,7 +38,6 @@ public class PersonalDataReAdapter extends RecyclerView.Adapter<PersonalDataReAd
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         if(position!=0) {
-            MyLog.i("cccc","mPictureAddressArray[position-1] = "+mPictureAddressArray[position-1]);
             ImgUtil.setImg(mPictureAddressArray[position-1], 200, new ImgUtil.PictureListener() {
                 @Override
                 public void loadFinish(Bitmap bitmap) {
@@ -52,15 +50,18 @@ public class PersonalDataReAdapter extends RecyclerView.Adapter<PersonalDataReAd
             holder.imageView.bitmap = BitmapFactory.decodeResource(mContext.getResources(),R.mipmap.add);
             holder.imageView.postInvalidate();
             holder.imageView.setOnClickListener(new View.OnClickListener() {
+                int pictureSum = mPictureAddressArray.length;
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(mContext, "Add", Toast.LENGTH_SHORT).show();
-                    // TODO: 2016/10/21 0021
-                    Intent intent = new Intent(mContext, LocalImageList.class);
-                    intent.putExtra("count", 9);
-                    //初始化装图片地址的类
-                    LocalImageBean.init();
-                    mDataActivity.startActivityForResult(intent,33);
+                    if(!(12-pictureSum==0)) {
+                        Intent intent = new Intent(mContext, LocalImageList.class);
+                        intent.putExtra("count", 12-pictureSum);
+                        //初始化装图片地址的类
+                        LocalImageBean.init();
+                        mDataActivity.startActivityForResult(intent, 33);
+                    }else {
+                        Toast.makeText(mDataActivity, "您上传的图片数量已超过了最大限制!", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
         }
