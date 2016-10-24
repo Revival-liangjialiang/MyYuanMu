@@ -2,6 +2,7 @@ package com.example.yuanmu.lunbo.Activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -27,12 +28,17 @@ import com.example.yuanmu.lunbo.R;
 import com.example.yuanmu.lunbo.Util.ImgUtil;
 import com.example.yuanmu.lunbo.Util.LocalImageBean;
 import com.example.yuanmu.lunbo.Util.MyLog;
+import com.example.yuanmu.lunbo.Util.PictureUtil;
 import com.example.yuanmu.lunbo.Util.SystemBarTintManager;
 import com.example.yuanmu.lunbo.Util.TabEntity;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +53,7 @@ import cn.bmob.v3.listener.UploadBatchListener;
  */
 public class DataActivity extends FragmentActivity implements View.OnClickListener{
     User mCurrentUser;
-   private Fragment mPersonalDataFragment,mConditionalSelectionFeagment;
+    private Fragment mPersonalDataFragment,mConditionalSelectionFeagment;
     //头像控件
     MyCircularView mHeadPortrait_cu;
     TextView edit_condition_TV,mEditPersonalData_TV,mUserName,mEditMonologue_tv;
@@ -87,7 +93,7 @@ public class DataActivity extends FragmentActivity implements View.OnClickListen
 
             @Override
             public void onPageSelected(int position) {
-            mTab.setCurrentTab(position);
+                mTab.setCurrentTab(position);
             }
 
             @Override
@@ -98,7 +104,7 @@ public class DataActivity extends FragmentActivity implements View.OnClickListen
         mTab.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
-        mViewPager.setCurrentItem(position);
+                mViewPager.setCurrentItem(position);
             }
 
             @Override
@@ -138,7 +144,7 @@ public class DataActivity extends FragmentActivity implements View.OnClickListen
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if(keyCode == KeyEvent.KEYCODE_BACK) {
-        finish();
+            finish();
             overridePendingTransition(R.anim.exit_left,R.anim.exit_right);
         }
         return super.onKeyDown(keyCode, event);
@@ -185,9 +191,9 @@ public class DataActivity extends FragmentActivity implements View.OnClickListen
                 break;
             //启动个人数据编辑活动
             case R.id.mEditPersonalData_TV:
-                    startActivityForResult(new Intent(this, EditPersonalDataActivity.class),30);
-                    mPopup_layout.setVisibility(View.GONE);
-                   break;
+                startActivityForResult(new Intent(this, EditPersonalDataActivity.class),30);
+                mPopup_layout.setVisibility(View.GONE);
+                break;
             case R.id.mBack_IV:
                 finish();
                 overridePendingTransition(R.anim.exit_left,R.anim.exit_right);
@@ -206,9 +212,9 @@ public class DataActivity extends FragmentActivity implements View.OnClickListen
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case 0:
-            if (mPersonalDataFragment != null) {
-                mPersonalDataFragment.onActivityResult(requestCode, resultCode, data);
-            }
+                if (mPersonalDataFragment != null) {
+                    mPersonalDataFragment.onActivityResult(requestCode, resultCode, data);
+                }
                 break;
             case 1:
                 if(mConditionalSelectionFeagment!=null) {
@@ -227,55 +233,90 @@ public class DataActivity extends FragmentActivity implements View.OnClickListen
                 LocalImageBean.list.toArray(imgarry);
                 //没图片的话直接退出!
                 if(imgarry.length == 0){
-                 break;
+                    break;
                 }
-                //有图片开始上传流程
-                BmobFile.uploadBatch(imgarry, new UploadBatchListener() {
-                    @Override
-                    public void onError(int statuscode, String errormsg) {
-//			        ShowToast("错误码"+statuscode +",错误描述："+errormsg);
-                        Log.i("错误", statuscode + errormsg);
-                        Toast.makeText(DataActivity.this, statuscode + errormsg, Toast.LENGTH_LONG).show();
-                    }
-
-                    @Override
-                    public void onProgress(int curIndex, int curPercent, int total,int totalPercent) {
-                        Log.i("进度", curPercent + "");
-                        //1、curIndex--表示当前第几个文件正在上传
-                        //2、curPercent--表示当前上传文件的进度值（百分比）
-                        //3、total--表示总的上传文件数
-                        //4、totalPercent--表示总的上传进度（百分比）
-                    }
-
-                    @Override
-                    public void onSuccess(List<BmobFile> files, List<String> urls) {
-                        //1、files-上传完成后的BmobFile集合，是为了方便大家对其上传后的数据进行操作，例如你可以将该文件保存到表中
-                        //2、urls-上传文件的完整url地址
-                        Toast.makeText(DataActivity.this, "上传完成！", Toast.LENGTH_LONG).show();
-                        if(urls.size()==imgarry.length){//如果数量相等，则代表文件全部上传完成
-                            String[] str = new String[urls.size()];
-                            for(int a = 0;a<urls.size();a++){
-                                str[a] = urls.get(a);
-                            }
-                            //本类有两个不同包的User类，所以需要用绝对路径来区分
-                            com.example.yuanmu.lunbo.BmobBean.Album.User user = new com.example.yuanmu.lunbo.BmobBean.Album.User();
-                            user.setObjectId(mCurrentUser.getObjectId());
-                            user.setAlbum(str);
-                            user.update(new UpdateListener() {
-                                @Override
-                                public void done(BmobException e) {
-                               if(e == null){
-                                   Toast.makeText(DataActivity.this, "上传相册图片成功!", Toast.LENGTH_SHORT).show();
-                               }else{
-                                   Toast.makeText(DataActivity.this, "上传相册图片成功!", Toast.LENGTH_SHORT).show();
-                                   MyLog.i("ccc","e = "+e);
-                               }
-                                }
-                            });
-//                            next(urls);
+                //将旋转的图片矫正过来
+                for(int r = 0;r<imgarry.length;r++){
+                    try {
+                        File inputImagePath = new File(imgarry[r]);
+                        FileInputStream file = new FileInputStream(inputImagePath);
+                        //读取本地图片
+                        Bitmap bitmap = BitmapFactory.decodeStream(file);
+                        //获得图片的旋转角度
+                        int degrees = PictureUtil.readPictureDegree(imgarry[r]);
+                        //如果旋转的角度为0，则不做处理，跳过
+                        if(degrees!=0) {
+                            //把图片矫正
+                            PictureUtil.saveFile(PictureUtil.rotateBitmap(bitmap, degrees), imgarry[r]);
                         }
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-                });
+                }
+                try {
+                    BmobFile.uploadBatch(imgarry, new UploadBatchListener() {
+                        @Override
+                        public void onError(int statuscode, String errormsg) {
+//			        ShowToast("错误码"+statuscode +",错误描述："+errormsg);
+                            Log.i("错误", statuscode + errormsg);
+                            Toast.makeText(DataActivity.this, statuscode + errormsg, Toast.LENGTH_LONG).show();
+                        }
+
+                        @Override
+                        public void onProgress(int curIndex, int curPercent, int total, int totalPercent) {
+                            Log.i("进度", curPercent + "");
+                        }
+
+                        @Override
+                        public void onSuccess(List<BmobFile> files, List<String> urls) {
+                            //1、files-上传完成后的BmobFile集合，是为了方便大家对其上传后的数据进行操作，例如你可以将该文件保存到表中
+                            //2、urls-上传文件的完整url地址
+                            if (urls.size() == imgarry.length) { //如果数量相等，则代表文件全部上传完成
+                                int currentImgCount = 0;
+                                String[] currentImgArray = mCurrentUser.getAlbum();
+                                if(currentImgArray.length==1) {
+                                    if(currentImgArray[0].equals("")) {
+                                        currentImgCount = 0;
+                                    }else {
+                                        currentImgCount = currentImgArray.length;
+                                    }
+                                }else{
+                                    currentImgCount = currentImgArray.length;
+                                }
+                                String[] str = new String[urls.size() + currentImgCount];
+                                for (int a = 0; a < urls.size() + currentImgCount; a++) {
+                                    if (a < currentImgCount) {
+                                        //存放用户原有图片的地址
+                                        str[a] = currentImgArray[a];
+                                    } else {
+                                        //存放本次用户增加的图片地址
+                                        str[a] = urls.get(a - currentImgCount);
+                                    }
+                                }
+                                //本类有两个不同包的User类，所以需要用绝对路径来区分
+                                com.example.yuanmu.lunbo.BmobBean.Album.User user = new com.example.yuanmu.lunbo.BmobBean.Album.User();
+                                user.setObjectId(mCurrentUser.getObjectId());
+                                user.setAlbum(str);
+                                user.update(new UpdateListener() {
+                                    @Override
+                                    public void done(BmobException e) {
+                                        if (e == null) {
+                                            Toast.makeText(DataActivity.this, "上传相册图片成功!", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(DataActivity.this, "上传相册图片成功!", Toast.LENGTH_SHORT).show();
+                                            MyLog.i("ccc", "e = " + e);
+                                        }
+                                    }
+                                });
+//                            next(urls);
+                            }
+                        }
+                    });
+                }catch (Exception e){
+                    Toast.makeText(DataActivity.this, "网络异常!", Toast.LENGTH_SHORT).show();
+                }
                 break;
             default:
                 break;

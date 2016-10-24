@@ -69,7 +69,15 @@ public class PersonalDataReAdapter extends RecyclerView.Adapter<PersonalDataReAd
 //
     @Override
     public int getItemCount() {
-        return mPictureAddressArray.length+1;
+        if(mPictureAddressArray.length == 1) {
+            if(mPictureAddressArray[0].equals("")){
+                return 1;
+            }else {
+                return mPictureAddressArray.length + 1;
+            }
+        }else {
+            return mPictureAddressArray.length + 1;
+        }
     }
     public class MyViewHolder extends RecyclerView.ViewHolder{
 public SquareBlockView imageView;

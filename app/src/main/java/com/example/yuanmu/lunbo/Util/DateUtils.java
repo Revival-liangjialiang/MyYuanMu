@@ -385,4 +385,8 @@ public class DateUtils {
 			week = "星期六";
 		}
 		return week;
-	}}
+	}
+	public static long getUnixStamp(){
+		return System.currentTimeMillis()/1000;
+	}
+}

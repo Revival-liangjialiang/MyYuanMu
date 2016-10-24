@@ -4,14 +4,90 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import com.example.yuanmu.lunbo.Application.MyApplication;
+
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+
+
 public class BitmapCompressUtil {
-	
-	public static Bitmap revitionImageSize(Context context,String path, int size) throws IOException {
+	/**
+	 * 将Bitmap转换成文件
+	 * 保存文件
+	 *
+	 * @param bm
+	 * @throws IOException
+	 */
+	public static File saveFile(Bitmap bm/*, String path, String fileName*/) throws IOException {
+			String path = MyApplication.getContext().getExternalCacheDir().getPath();
+			String fileName = DateUtils.getUnixStamp() + ".jpg";
+			File dirFile = new File(path);
+			if (!dirFile.exists()) {
+				dirFile.mkdir();
+		}
+		File myCaptureFile = new File(path, fileName);
+		BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(myCaptureFile));
+		bm.compress(Bitmap.CompressFormat.JPEG, 80, bos);
+		bos.flush();
+		bos.close();
+		return myCaptureFile;
+	}
+
+	/**
+	 * @param url url转bitmap
+	 * @return bitmap图片   用于显示自定义的相册中
+	 */
+	public static Bitmap getLoacalBitmap(String url) {
+		try {
+			Bitmap addbmps = BitmapCompressUtil.revitionImageSize(
+					MyApplication.getContext(),
+					url, 200);
+			return addbmps;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	/**
+	 * @param filePath url转bitmap
+	 * @return bitmap图片   用于图片压缩上传
+	 */
+	public static Bitmap getSmallBitmap(String filePath) {
+		final BitmapFactory.Options options = new BitmapFactory.Options();
+		options.inJustDecodeBounds = true;
+		BitmapFactory.decodeFile(filePath, options);
+
+		// Calculate inSampleSize
+		options.inSampleSize = calculateInSampleSize(options, 800, 480);
+
+		// Decode bitmap with inSampleSize set
+		options.inJustDecodeBounds = false;
+
+		return BitmapFactory.decodeFile(filePath, options);
+	}
+
+	//计算图片的缩放值，用于上传
+	public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+		final int height = options.outHeight;
+		final int width = options.outWidth;
+		int inSampleSize = 1;
+
+		if (height > reqHeight || width > reqWidth) {
+			final int heightRatio = Math.round((float) height / (float) reqHeight);
+			final int widthRatio = Math.round((float) width / (float) reqWidth);
+			inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
+		}
+		return inSampleSize;
+	}
+	//计算图片的缩放值并且返回缩放结果，用于自定义相册显示
+	public static Bitmap revitionImageSize(Context context, String path, int size) throws IOException {
 		// 取得图片
 		//InputStream temp = context.getAssets().open(path);
 		File file = new File(path);
